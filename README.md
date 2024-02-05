@@ -1,9 +1,8 @@
-# Topics in Software Engineering
+# Paw
 
-This is a template repository for the topics in software engineering class I teach at CCNY.
-It comes with a pre-configured devcontainer that includes most of the tools you'll need during this semester. 
-If you start with this repository as a template you will have a ready to go development environment that you'll be able to 
-share with your team mates. Additionally, a demo github action workflow has been setup to help you with your first assignment.
+Paw is an application that helps match pet owners and potential pet sitters using a Tinder-like user interface. The primary user would be pet owners, who would use this app to find potential pet sitters in their area.
+
+The app may also include other functionality, such as payments, to help facilitate this.
 
 # Tools
 The tools that are installed with this devcontainer are:
