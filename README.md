@@ -1,30 +1,28 @@
-# React + TypeScript + Vite
+# Paw
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Paw is an application that helps match pet owners and potential pet sitters using a Tinder-like user interface. The primary user would be pet owners, who would use this app to find potential pet sitters in their area.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application is built with the following technologies:
 
-## Expanding the ESLint configuration
+- Vite for building the application
+- React for the user interface
+- TypeScript for static typing
+- Prettier and ESLint for code formatting and linting
+- Tailwind CSS for styling
+- Firebase for authentication (currently email/password auth, can be expanded later)
+- React Router for routing
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The application currently includes home, sign in, and create account pages, as well as a "protected" test page to verify authentication.
 
-- Configure the top-level `parserOptions` property like this:
+## Running Locally
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
+To run this application locally, follow these steps:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Install Node.js (v20 or later recommended) if not already installed.
+2. Install pnpm. Instructions can be found at https://pnpm.io/installation.
+3. Pull from the repository.
+4. Run `pnpm install` in the root directory of the repository.
+5. Run `pnpm dev` to start the application.
+6. Open http://localhost:5173/ in your browser.
