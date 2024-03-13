@@ -12,7 +12,7 @@ const navigation = [
   { name: "Company", href: "#" },
 ];
 
-export default function Example() {
+export default function Navbar() {
   const { user, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
