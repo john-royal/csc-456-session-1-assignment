@@ -1,8 +1,8 @@
+import type { User } from "firebase/auth";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  type User,
 } from "firebase/auth";
 import {
   LoaderFunctionArgs,
@@ -12,9 +12,10 @@ import {
   useRouteLoaderData,
   useSearchParams,
 } from "react-router-dom";
+
 import { auth } from "./firebase";
 
-auth.setPersistence(browserLocalPersistence);
+await auth.setPersistence(browserLocalPersistence);
 
 export const fetchUser = async () => {
   await auth.authStateReady();
@@ -37,7 +38,7 @@ export const useUser = () => {
   const maybeUser = useOptionalUser();
   if (!maybeUser) {
     throw new Error(
-      "No user found in root loader, but user is required by useUser. If user is optional, try useOptionalUser instead."
+      "No user found in root loader, but user is required by useUser. If user is optional, try useOptionalUser instead.",
     );
   }
   return maybeUser;

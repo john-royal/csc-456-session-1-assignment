@@ -1,5 +1,11 @@
-import { useAuth } from "../lib/auth";
 import { useState } from "react";
+
+import { useAuth } from "../lib/auth";
+
+interface SignInFormElement extends HTMLFormElement {
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+}
 
 export default function SignInPage() {
   const { signIn } = useAuth();
@@ -7,7 +13,7 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
     event.preventDefault();
 
     setLoading(true);
@@ -20,7 +26,7 @@ export default function SignInPage() {
       await signIn(email, password);
     } catch (error) {
       setError(
-        error instanceof Error ? error : new Error("An unknown error occurred")
+        error instanceof Error ? error : new Error("An unknown error occurred"),
       );
     }
 
