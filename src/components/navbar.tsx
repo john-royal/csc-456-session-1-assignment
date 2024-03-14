@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../lib/auth";
 
 const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
+  { name: "Petsitters", href: "#" },
+  { name: "Message", href: "#" },
+  { name: "Profile", href: "#" },
+  { name: "Contact  Us", href: "#" },
 ];
 
 export default function Navbar() {
@@ -17,7 +17,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white">
+    <header className="bg-white sticky top-0 z-50">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8"
         aria-label="Global"
