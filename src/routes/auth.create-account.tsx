@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useAuth } from '../lib/auth';
+import React, { useState } from "react";
+
+import { useAuth } from "../lib/auth";
 
 interface CreateAccountFormElement extends HTMLFormElement {
   username: HTMLInputElement;
@@ -46,34 +47,33 @@ export default function CreateAccountPage() {
     justifyContent: 'center',
     },
     title: {
-      marginBottom: '20px',
-      fontFamily: '"Comic Sans MS", "Comic Sans", cursive', 
-      color: '#334', 
-      fontSize: '2em', 
-      animation: 'movingBox 5s linear infinite',
+      marginBottom: "20px",
+      fontFamily: '"Comic Sans MS", "Comic Sans", cursive',
+      color: "#334",
+      fontSize: "2em",
+      animation: "movingBox 5s linear infinite",
     },
     form: {
     },
     input: {
-      marginBottom: '10px',
-      padding: '10px',
-      borderRadius: '5px',
-      border: '1px solid #ccc',
+      marginBottom: "10px",
+      padding: "10px",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
     },
     button: {
-      padding: '10px',
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
+      padding: "10px",
+      backgroundColor: "#4CAF50",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
     },
     error: {
-      color: 'red',
-      marginTop: '10px',
+      color: "red",
+      marginTop: "10px",
     },
-  };
-
+  } as const;
 
   return (
     <div style={styles.container}>
@@ -90,7 +90,6 @@ export default function CreateAccountPage() {
     </div>
   );
 }
-
 
 const keyframes = `
   @keyframes movingBox {

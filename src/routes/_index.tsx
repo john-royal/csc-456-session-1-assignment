@@ -1,62 +1,63 @@
 // HomePage.tsx
-import React from 'react';
-import PostList from '../components/PostList';
+import React from "react";
+
+import PostList from "../components/PostList";
 
 const HomePage: React.FC = () => {
   const posts = [
     {
       id: 1,
-      username: 'petlover123',
-      petProfilePhoto: '/images/catProf.png',
-      petImage: '/images/cat.png',
+      username: "petlover123",
+      petProfilePhoto: "/images/catProf.png",
+      petImage: "/images/cat.png",
       likeCount: 0,
       commentCount: 0,
     },
     {
       id: 2,
-      username: 'furryfriends456',
-      petProfilePhoto: '/images/dogProf.png',
-      petImage: '/images/dog.png',
+      username: "furryfriends456",
+      petProfilePhoto: "/images/dogProf.png",
+      petImage: "/images/dog.png",
       likeCount: 0,
       commentCount: 0,
     },
     {
       id: 2,
-      username: 'furryfriends456',
-      petProfilePhoto: '/images/dogProf.png',
-      petImage: '/images/dog.png',
+      username: "furryfriends456",
+      petProfilePhoto: "/images/dogProf.png",
+      petImage: "/images/dog.png",
       likeCount: 0,
       commentCount: 0,
     },
     {
       id: 2,
-      username: 'furryfriends456',
-      petProfilePhoto: '/images/dogProf.png',
-      petImage: '/images/dog.png',
+      username: "furryfriends456",
+      petProfilePhoto: "/images/dogProf.png",
+      petImage: "/images/dog.png",
       likeCount: 0,
       commentCount: 0,
     },
     {
       id: 2,
-      username: 'furryfriends456',
-      petProfilePhoto: '/images/dogProf.png',
-      petImage: '/images/dog.png',
+      username: "furryfriends456",
+      petProfilePhoto: "/images/dogProf.png",
+      petImage: "/images/dog.png",
       likeCount: 0,
       commentCount: 0,
     },
     {
       id: 2,
-      username: 'furryfriends456',
-      petProfilePhoto: '/images/dogProf.png',
-      petImage: '/images/dog.png',
+      username: "furryfriends456",
+      petProfilePhoto: "/images/dogProf.png",
+      petImage: "/images/dog.png",
       likeCount: 0,
       commentCount: 0,
     },
     {
       id: 2,
-      username: 'furryfriends456',
-      petProfilePhoto: '/images/dogProf.png',
-      petImage: '/images/dog.png',
+      username: "furryfriends456",
+      petProfilePhoto: "/images/dogProf.png",
+      petImage: "/images/dog.png",
       likeCount: 0,
       commentCount: 0,
     },
@@ -64,7 +65,7 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex items-center justify-center ">
       <PostList posts={posts} />
     </div>
   );

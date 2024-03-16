@@ -2,26 +2,20 @@ import { useState } from "react";
 
 import { useAuth } from "../lib/auth";
 
-interface SignInFormElement extends HTMLFormElement {
-  email: HTMLInputElement;
-  password: HTMLInputElement;
-}
-
 export default function SignInPage() {
   const { signIn } = useAuth();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setLoading(true);
     setError(null);
 
-    const form = event.currentTarget;
-    const email = form.email.value;
-    const password = form.password.value;
     try {
       await signIn(email, password);
     } catch (error) {
@@ -34,22 +28,38 @@ export default function SignInPage() {
   };
 
   return (
-    <div>
-      <h1>Sign In</h1>
-      {error ? <p>{error.message}</p> : null}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input type="email" name="email" />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" />
-        </label>
-        <button type="submit" disabled={loading}>
-          {loading ? "Signing In…" : "Sign In"}
-        </button>
-      </form>
+    <div className="bg-beige-100 flex h-screen items-center justify-center">
+      <div className="w-full max-w-md rounded bg-white p-8 shadow-md">
+        <h2 className="mb-8 text-center text-2xl font-bold">Sign In</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <input
+              type="email"
+              placeholder="Email"
+              className="input input-bordered w-full"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="password"
+              placeholder="Password"
+              className="input input-bordered w-full"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mt-8">
+            <button className="btn btn-primary w-full" disabled={loading}>
+              {loading ? "Signing in..." : "Sign In"}
+            </button>
+          </div>
+          {error && <p className="text-red-500">{error.message}</p>}
+        </form>
+      </div>
     </div>
   );
 }
