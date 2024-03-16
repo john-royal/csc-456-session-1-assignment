@@ -38,8 +38,11 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
-        <div className="flex flex-1 items-center justify-end gap-x-6">
-          {user ? (
+        {user ? (
+          <div className="flex flex-1 items-center justify-end gap-x-3">
+            <p className="hidden text-sm text-gray-500 lg:block">
+              Signed in as <strong>{user.email}</strong>
+            </p>
             <button
               type="button"
               onClick={signOut}
@@ -47,23 +50,23 @@ export default function Navbar() {
             >
               Sign out
             </button>
-          ) : (
-            <>
-              <Link
-                to="/auth/sign-in"
-                className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900"
-              >
-                Log in
-              </Link>
-              <Link
-                to="/auth/create-account"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign up
-              </Link>
-            </>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="flex flex-1 items-center justify-end gap-x-6">
+            <Link
+              to="/auth/sign-in"
+              className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900"
+            >
+              Log in
+            </Link>
+            <Link
+              to="/auth/create-account"
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign up
+            </Link>
+          </div>
+        )}
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -120,13 +123,18 @@ export default function Navbar() {
               </div>
               <div className="py-6">
                 {user ? (
-                  <button
-                    type="button"
-                    onClick={signOut}
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Sign out
-                  </button>
+                  <>
+                    <p className="text-sm text-gray-500">
+                      Signed in as <strong>{user.email}</strong>
+                    </p>
+                    <button
+                      type="button"
+                      onClick={signOut}
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Sign out
+                    </button>
+                  </>
                 ) : (
                   <Link
                     to="/auth/sign-in"
