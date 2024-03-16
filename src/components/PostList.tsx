@@ -1,16 +1,17 @@
-//This component will contain a 
+//This component will contain a
 //list of PostCard components and make them scrollable.
-import React from 'react';
-import PostCard from './PostCard';
+import React from "react";
+
+import PostCard from "./PostCard";
 
 interface Post {
-    id: number;
-    username: string;
-    petProfilePhoto: string;
-    petImage: string;
-    likeCount: number;
-    commentCount: number;
-  }
+  id: number;
+  username: string;
+  petProfilePhoto: string;
+  petImage: string;
+  likeCount: number;
+  commentCount: number;
+}
 
 interface PostListProps {
   posts: Post[];
