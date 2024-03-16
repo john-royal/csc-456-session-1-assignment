@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useAuth } from '../lib/auth';
+import React, { useState } from "react";
+
+import { useAuth } from "../lib/auth";
 
 interface SignUpFormElement extends HTMLFormElement {
   username: HTMLInputElement;
@@ -8,7 +9,7 @@ interface SignUpFormElement extends HTMLFormElement {
 }
 
 export default function SignUpPage() {
-  const { signUp } = useAuth();
+  const { createAccount } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -16,78 +17,90 @@ export default function SignUpPage() {
     event.preventDefault();
     setLoading(true);
     setError(null);
-  
-    const form = event.currentTarget;
-    if (!form.email || !form.password) {
-      setError(new Error("Form fields are not correctly referenced"));
-      setLoading(false);
-      return;
-    }
-  
-    const email = form.email.value;
-    const password = form.password.value;
-  
+
     try {
-      await signUp(email, password);
+      const form = event.currentTarget;
+      const email = form.email.value;
+      const password = form.password.value;
+
+      if (!email || !password) {
+        throw new Error("Email and password are required");
+      }
+
+      await createAccount(email, password);
     } catch (error) {
       setError(
-        error instanceof Error ? error : new Error("An unknown error occurred")
+        error instanceof Error ? error : new Error("An unknown error occurred"),
       );
     }
-  
+
     setLoading(false);
   };
 
   const styles = {
-      container: {
-    maxWidth: '400px',
-    padding: '20px',
-    textAlign: 'center',
-    background: '#f5f5dc', // Light beige
-    borderRadius: '15px',
-    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-    margin: '20vh auto 0', 
-  },
+    container: {
+      maxWidth: "400px",
+      padding: "20px",
+      textAlign: "center",
+      background: "#f5f5dc", // Light beige
+      borderRadius: "15px",
+      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+      margin: "20vh auto 0",
+    },
     title: {
-      marginBottom: '20px',
-      fontFamily: '"Comic Sans MS", "Comic Sans", cursive', 
-      color: '#334', 
-      fontSize: '2em', 
-      animation: 'movingBox 5s linear infinite',
+      marginBottom: "20px",
+      fontFamily: '"Comic Sans MS", "Comic Sans", cursive',
+      color: "#334",
+      fontSize: "2em",
+      animation: "movingBox 5s linear infinite",
     },
     form: {
-      display: 'flex',
-      flexDirection: 'column',
+      display: "flex",
+      flexDirection: "column",
     },
     input: {
-      marginBottom: '10px',
-      padding: '10px',
-      borderRadius: '5px',
-      border: '1px solid #ccc',
+      marginBottom: "10px",
+      padding: "10px",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
     },
     button: {
-      padding: '10px',
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
+      padding: "10px",
+      backgroundColor: "#4CAF50",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
     },
     error: {
-      color: 'red',
-      marginTop: '10px',
+      color: "red",
+      marginTop: "10px",
     },
-  };
-
+  } as const;
 
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Sign Up Here</h1>
       <form onSubmit={handleSubmit} style={styles.form}>
-        <input type="text" placeholder="Username" style={styles.input} />
-        <input type="email" placeholder="Email" style={styles.input} />
-        <input type="password" placeholder="Password" style={styles.input} />
-        <button type="submit" style={styles.button} disabled={loading}>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          style={styles.input}
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          style={styles.input}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          style={styles.input}
+        />
+        <button style={styles.button} disabled={loading}>
           I'm ready!
         </button>
       </form>
@@ -95,7 +108,6 @@ export default function SignUpPage() {
     </div>
   );
 }
-
 
 const keyframes = `
   @keyframes movingBox {
