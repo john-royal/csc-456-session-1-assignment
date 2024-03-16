@@ -53,14 +53,14 @@ export const useAuth = () => {
   const signIn = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
-    const next = searchParams.get("next") ?? "/protected";
-    navigate(next);
+    // const next = searchParams.get("next") ?? "/";
+    navigate("/");
   };
 
   const createAccount = async (email: string, password: string) => {
     await createUserWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
-    const next = searchParams.get("next") ?? "/protected";
+    const next = searchParams.get("next") ?? "/";
     navigate(next);
   };
 

@@ -33,7 +33,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   };
 
   return (
-    <div className="border border-gray-200 p-4 rounded-md mb-4">
+    <div className="border border-gray-200 p-4 rounded-md mb-4 bg-white">
       <div className="flex items-center mb-2">
         <img src={post.petProfilePhoto} alt="Pet Profile" className="w-12 h-12 rounded-full mr-2" />
         <span>{post.username}</span>
