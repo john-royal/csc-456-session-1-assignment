@@ -3,11 +3,7 @@
 @tailwind utilities;
 
 body {
-    background-color: #d2b48c; /* light brown */
-    background-image: url('/images/paw-print-pattern.png'); 
-    background-repeat: repeat; 
-    background-size: 15%; 
-    background-position: center;
+    background-color: #e9ecef; /* light brown */
 }
 
 .container {

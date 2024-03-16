@@ -37,8 +37,8 @@ export const useAuth = () => {
   const signIn = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
-    // const next = searchParams.get("next") ?? "/";
-    navigate("/");
+    const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
+    navigate(next);
   };
 
   /**
@@ -49,7 +49,7 @@ export const useAuth = () => {
   const createAccount = async (email: string, password: string) => {
     await createUserWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
-    const next = searchParams.get("next") ?? "/";
+    const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
     navigate(next);
   };
 
