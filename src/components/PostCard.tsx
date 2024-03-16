@@ -17,8 +17,9 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likeCount);
+  const [commentCount, setCommentCount] = useState(post.commentCount);
   const [showComments, setShowComments] = useState(false);
-  const [comments, setNewComment] = useState([]);
+  const [comments, setNewComment] = useState<string[]>([]);
   const [editingComment, setEditingComment] = useState("");
 
   const handleLikeClick = () => {
@@ -32,9 +33,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
   const handleCommentAddition = () => {
     setNewComment(prev => [...prev, editingComment]);
+    setCommentCount(prevCount => prevCount + 1)
   };
 
-  const writingComment = (event) => {
+  const writingComment = (event:any) => {
     setEditingComment(event.target.value);
   }
 
@@ -64,14 +66,13 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           className="flex items-center rounded-md bg-gray-300 px-4 py-2"
           onClick={handleCommentClick}
         >
-          <FaComment className="mr-1" /> {post.commentCount}
+          <FaComment className="mr-1" /> {commentCount}
         </button>
       </div>
       {showComments && (
         <div className="mt-4 rounded-md bg-gray-100 p-4">
           {/* Add comment section here */}
           Comments:
-<<<<<<< HEAD
             {comments.map(cmnt => <div>User {comments.indexOf(cmnt) + 1}: {cmnt}</div>)}
             <textarea className="mt-2 p-2 w-full" placeholder="Add a comment..." onChange={writingComment}/>
             <button
