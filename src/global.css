@@ -47,3 +47,8 @@ input[type="password"] {
 .error {
   color: red;
 }
+
+
+.no-hover:hover {
+  background-color: initial;
+}

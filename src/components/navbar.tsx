@@ -9,7 +9,7 @@ const navigation = [
   { name: "Petsitters", href: "#" },
   { name: "Message", href: "#" },
   { name: "Profile", href: "#" },
-  { name: "Contact  Us", href: "#" },
+  { name: "Contact  Us", href: "/Contact" },
 ];
 
 export default function Navbar() {

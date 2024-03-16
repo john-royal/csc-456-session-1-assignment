@@ -10,6 +10,7 @@ import { fetchUser, requireUser } from "./lib/auth";
 import HomePage from "./routes/_index";
 import CreateAccountPage from "./routes/auth.create-account";
 import SignInPage from "./routes/auth.sign-in";
+import Contact from "./routes/Contact";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
       {
         path: "/auth/create-account",
         element: <CreateAccountPage />,
+      },
+      {
+        path:"/Contact",
+        element: <Contact />,
+        loader: requireUser,
       },
     ],
   },
