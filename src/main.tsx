@@ -10,7 +10,6 @@ import { fetchUser, requireUser } from "./lib/auth";
 import HomePage from "./routes/_index";
 import CreateAccountPage from "./routes/auth.create-account";
 import SignInPage from "./routes/auth.sign-in";
-import ProtectedPage from "./routes/protected";
 
 const router = createBrowserRouter([
   {
@@ -22,12 +21,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-       
-      },
-      {
-        path: "/protected",
-        element: <ProtectedPage />,
         loader: requireUser,
+       
       },
       {
         path: "/auth/sign-in",
