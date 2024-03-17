@@ -1,0 +1,35 @@
+#this workflow will build, run the unit test and integration test, generate code coverage, launch the applications, run the end to end
+name: Paw
+
+on:
+    push:
+        branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the PR
+      uses: actions/checkout@v3
+
+    - name: Building the Application
+      run: pnpm build
+    
+    - name:  Executing Unit and Itegration Test, and Generating code coverage report
+      run: npm run test:coverage
+    
+    - name: Upload unit and integration test code coverage
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+          name: Unit and Integration Test coverage
+          path: coverage/
+          retention-days: 30
+
+    - name: Launching the Application
+      run: pnpm dev
+    
+    - name: Executing Playwright end to end Test
+      run: npm run test:e2e 
