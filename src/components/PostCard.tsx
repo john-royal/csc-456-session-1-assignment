@@ -22,6 +22,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const [comments, setNewComment] = useState<string[]>([]);
   const [editingComment, setEditingComment] = useState("");
 
+  // Check if essential fields are present in the post object
+  if (!post.id || !post.username || !post.petProfilePhoto || !post.petImage || post.likeCount === undefined || post.commentCount === undefined) {
+    throw new Error('Invalid post data: Essential fields are missing.');
+  }
+
   const handleLikeClick = () => {
     isLiked ? setLikeCount(prevCount => prevCount - 1) : setLikeCount(prevCount => prevCount + 1);
     setIsLiked(!isLiked);
