@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/28</span>
+                <span class='fraction'>22/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.61% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/24</span>
+                <span class='fraction'>20/24</span>
             </div>
         
             
@@ -159,7 +159,9 @@
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,37 +178,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,6 +244,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,8 +284,8 @@ const PostCard: React.FC&lt;PostCardProps&gt; = ({ post }) =&gt; {
   const [editingComment, setEditingComment] = useState("");
 &nbsp;
   // Check if essential fields are present in the post object
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!post.id || !post.username || !post.petProfilePhoto || !post.petImage || post.likeCount === undefined || post.commentCount === undefined) {
-<span class="cstat-no" title="statement not covered" >    throw new Error('Invalid post data: Essential fields are missing.');</span>
+  if (!post.id || !post.username || !post.petProfilePhoto || !post.petImage || post.likeCount === undefined || post.commentCount === undefined) {
+    throw new Error('Invalid post data: Essential fields are missing.');
   }
 &nbsp;
   const handleLikeClick = () =&gt; {
@@ -289,8 +293,8 @@ const PostCard: React.FC&lt;PostCardProps&gt; = ({ post }) =&gt; {
     setIsLiked(!isLiked);
   };
 &nbsp;
-  const handleCommentClick = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    setShowComments(!showComments);</span>
+  const handleCommentClick = () =&gt; {
+    setShowComments(!showComments);
   };
 &nbsp;
   const handleCommentAddition = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
@@ -328,12 +332,13 @@ const PostCard: React.FC&lt;PostCardProps&gt; = ({ post }) =&gt; {
         &lt;button
           className="flex items-center rounded-md bg-gray-300 px-4 py-2"
           onClick={handleCommentClick}
+          data-testid="cmnt-bttn"
         &gt;
           &lt;FaComment className="mr-1" /&gt; {commentCount}
         &lt;/button&gt;
       &lt;/div&gt;
       {showComments &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className="mt-4 rounded-md bg-gray-100 p-4"&gt;</span>
+        &lt;div className="mt-4 rounded-md bg-gray-100 p-4"&gt;
           {/* Add comment section here */}
           Comments:
             {comments.map(<span class="fstat-no" title="function not covered" >cmnt </span>=&gt; <span class="cstat-no" title="statement not covered" >&lt;div&gt;User {comments.indexOf(cmnt) + 1}: {cmnt}&lt;/div&gt;)</span>}
@@ -341,6 +346,7 @@ const PostCard: React.FC&lt;PostCardProps&gt; = ({ post }) =&gt; {
             &lt;button
               className="flex items-center px-4 py-2 bg-gray-300 rounded-md"
               onClick={handleCommentAddition}
+              data-testid="cmnt-post-bttn"
             &gt;
               Post comment
             &lt;/button&gt;
@@ -358,7 +364,7 @@ export default PostCard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-18T06:30:18.765Z
+                at 2024-03-18T22:41:36.156Z
             </div>
         <script src="prettify.js"></script>
         <script>

@@ -39,33 +39,51 @@ it('check if test matches snapshot', () => { //test 1
 });
 
 it('check if like value is rendered', () => { //test 2
-    const { getByText } = render(<PostCard post={sendCard.post}/>)
-    const likeCountElem = getByText(String(aPost.likeCount))
-    expect(likeCountElem).toBeInTheDocument()
+    const { getByText } = render(<PostCard post={sendCard.post}/>);
+    const likeCountElem = getByText(String(aPost.likeCount));
+    expect(likeCountElem).toBeInTheDocument();
 });
 
 it('check if like value is incremented', async () => { //test 3
-    const { getByTestId, getByText } = render(<PostCard post={sendCard.post}/>)
-    const likeCountBttn = getByTestId('like-bttn')
+    const { getByTestId, getByText } = render(<PostCard post={sendCard.post}/>);
+    const likeCountBttn = getByTestId('like-bttn');
 
-    fireEvent.click(likeCountBttn) //update the value
-    const likeCount = getByText(String(aPost.likeCount + 1)) // likeCount value should be updated by now
+    fireEvent.click(likeCountBttn); //update the value
+    const likeCount = getByText(String(aPost.likeCount + 1)); // likeCount value should be updated by now
 
     await waitFor(() => {
-        expect(likeCount).toBeInTheDocument()
-    })
+        expect(likeCount).toBeInTheDocument();
+    });
 });
 
 it('check if like value is decremented', async () => { //test 4
-    const { getByTestId, getByText } = render(<PostCard post={sendCard.post}/>)
-    const likeCountBttn = getByTestId('like-bttn')
+    const { getByTestId, getByText } = render(<PostCard post={sendCard.post}/>);
+    const likeCountBttn = getByTestId('like-bttn');
 
-    fireEvent.click(likeCountBttn) //add a like
-    fireEvent.click(likeCountBttn) //take back the like
-    const likeCount = getByText(aPost.likeCount) // likeCount value should be updated by now
+    fireEvent.click(likeCountBttn); //add a like
+    fireEvent.click(likeCountBttn); //take back the like
+    const likeCount = getByText(aPost.likeCount); // likeCount value should be updated by now
 
     await waitFor(() => {
-        expect(likeCount).toBeInTheDocument()
-    })
+        expect(likeCount).toBeInTheDocument();
+    });
 });
+
+it('check if comment opening comment section works', async () => { //test 5
+    const { getByTestId } = render(<PostCard post={sendCard.post}/>);
+    const createCommentbutton = getByTestId('cmnt-bttn');
+
+    fireEvent.click(createCommentbutton);//open comment section
+    const postButton = getByTestId('cmnt-post-bttn'); // likeCount value should be updated by now
+
+    await waitFor(() => {
+        expect(postButton).toBeInTheDocument();
+    });
+});
+
+it('check error is thrown when recieving incomplete post.', async () => { //test 5
+    expect(() => render(<PostCard post={({} as any)}/>)).toThrow('Invalid post data: Essential fields are missing.');
+});
+
+
 

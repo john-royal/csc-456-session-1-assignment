@@ -71,6 +71,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <button
           className="flex items-center rounded-md bg-gray-300 px-4 py-2"
           onClick={handleCommentClick}
+          data-testid="cmnt-bttn"
         >
           <FaComment className="mr-1" /> {commentCount}
         </button>
@@ -84,6 +85,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <button
               className="flex items-center px-4 py-2 bg-gray-300 rounded-md"
               onClick={handleCommentAddition}
+              data-testid="cmnt-post-bttn"
             >
               Post comment
             </button>
