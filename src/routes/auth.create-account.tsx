@@ -40,7 +40,7 @@ export default function CreateAccountPage() {
     <div className="bg-beige-100 flex h-screen items-center justify-center">
       <div className="w-full max-w-md rounded bg-white p-8 shadow-md">
         <h1 className="mb-8 text-center text-2xl font-bold">Sign Up Here</h1>
-        {error && <p className="text-red-500">{error.message}</p>}
+        {error && <p className="text-red-500" data-testid="error-message">{error.message}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input

@@ -57,7 +57,8 @@ export default function SignInPage() {
               {loading ? "Signing in..." : "Sign In"}
             </button>
           </div>
-          {error && <p className="text-red-500">{error.message}</p>}
+          {error && <p className="text-red-500" data-testid="error-message">{error.message}</p>}
+
         </form>
       </div>
     </div>
