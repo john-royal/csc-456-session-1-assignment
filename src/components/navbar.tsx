@@ -40,12 +40,13 @@ export default function Navbar() {
         </div>
         {user ? (
           <div className="flex flex-1 items-center justify-end gap-x-3">
-            <p className="hidden text-sm text-gray-500 lg:block">
+            <p className= "hidden text-sm text-gray-500 lg:block">
               Signed in as <strong>{user.email}</strong>
             </p>
             <button
               type="button"
               onClick={signOut}
+              data-testid="Sign out"
               className="hidden text-sm font-semibold leading-6 text-gray-900 lg:block"
             >
               Sign out
