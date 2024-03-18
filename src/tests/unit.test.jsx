@@ -6,7 +6,7 @@ import SignInPage from "../routes/auth.sign-in";
 
 
 vi.mock('./lib/auth', () => ({
-  ...vi.importActual('./lib/auth'), // Import and use actual implementations for other exports
+  ...vi.importActual('./lib/auth'), 
   useOptionalUser: vi.fn(() => null), // Override useOptionalUser or similar function
 }));
 
