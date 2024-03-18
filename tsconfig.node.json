@@ -11,6 +11,7 @@
     "postcss.config.mjs",
     "prettier.config.mjs",
     "tailwind.config.ts",
-    "vite.config.ts"
+    "vite.config.ts",
+    "vitest.config.ts"
   ]
 }
