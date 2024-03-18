@@ -62,10 +62,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       />
       <div className="flex items-center justify-between">
         <button
+          data-testid="like-bttn"
           className={`mr-2 flex items-center rounded-md px-4 py-2 ${isLiked ? "bg-red-500 text-white" : "bg-gray-300 text-gray-900"}`}
           onClick={handleLikeClick}
         >
-          <FaHeart className="mr-1" /> {likeCount}
+          <FaHeart data-testid="like-count" className="mr-1" /> {likeCount}
         </button>
         <button
           className="flex items-center rounded-md bg-gray-300 px-4 py-2"

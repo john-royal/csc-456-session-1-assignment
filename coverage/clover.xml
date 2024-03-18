@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1710743418776" clover="3.2.0">
+  <project timestamp="1710743418776" name="All files">
+    <metrics statements="24" coveredstatements="18" conditionals="13" coveredconditionals="11" methods="10" coveredmethods="4" elements="47" coveredelements="33" complexity="0" loc="24" ncloc="24" packages="1" files="1" classes="1"/>
+    <file name="PostCard.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\PostCard.tsx">
+      <metrics statements="24" coveredstatements="18" conditionals="13" coveredconditionals="11" methods="10" coveredmethods="4"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="18" count="7" type="stmt"/>
+      <line num="19" count="7" type="stmt"/>
+      <line num="20" count="7" type="stmt"/>
+      <line num="21" count="7" type="stmt"/>
+      <line num="22" count="7" type="stmt"/>
+      <line num="23" count="7" type="stmt"/>
+      <line num="26" count="7" type="cond" truecount="6" falsecount="1"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="30" count="7" type="stmt"/>
+      <line num="31" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="32" count="3" type="stmt"/>
+      <line num="35" count="7" type="stmt"/>
+      <line num="36" count="0" type="stmt"/>
+      <line num="39" count="7" type="stmt"/>
+      <line num="40" count="0" type="stmt"/>
+      <line num="41" count="0" type="stmt"/>
+      <line num="44" count="7" type="stmt"/>
+      <line num="45" count="0" type="stmt"/>
+      <line num="48" count="7" type="stmt"/>
+      <line num="82" count="0" type="stmt"/>
+      <line num="96" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
