@@ -35,9 +35,6 @@ jobs:
 
     - name: Execute unit tests (Vitest)
       run: pnpm run vitest:test
-    
-    - name: Execute Dev Environment
-      run: pnpm dev
 
     - name: Execute end-to-end tests (Playwright)
       run: pnpm run playwright:test

@@ -81,7 +81,7 @@
     "version": "1.42.1",
     "workers": 1,
     "webServer": {
-      "command": "pnpm run build && pnpm run preview",
+      "command": "pnpm run build && pnpm run dev",
       "url": " http://localhost:5173/",
       "reuseExistingServer": true
     }
@@ -95,7 +95,7 @@
       "specs": [
         {
           "title": "Login",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -107,17 +107,41 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "passed",
-                  "duration": 5121,
-                  "errors": [],
+                  "status": "failed",
+                  "duration": 9303,
+                  "error": {
+                    "message": "Error: locator.fill: Target page, context or browser has been closed\nCall log:\n  \u001b[2m- waiting for getByPlaceholder('Password')\u001b[22m\n",
+                    "stack": "Error: locator.fill: Target page, context or browser has been closed\nCall log:\n  \u001b[2m- waiting for getByPlaceholder('Password')\u001b[22m\n\n    at /workspaces/csc-456-paw/tests/login.spec.cjs:7:43",
+                    "location": {
+                      "file": "/workspaces/csc-456-paw/tests/login.spec.cjs",
+                      "column": 43,
+                      "line": 7
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5173/auth/sign-in'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'Email'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'test@gmail.com'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'Password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'testtesttest'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Sign In'\u001b[39m })\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m' http://localhost:5173/'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'button:has-text(\"Sign out\")'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspaces/csc-456-paw/tests/login.spec.cjs",
+                        "column": 43,
+                        "line": 7
+                      },
+                      "message": "Error: locator.fill: Target page, context or browser has been closed\nCall log:\n  \u001b[2m- waiting for getByPlaceholder('Password')\u001b[22m\n\n\n\u001b[0m \u001b[90m  5 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5173/auth/sign-in'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'Email'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'test@gmail.com'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'Password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'testtesttest'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Sign In'\u001b[39m })\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m' http://localhost:5173/'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'button:has-text(\"Sign out\")'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /workspaces/csc-456-paw/tests/login.spec.cjs:7:43\u001b[22m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-03-18T05:46:39.408Z",
-                  "attachments": []
+                  "startTime": "2024-03-18T05:57:35.685Z",
+                  "attachments": [],
+                  "errorLocation": {
+                    "file": "/workspaces/csc-456-paw/tests/login.spec.cjs",
+                    "column": 43,
+                    "line": 7
+                  }
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             }
           ],
           "id": "b7f41ffa7202353a0a8e-133b8f8e9340b7dbd06b",
@@ -139,17 +163,17 @@
               "results": [
                 {
                   "workerIndex": 1,
-                  "status": "interrupted",
-                  "duration": 48,
+                  "status": "passed",
+                  "duration": 7002,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-03-18T05:46:47.808Z",
+                  "startTime": "2024-03-18T05:57:49.914Z",
                   "attachments": []
                 }
               ],
-              "status": "skipped"
+              "status": "expected"
             }
           ],
           "id": "b7f41ffa7202353a0a8e-4aff52e0e3cb7508e671",
@@ -159,7 +183,7 @@
         },
         {
           "title": "Login",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -168,8 +192,28 @@
               "expectedStatus": "passed",
               "projectId": "webkit",
               "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "status": "failed",
+                  "duration": 35,
+                  "error": {
+                    "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libwoff2dec.so.1.0.2                             ║\n║     libopus.so.0                                     ║\n║     libharfbuzz-icu.so.0                             ║\n║     libwebpdemux.so.2                                ║\n║     libenchant-2.so.2                                ║\n║     libhyphen.so.0                                   ║\n║     libflite.so.1                                    ║\n║     libflite_usenglish.so.1                          ║\n║     libflite_cmu_grapheme_lang.so.1                  ║\n║     libflite_cmu_grapheme_lex.so.1                   ║\n║     libflite_cmu_indic_lang.so.1                     ║\n║     libflite_cmu_indic_lex.so.1                      ║\n║     libflite_cmulex.so.1                             ║\n║     libflite_cmu_time_awb.so.1                       ║\n║     libflite_cmu_us_awb.so.1                         ║\n║     libflite_cmu_us_kal16.so.1                       ║\n║     libflite_cmu_us_kal.so.1                         ║\n║     libflite_cmu_us_rms.so.1                         ║\n║     libflite_cmu_us_slt.so.1                         ║\n║     libEGL.so.1                                      ║\n║     libGLX.so.0                                      ║\n║     libgudev-1.0.so.0                                ║\n║     libevdev.so.2                                    ║\n║     libGLESv2.so.2                                   ║\n║     libx264.so                                       ║\n╚══════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libwoff2dec.so.1.0.2                             ║\n║     libopus.so.0                                     ║\n║     libharfbuzz-icu.so.0                             ║\n║     libwebpdemux.so.2                                ║\n║     libenchant-2.so.2                                ║\n║     libhyphen.so.0                                   ║\n║     libflite.so.1                                    ║\n║     libflite_usenglish.so.1                          ║\n║     libflite_cmu_grapheme_lang.so.1                  ║\n║     libflite_cmu_grapheme_lex.so.1                   ║\n║     libflite_cmu_indic_lang.so.1                     ║\n║     libflite_cmu_indic_lex.so.1                      ║\n║     libflite_cmulex.so.1                             ║\n║     libflite_cmu_time_awb.so.1                       ║\n║     libflite_cmu_us_awb.so.1                         ║\n║     libflite_cmu_us_kal16.so.1                       ║\n║     libflite_cmu_us_kal.so.1                         ║\n║     libflite_cmu_us_rms.so.1                         ║\n║     libflite_cmu_us_slt.so.1                         ║\n║     libEGL.so.1                                      ║\n║     libGLX.so.0                                      ║\n║     libgudev-1.0.so.0                                ║\n║     libevdev.so.2                                    ║\n║     libGLESv2.so.2                                   ║\n║     libx264.so                                       ║\n╚══════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libwoff2dec.so.1.0.2                             ║\n║     libopus.so.0                                     ║\n║     libharfbuzz-icu.so.0                             ║\n║     libwebpdemux.so.2                                ║\n║     libenchant-2.so.2                                ║\n║     libhyphen.so.0                                   ║\n║     libflite.so.1                                    ║\n║     libflite_usenglish.so.1                          ║\n║     libflite_cmu_grapheme_lang.so.1                  ║\n║     libflite_cmu_grapheme_lex.so.1                   ║\n║     libflite_cmu_indic_lang.so.1                     ║\n║     libflite_cmu_indic_lex.so.1                      ║\n║     libflite_cmulex.so.1                             ║\n║     libflite_cmu_time_awb.so.1                       ║\n║     libflite_cmu_us_awb.so.1                         ║\n║     libflite_cmu_us_kal16.so.1                       ║\n║     libflite_cmu_us_kal.so.1                         ║\n║     libflite_cmu_us_rms.so.1                         ║\n║     libflite_cmu_us_slt.so.1                         ║\n║     libEGL.so.1                                      ║\n║     libGLX.so.0                                      ║\n║     libgudev-1.0.so.0                                ║\n║     libevdev.so.2                                    ║\n║     libGLESv2.so.2                                   ║\n║     libx264.so                                       ║\n╚══════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-03-18T05:58:03.903Z",
+                  "attachments": []
+                }
+              ],
+              "status": "unexpected"
             }
           ],
           "id": "b7f41ffa7202353a0a8e-1744d33e975ad2822289",
@@ -182,11 +226,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-03-18T05:46:34.986Z",
-    "duration": 16135.993999999999,
+    "startTime": "2024-03-18T05:57:08.512Z",
+    "duration": 60673.267,
     "expected": 1,
-    "skipped": 2,
-    "unexpected": 0,
+    "skipped": 0,
+    "unexpected": 2,
     "flaky": 0
   }
 }
