@@ -10,18 +10,15 @@ import {
   useNavigate,
   useRevalidator,
   useRouteLoaderData,
-  //useSearchParams,
+  useSearchParams,
 } from "react-router-dom";
 
 import { auth } from "./firebase";
 
-//const DEFAULT_REDIRECT = "/"; // After you sign in, you'll be redirected to this page.
+const DEFAULT_REDIRECT = "/"; // After you sign in, you'll be redirected to this page.
 const SIGN_IN_PATH = "/auth/sign-in";
 
-(async () => {
-  await auth.setPersistence(browserLocalPersistence);
-  
-})();
+await auth.setPersistence(browserLocalPersistence);
 
 /**
  * A hook that provides authentication methods and the currently authenticated user.
@@ -30,7 +27,7 @@ export const useAuth = () => {
   const user = useOptionalUser();
   const revalidator = useRevalidator();
   const navigate = useNavigate();
-  //const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   /**
    * Signs in with email and password, then loads the current user and redirects to the next page.
@@ -40,9 +37,8 @@ export const useAuth = () => {
   const signIn = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
-    
-    //const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
-    navigate("/");
+    const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
+    navigate(next);
   };
 
   /**
@@ -53,8 +49,8 @@ export const useAuth = () => {
   const createAccount = async (email: string, password: string) => {
     await createUserWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
-    //const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
-    navigate("/");
+    const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
+    navigate(next);
   };
 
   /**
