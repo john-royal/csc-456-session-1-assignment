@@ -2,7 +2,7 @@
 name: Paw
 
 on:
-    push:
+    pull_request:
         branches: [ main ]
 
 jobs:
@@ -12,24 +12,39 @@ jobs:
 
     steps:
     - name: Checkout the PR
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install Dependencies
+      run: |
+        npm install
+        npm ci
+ 
+    - name: Install playwright
+      run: npx playwright install --with-deps
 
     - name: Building the Application
-      run: pnpm build
+      run: npm run build
     
     - name:  Executing Unit and Itegration Test, and Generating code coverage report
       run: npm run test:coverage
     
-    - name: Upload unit and integration test code coverage
+    - name: Upload code coverage results
       uses: actions/upload-artifact@v3
+      with:
+        name: code coverage report
+        path: tests/
+
+    - name: Executing Playwright end to end Test
+      run: npx playwright test
+
+    - uses: actions/upload-artifact@v3
       if: always()
       with:
-          name: Unit and Integration Test coverage
-          path: coverage/
-          retention-days: 30
-
-    - name: Launching the Application
-      run: pnpm dev
+        name: playwright-report
+        path: tests/
+        retention-days: 30
     
-    - name: Executing Playwright end to end Test
-      run: npm run test:e2e 
