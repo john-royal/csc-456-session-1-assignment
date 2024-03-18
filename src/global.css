@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    background-color: #e9ecef; /* light brown */
+  background-color: #e9ecef; /* light brown */
 }
 
 .container {
@@ -47,7 +47,6 @@ input[type="password"] {
 .error {
   color: red;
 }
-
 
 .no-hover:hover {
   background-color: initial;

@@ -10,7 +10,7 @@ import { fetchUser, requireUser } from "./lib/auth";
 import HomePage from "./routes/_index";
 import CreateAccountPage from "./routes/auth.create-account";
 import SignInPage from "./routes/auth.sign-in";
-import Contact from "./routes/Contact";
+import Contact from "./routes/contact";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: requireUser,
-       
       },
       {
         path: "/auth/sign-in",
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
         element: <CreateAccountPage />,
       },
       {
-        path:"/Contact",
+        path: "/Contact",
         element: <Contact />,
         loader: requireUser,
       },

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { useAuth } from "../lib/auth";
 
 interface CreateAccountFormElement extends HTMLFormElement {
@@ -15,7 +16,7 @@ export default function CreateAccountPage() {
   const [username, setUsername] = useState("");
 
   const handleSubmit = async (
-    event: React.FormEvent<CreateAccountFormElement>
+    event: React.FormEvent<CreateAccountFormElement>,
   ) => {
     event.preventDefault();
 
@@ -29,7 +30,7 @@ export default function CreateAccountPage() {
       await createAccount(email, password);
     } catch (error) {
       setError(
-        error instanceof Error ? error : new Error("An unknown error occurred")
+        error instanceof Error ? error : new Error("An unknown error occurred"),
       );
     }
 
