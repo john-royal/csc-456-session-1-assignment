@@ -80,8 +80,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <div className="mt-4 rounded-md bg-gray-100 p-4">
           {/* Add comment section here */}
           Comments:
-            {comments.map(cmnt => <div>User {comments.indexOf(cmnt) + 1}: {cmnt}</div>)}
-            <textarea className="mt-2 p-2 w-full" placeholder="Add a comment..." onChange={writingComment}/>
+            {comments.map(cmnt => <div data-testid={`cmnt-${comments.indexOf(cmnt) + 1}`}>User {comments.indexOf(cmnt) + 1}: {cmnt}</div>)}
+            <textarea data-testid="cmnt-text-area" className="mt-2 p-2 w-full" placeholder="Add a comment..." onChange={writingComment}/>
             <button
               className="flex items-center px-4 py-2 bg-gray-300 rounded-md"
               onClick={handleCommentAddition}
