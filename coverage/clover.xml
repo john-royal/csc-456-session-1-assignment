@@ -1,33 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1710813079778" clover="3.2.0">
-  <project timestamp="1710813079778" name="All files">
-    <metrics statements="24" coveredstatements="24" conditionals="13" coveredconditionals="13" methods="10" coveredmethods="10" elements="47" coveredelements="47" complexity="0" loc="24" ncloc="24" packages="1" files="1" classes="1"/>
-    <file name="PostCard.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\PostCard.tsx">
-      <metrics statements="24" coveredstatements="24" conditionals="13" coveredconditionals="13" methods="10" coveredmethods="10"/>
-      <line num="1" count="1" type="stmt"/>
-      <line num="2" count="1" type="stmt"/>
-      <line num="17" count="1" type="stmt"/>
-      <line num="18" count="62" type="stmt"/>
-      <line num="19" count="62" type="stmt"/>
-      <line num="20" count="62" type="stmt"/>
-      <line num="21" count="62" type="stmt"/>
-      <line num="22" count="62" type="stmt"/>
-      <line num="23" count="62" type="stmt"/>
-      <line num="26" count="62" type="cond" truecount="7" falsecount="0"/>
-      <line num="27" count="4" type="stmt"/>
-      <line num="30" count="58" type="stmt"/>
-      <line num="31" count="3" type="cond" truecount="2" falsecount="0"/>
-      <line num="32" count="3" type="stmt"/>
-      <line num="35" count="58" type="stmt"/>
-      <line num="36" count="3" type="stmt"/>
-      <line num="39" count="58" type="stmt"/>
-      <line num="40" count="1" type="stmt"/>
-      <line num="41" count="1" type="stmt"/>
-      <line num="44" count="58" type="stmt"/>
-      <line num="45" count="44" type="stmt"/>
-      <line num="48" count="58" type="stmt"/>
-      <line num="83" count="1" type="stmt"/>
-      <line num="98" count="1" type="stmt"/>
-    </file>
+<coverage generated="1710816140909" clover="3.2.0">
+  <project timestamp="1710816140910" name="All files">
+    <metrics statements="87" coveredstatements="54" conditionals="21" coveredconditionals="13" methods="26" coveredmethods="14" elements="134" coveredelements="81" complexity="0" loc="87" ncloc="87" packages="2" files="4" classes="4"/>
+    <package name="components">
+      <metrics statements="40" coveredstatements="32" conditionals="19" coveredconditionals="13" methods="17" coveredmethods="11"/>
+      <file name="PostCard.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\PostCard.tsx">
+        <metrics statements="24" coveredstatements="24" conditionals="13" coveredconditionals="13" methods="10" coveredmethods="10"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="62" type="stmt"/>
+        <line num="19" count="62" type="stmt"/>
+        <line num="20" count="62" type="stmt"/>
+        <line num="21" count="62" type="stmt"/>
+        <line num="22" count="62" type="stmt"/>
+        <line num="23" count="62" type="stmt"/>
+        <line num="26" count="62" type="cond" truecount="7" falsecount="0"/>
+        <line num="27" count="4" type="stmt"/>
+        <line num="30" count="58" type="stmt"/>
+        <line num="31" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="35" count="58" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="39" count="58" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="44" count="58" type="stmt"/>
+        <line num="45" count="44" type="stmt"/>
+        <line num="48" count="58" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+      </file>
+      <file name="navbar.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\navbar.tsx">
+        <metrics statements="16" coveredstatements="8" conditionals="6" coveredconditionals="0" methods="7" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="114" count="0" type="stmt"/>
+        <line num="118" count="0" type="stmt"/>
+        <line num="142" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="lib">
+      <metrics statements="47" coveredstatements="22" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="3"/>
+      <file name="auth.ts" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\lib\auth.ts">
+        <metrics statements="38" coveredstatements="13" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="3"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="81" count="5" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="89" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="116" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+      </file>
+      <file name="firebase.ts" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\lib\firebase.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
