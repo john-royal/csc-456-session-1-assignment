@@ -3,7 +3,7 @@ name: Paw
 
 on:
     pull_request:
-        branches: [ main ]
+        branches: [ "main", "john-royal:main" ]
 
 jobs:
   build:
