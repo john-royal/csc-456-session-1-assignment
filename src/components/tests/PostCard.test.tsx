@@ -71,7 +71,7 @@ describe('Unit Tests for PostCard component', () => {
         }, {timeout: 3000});
     });
     
-    test('check if comment opening comment section works', async () => {
+    test('comment section renders', async () => {
         const { getByTestId } = render(<PostCard post={sendCard.post}/>);
         const createCommentbutton = getByTestId('cmnt-bttn');
     
@@ -109,14 +109,16 @@ describe('Unit Tests for PostCard component', () => {
         fireEvent.click(createCommentButton);//open comment section...
 
         const txtArea = screen.getByTestId('cmnt-text-area');//get the txtArea
-        const someTxt = 'Hello World I have been written as a test :D'
-        userEvent.type(txtArea, someTxt);//write in the txtArea
+        const someTxt = 'Hello World I have been written as a test :D';
+        const someTxtRgx = /Hello World I have been written as a test :D/i;
+        await userEvent.type(txtArea, someTxt);//write in the txtArea
 
         const postCommentButton = screen.getByTestId('cmnt-post-bttn');
-        fireEvent.click(postCommentButton);//post comment
+        await userEvent.click(postCommentButton);//post comment
 
         await waitFor(() => {
-            expect(screen.getByTestId('cmnt-1')).toBeInTheDocument();
+            const addedText = screen.getByText(someTxtRgx);//regex to identify the text.
+            expect(addedText).toBeInTheDocument();
         }, {timeout: 3000});
     });
 });

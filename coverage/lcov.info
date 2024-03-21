@@ -1,5 +1,5 @@
 TN:
-SF:src\components\PostCard.tsx
+SF:src/components/PostCard.tsx
 FN:17,(anonymous_0)
 FN:30,(anonymous_1)
 FN:31,(anonymous_2)
@@ -65,7 +65,7 @@ BRF:13
 BRH:13
 end_of_record
 TN:
-SF:src\components\navbar.tsx
+SF:src/components/navbar.tsx
 FN:15,Navbar
 FN:31,(anonymous_1)
 FN:74,(anonymous_2)
@@ -110,7 +110,7 @@ BRF:6
 BRH:0
 end_of_record
 TN:
-SF:src\lib\auth.ts
+SF:src/lib/auth.ts
 FN:21,(anonymous_0)
 FN:29,(anonymous_1)
 FN:40,(anonymous_2)
@@ -177,7 +177,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:src\lib\firebase.ts
+SF:src/lib/firebase.ts
 FNF:0
 FNH:0
 DA:1,1
