@@ -52,7 +52,6 @@ describe('Unit Tests for PostCard component', () => {
     
         fireEvent.click(likeCountBttn); //update the value
         const likeCount = getByText(String(aPost.likeCount + 1)); // likeCount value should be updated by now
-    
         await waitFor(() => {
             expect(likeCount).toBeInTheDocument();
         }, {timeout: 5000});
@@ -93,7 +92,6 @@ describe('Unit Tests for PostCard component', () => {
         render(<PostCard post={sendCard.post}/>);
         const createCommentbutton = screen.getByTestId('cmnt-bttn');
         fireEvent.click(createCommentbutton);//open comment section...
-
         const txtArea = screen.getByTestId('cmnt-text-area');//get the txtArea
         const someTxt = 'Hello World I have been written as a test :D'
 
@@ -115,7 +113,7 @@ describe('Unit Tests for PostCard component', () => {
 
         const postCommentButton = screen.getByTestId('cmnt-post-bttn');
         await userEvent.click(postCommentButton);//post comment
-
+        
         await waitFor(() => {
             const addedText = screen.getByText(someTxtRgx);//regex to identify the text.
             expect(addedText).toBeInTheDocument();
