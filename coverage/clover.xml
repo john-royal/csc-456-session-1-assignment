@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1711053669619" clover="3.2.0">
-  <project timestamp="1711053669619" name="All files">
+<coverage generated="1711070105182" clover="3.2.0">
+  <project timestamp="1711070105182" name="All files">
     <metrics statements="92" coveredstatements="59" conditionals="21" coveredconditionals="13" methods="28" coveredmethods="16" elements="141" coveredelements="88" complexity="0" loc="92" ncloc="92" packages="2" files="5" classes="5"/>
     <package name="components">
       <metrics statements="45" coveredstatements="37" conditionals="19" coveredconditionals="13" methods="19" coveredmethods="13"/>
-      <file name="PostCard.tsx" path="/Users/brandonvasquez/Desktop/Github repos/csc-456-paw/src/components/PostCard.tsx">
+      <file name="PostCard.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\PostCard.tsx">
         <metrics statements="24" coveredstatements="24" conditionals="13" coveredconditionals="13" methods="10" coveredmethods="10"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -31,7 +31,7 @@
         <line num="83" count="1" type="stmt"/>
         <line num="98" count="2" type="stmt"/>
       </file>
-      <file name="PostList.tsx" path="/Users/brandonvasquez/Desktop/Github repos/csc-456-paw/src/components/PostList.tsx">
+      <file name="PostList.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\PostList.tsx">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
@@ -39,7 +39,7 @@
         <line num="24" count="3" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
       </file>
-      <file name="navbar.tsx" path="/Users/brandonvasquez/Desktop/Github repos/csc-456-paw/src/components/navbar.tsx">
+      <file name="navbar.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\navbar.tsx">
         <metrics statements="16" coveredstatements="8" conditionals="6" coveredconditionals="0" methods="7" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -61,7 +61,7 @@
     </package>
     <package name="lib">
       <metrics statements="47" coveredstatements="22" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="3"/>
-      <file name="auth.ts" path="/Users/brandonvasquez/Desktop/Github repos/csc-456-paw/src/lib/auth.ts">
+      <file name="auth.ts" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\lib\auth.ts">
         <metrics statements="38" coveredstatements="13" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
@@ -102,7 +102,7 @@
         <line num="117" count="0" type="stmt"/>
         <line num="119" count="0" type="stmt"/>
       </file>
-      <file name="firebase.ts" path="/Users/brandonvasquez/Desktop/Github repos/csc-456-paw/src/lib/firebase.ts">
+      <file name="firebase.ts" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\lib\firebase.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
