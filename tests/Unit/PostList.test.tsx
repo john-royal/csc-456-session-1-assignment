@@ -1,4 +1,4 @@
-import PostList from '../src/components/PostList'; 
+import PostList from '../../src/components/PostList'; 
 import '@testing-library/jest-dom'
 import {render, screen} from '@testing-library/react'
 
