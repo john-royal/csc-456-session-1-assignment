@@ -41,7 +41,10 @@ export default function Navbar() {
         </div>
         {user ? (
           <div className="flex flex-1 items-center justify-end gap-x-3">
-            <p className="hidden text-sm text-gray-500 lg:block">
+            <p
+              className="hidden text-sm text-gray-500 lg:block"
+              data-testid="authenticated-user"
+            >
               Signed in as <strong>{user.email}</strong>
             </p>
             <button
@@ -55,6 +58,7 @@ export default function Navbar() {
                 });
               }}
               className="hidden text-sm font-semibold leading-6 text-gray-900 lg:block"
+              data-testid="sign-out-button"
             >
               Sign out
             </button>
@@ -64,12 +68,14 @@ export default function Navbar() {
             <Link
               to="/auth/sign-in"
               className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900"
+              data-testid="login-button"
             >
               Log in
             </Link>
             <Link
               to="/auth/create-account"
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              data-testid="create-account-button"
             >
               Sign up
             </Link>
