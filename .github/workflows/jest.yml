@@ -18,6 +18,7 @@ jobs:
     - name: Install Jest
       run: pnpm install
     - name: Run jest tests
-      run: pnpm test
+      run: pnpm test ./Integration
+      run: pnpm test./Unit
     - name: get coverage reports
       run: npx jest --collect-coverage
