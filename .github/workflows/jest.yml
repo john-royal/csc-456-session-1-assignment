@@ -15,9 +15,13 @@ jobs:
         node-version: lts/*
     - name: Install dependencies
       run: npm install -g pnpm && pnpm install
-    - name: Install Jest
-      run: pnpm install
-    - name: Run jest tests
+    - name: Run Integration jest tests
       run: pnpm test ./Integration
-    - name: get coverage reports
-      run: npx jest --collect-coverage
+    - name: Run Unit jest tests
+      run: pnpm test ./Integration
+    - name: Run Unit jest tests
+      run: pnpm test ./Unit
+    - name: get Integration test coverage reports
+      run: npx jest ./Integration --coverage
+    - name: get Unit test coverage reports
+      run: npx jest ./Unit --coverage
