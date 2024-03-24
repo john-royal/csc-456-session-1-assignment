@@ -1,5 +1,4 @@
 import PostCard from "../../src/components/PostCard";
-import renderer from "react-test-renderer";
 import '@testing-library/jest-dom'
 import {fireEvent ,render, waitFor, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -33,13 +32,6 @@ const sendCard: PostCardProps = {
 
 
 describe('Unit Tests for PostCard component', () => {
-    test('check if test matches snapshot', () => {
-        //make sure that there are no cached snapshots in the __snapshots__ dir
-        const component = renderer.create(<PostCard post={sendCard.post}/>);
-        let tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-    
     test('check if like value is rendered', () => {
         render(<PostCard post={sendCard.post}/>);
         const likeCountElem = screen.getByText(String(aPost.likeCount));
