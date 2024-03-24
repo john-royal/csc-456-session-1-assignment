@@ -1,4 +1,3 @@
-import type { User } from "firebase/auth";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
@@ -18,7 +17,9 @@ import { auth } from "./firebase";
 const DEFAULT_REDIRECT = "/"; // After you sign in, you'll be redirected to this page.
 const SIGN_IN_PATH = "/auth/sign-in";
 
-await auth.setPersistence(browserLocalPersistence);
+void auth.setPersistence(browserLocalPersistence);
+
+export type User = Awaited<ReturnType<typeof fetchUser>>;
 
 /**
  * A hook that provides authentication methods and the currently authenticated user.
@@ -100,7 +101,14 @@ export const useUser = () => {
  */
 export const fetchUser = async () => {
   await auth.authStateReady();
-  return auth.currentUser;
+  if (auth.currentUser) {
+    return {
+      id: auth.currentUser.uid,
+      email: auth.currentUser.email,
+    };
+  } else {
+    return null;
+  }
 };
 
 /**
