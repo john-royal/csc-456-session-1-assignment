@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1711321589189" clover="3.2.0">
+  <project timestamp="1711321589190" name="All files">
+    <metrics statements="29" coveredstatements="29" conditionals="13" coveredconditionals="13" methods="12" coveredmethods="12" elements="54" coveredelements="54" complexity="0" loc="29" ncloc="29" packages="1" files="2" classes="2"/>
+    <file name="PostCard.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\PostCard.tsx">
+      <metrics statements="24" coveredstatements="24" conditionals="13" coveredconditionals="13" methods="10" coveredmethods="10"/>
+      <line num="1" count="2" type="stmt"/>
+      <line num="2" count="2" type="stmt"/>
+      <line num="17" count="2" type="stmt"/>
+      <line num="18" count="108" type="stmt"/>
+      <line num="19" count="108" type="stmt"/>
+      <line num="20" count="108" type="stmt"/>
+      <line num="21" count="108" type="stmt"/>
+      <line num="22" count="108" type="stmt"/>
+      <line num="23" count="108" type="stmt"/>
+      <line num="26" count="108" type="cond" truecount="7" falsecount="0"/>
+      <line num="27" count="4" type="stmt"/>
+      <line num="30" count="104" type="stmt"/>
+      <line num="31" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="32" count="3" type="stmt"/>
+      <line num="35" count="104" type="stmt"/>
+      <line num="36" count="3" type="stmt"/>
+      <line num="39" count="104" type="stmt"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="41" count="1" type="stmt"/>
+      <line num="44" count="104" type="stmt"/>
+      <line num="45" count="88" type="stmt"/>
+      <line num="48" count="104" type="stmt"/>
+      <line num="83" count="1" type="stmt"/>
+      <line num="98" count="2" type="stmt"/>
+    </file>
+    <file name="PostList.tsx" path="C:\Users\Brandon\Desktop\Github repos\csc-456-paw\src\components\PostList.tsx">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="1" type="stmt"/>
+      <line num="24" count="3" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

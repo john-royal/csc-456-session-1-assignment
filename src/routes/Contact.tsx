@@ -85,6 +85,7 @@ function Contact() {
                         onChange={handleChange}
                         className={`input input-bordered w-full ${formErrors.name && 'border-red-500'}`}
                         placeholder="Enter your name"
+                        data-testid="name-box"
                     />
                 </div>
 
@@ -97,6 +98,7 @@ function Contact() {
                         onChange={handleChange}
                         className={`input input-bordered w-full ${formErrors.email && 'border-red-500'}`}
                         placeholder="Enter your email"
+                        data-testid="email-box"
                     />
                 </div>
 
@@ -109,11 +111,12 @@ function Contact() {
                         onChange={handleChange}
                         className={`input input-bordered w-full ${formErrors.message && 'border-red-500'}`}
                         placeholder="Enter your message"
+                        data-testid="msg-box"
                     />
                 </div>
 
                 <div className="text-center">
-                    <button type="submit" className="btn btn-primary bg-black">Send Message</button>
+                    <button type="submit" data-testid="submit-bttn" className="btn btn-primary bg-black">Send Message</button>
                 </div>
             </form>
         </div>
