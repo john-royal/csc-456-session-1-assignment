@@ -6,6 +6,7 @@ import "./global.css";
 
 import Layout from "./components/layout";
 import LoadingScreen from "./components/loading";
+import { Toaster } from "./components/ui/toaster";
 import { fetchUser, requireUser } from "./lib/auth";
 import HomePage from "./routes/_index";
 import CreateAccountPage from "./routes/auth.create-account";
@@ -44,5 +45,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} fallbackElement={<LoadingScreen />} />
+    <Toaster />
   </React.StrictMode>,
 );

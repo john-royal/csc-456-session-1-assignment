@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../lib/auth";
+import { toast } from "./ui/use-toast";
 
 const navigation = [
   { name: "Petsitters", href: "#" },
@@ -45,7 +46,14 @@ export default function Navbar() {
             </p>
             <button
               type="button"
-              onClick={signOut}
+              onClick={() => {
+                signOut().catch(() => {
+                  toast({
+                    title: "Cannot sign out",
+                    variant: "destructive",
+                  });
+                });
+              }}
               className="hidden text-sm font-semibold leading-6 text-gray-900 lg:block"
             >
               Sign out
