@@ -35,6 +35,7 @@ export default function SignInPage() {
           <div className="mb-4">
             <input
               type="email"
+              data-testid="email-input"
               placeholder="Email"
               className="input input-bordered w-full"
               value={email}
@@ -45,6 +46,7 @@ export default function SignInPage() {
           <div className="mb-4">
             <input
               type="password"
+              data-testid="pwd-input"
               placeholder="Password"
               className="input input-bordered w-full"
               value={password}
