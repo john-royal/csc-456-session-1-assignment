@@ -62,14 +62,16 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       />
       <div className="flex items-center justify-between">
         <button
+          data-testid="like-bttn"
           className={`mr-2 flex items-center rounded-md px-4 py-2 ${isLiked ? "bg-red-500 text-white" : "bg-gray-300 text-gray-900"}`}
           onClick={handleLikeClick}
         >
-          <FaHeart className="mr-1" /> {likeCount}
+          <FaHeart data-testid="like-count" className="mr-1" /> {likeCount}
         </button>
         <button
           className="flex items-center rounded-md bg-gray-300 px-4 py-2"
           onClick={handleCommentClick}
+          data-testid="cmnt-bttn"
         >
           <FaComment className="mr-1" /> {commentCount}
         </button>
@@ -78,11 +80,12 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <div className="mt-4 rounded-md bg-gray-100 p-4">
           {/* Add comment section here */}
           Comments:
-            {comments.map(cmnt => <div>User {comments.indexOf(cmnt) + 1}: {cmnt}</div>)}
-            <textarea className="mt-2 p-2 w-full" placeholder="Add a comment..." onChange={writingComment}/>
+            {comments.map(cmnt => <div data-testid={`cmnt-${comments.indexOf(cmnt) + 1}`}>User {comments.indexOf(cmnt) + 1}: {cmnt}</div>)}
+            <textarea data-testid="cmnt-text-area" className="mt-2 p-2 w-full" placeholder="Add a comment..." onChange={writingComment}/>
             <button
               className="flex items-center px-4 py-2 bg-gray-300 rounded-md"
               onClick={handleCommentAddition}
+              data-testid="cmnt-post-bttn"
             >
               Post comment
             </button>
