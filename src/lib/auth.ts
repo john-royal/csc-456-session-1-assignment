@@ -118,7 +118,8 @@ export const fetchUser = async () => {
 export const requireUser = async ({ request }: LoaderFunctionArgs) => {
   const user = await fetchUser();
   if (!user) {
-    return redirect(`${SIGN_IN_PATH}?next=${encodeURIComponent(request.url)}`);
+    const path = new URL(request.url).pathname;
+    return redirect(`${SIGN_IN_PATH}?next=${encodeURIComponent(path)}`);
   }
   return user;
 };
