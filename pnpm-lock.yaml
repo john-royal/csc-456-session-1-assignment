@@ -55,12 +55,18 @@ devDependencies:
   "@ianvs/prettier-plugin-sort-imports":
     specifier: ^4.2.0
     version: 4.2.0(prettier@3.2.5)
+  "@playwright/test":
+    specifier: ^1.42.1
+    version: 1.42.1
   "@testing-library/jest-dom":
     specifier: ^6.4.2
     version: 6.4.2(vitest@1.4.0)
   "@testing-library/react":
     specifier: ^14.2.1
     version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
+  "@types/node":
+    specifier: ^20.11.30
+    version: 20.11.30
   "@types/react":
     specifier: ^18.2.64
     version: 18.2.65
@@ -114,10 +120,10 @@ devDependencies:
     version: 5.4.2
   vite:
     specifier: ^5.1.6
-    version: 5.1.6
+    version: 5.1.6(@types/node@20.11.30)
   vitest:
     specifier: ^1.4.0
-    version: 1.4.0(jsdom@24.0.0)
+    version: 1.4.0(@types/node@20.11.30)(jsdom@24.0.0)
 
 packages:
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -1375,7 +1381,7 @@ packages:
     engines: { node: ^8.13.0 || >=10.10.0 }
     dependencies:
       "@grpc/proto-loader": 0.7.10
-      "@types/node": 20.11.27
+      "@types/node": 20.11.30
     dev: false
 
   /@grpc/proto-loader@0.7.10:
@@ -1578,6 +1584,17 @@ packages:
     engines: { node: ">=14" }
     requiresBuild: true
     optional: true
+
+  /@playwright/test@1.42.1:
+    resolution:
+      {
+        integrity: sha512-Gq9rmS54mjBL/7/MvBaNOBwbfnh7beHvS6oS4srqXFcQHpQCV1+c8JXWE8VLPyRDhgS3H8x8A7hztqI9VnwrAQ==,
+      }
+    engines: { node: ">=16" }
+    hasBin: true
+    dependencies:
+      playwright: 1.42.1
+    dev: true
 
   /@protobufjs/aspromise@1.1.2:
     resolution:
@@ -2198,7 +2215,7 @@ packages:
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-      vitest: 1.4.0(jsdom@24.0.0)
+      vitest: 1.4.0(@types/node@20.11.30)(jsdom@24.0.0)
     dev: true
 
   /@testing-library/react@14.2.1(react-dom@18.2.0)(react@18.2.0):
@@ -2287,14 +2304,13 @@ packages:
       }
     dev: true
 
-  /@types/node@20.11.27:
+  /@types/node@20.11.30:
     resolution:
       {
-        integrity: sha512-qyUZfMnCg1KEz57r7pzFtSGt49f6RPkPBis3Vo4PbS7roQEDn22hiHzl/Lo1q4i4hDEgBJmBF/NTNg2XR0HbFg==,
+        integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==,
       }
     dependencies:
       undici-types: 5.26.5
-    dev: false
 
   /@types/prop-types@15.7.11:
     resolution:
@@ -2510,7 +2526,7 @@ packages:
       "@babel/plugin-transform-react-jsx-source": 7.23.3(@babel/core@7.24.0)
       "@types/babel__core": 7.20.5
       react-refresh: 0.14.0
-      vite: 5.1.6
+      vite: 5.1.6(@types/node@20.11.30)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2537,7 +2553,7 @@ packages:
       strip-literal: 2.0.0
       test-exclude: 6.0.0
       v8-to-istanbul: 9.2.0
-      vitest: 1.4.0(jsdom@24.0.0)
+      vitest: 1.4.0(@types/node@20.11.30)(jsdom@24.0.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4006,6 +4022,17 @@ packages:
         integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==,
       }
     dev: true
+
+  /fsevents@2.3.2:
+    resolution:
+      {
+        integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==,
+      }
+    engines: { node: ^8.16.0 || ^10.6.0 || >=11.0.0 }
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /fsevents@2.3.3:
     resolution:
@@ -5531,6 +5558,28 @@ packages:
       pathe: 1.1.2
     dev: true
 
+  /playwright-core@1.42.1:
+    resolution:
+      {
+        integrity: sha512-mxz6zclokgrke9p1vtdy/COWBH+eOZgYUVVU34C73M+4j4HLlQJHtfcqiqqxpP0o8HhMkflvfbquLX5dg6wlfA==,
+      }
+    engines: { node: ">=16" }
+    hasBin: true
+    dev: true
+
+  /playwright@1.42.1:
+    resolution:
+      {
+        integrity: sha512-PgwB03s2DZBcNRoW+1w9E+VkLBxweib6KTXM0M3tkiT4jVxKSi6PmVJ591J+0u10LUrgxB7dLRbiJqO5s2QPMg==,
+      }
+    engines: { node: ">=16" }
+    hasBin: true
+    dependencies:
+      playwright-core: 1.42.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
   /possible-typed-array-names@1.0.0:
     resolution:
       {
@@ -5752,7 +5801,7 @@ packages:
       "@protobufjs/path": 1.1.2
       "@protobufjs/pool": 1.1.0
       "@protobufjs/utf8": 1.1.0
-      "@types/node": 20.11.27
+      "@types/node": 20.11.30
       long: 5.2.3
     dev: false
 
@@ -6695,7 +6744,6 @@ packages:
       {
         integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==,
       }
-    dev: false
 
   /undici@5.28.3:
     resolution:
@@ -6766,7 +6814,7 @@ packages:
       convert-source-map: 2.0.0
     dev: true
 
-  /vite-node@1.4.0:
+  /vite-node@1.4.0(@types/node@20.11.30):
     resolution:
       {
         integrity: sha512-VZDAseqjrHgNd4Kh8icYHWzTKSCZMhia7GyHfhtzLW33fZlG9SwsB6CEhgyVOWkJfJ2pFLrp/Gj1FSfAiqH9Lw==,
@@ -6778,7 +6826,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.1.6
+      vite: 5.1.6(@types/node@20.11.30)
     transitivePeerDependencies:
       - "@types/node"
       - less
@@ -6790,7 +6838,7 @@ packages:
       - terser
     dev: true
 
-  /vite@5.1.6:
+  /vite@5.1.6(@types/node@20.11.30):
     resolution:
       {
         integrity: sha512-yYIAZs9nVfRJ/AiOLCA91zzhjsHUgMjB+EigzFb6W2XTLO8JixBCKCjvhKZaye+NKYHCrkv3Oh50dH9EdLU2RA==,
@@ -6821,6 +6869,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      "@types/node": 20.11.30
       esbuild: 0.19.12
       postcss: 8.4.35
       rollup: 4.13.0
@@ -6828,7 +6877,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@1.4.0(jsdom@24.0.0):
+  /vitest@1.4.0(@types/node@20.11.30)(jsdom@24.0.0):
     resolution:
       {
         integrity: sha512-gujzn0g7fmwf83/WzrDTnncZt2UiXP41mHuFYFrdwaLRVQ6JYQEiME2IfEjU3vcFL3VKa75XhI3lFgn+hfVsQw==,
@@ -6856,6 +6905,7 @@ packages:
       jsdom:
         optional: true
     dependencies:
+      "@types/node": 20.11.30
       "@vitest/expect": 1.4.0
       "@vitest/runner": 1.4.0
       "@vitest/snapshot": 1.4.0
@@ -6874,8 +6924,8 @@ packages:
       strip-literal: 2.0.0
       tinybench: 2.6.0
       tinypool: 0.8.2
-      vite: 5.1.6
-      vite-node: 1.4.0
+      vite: 5.1.6(@types/node@20.11.30)
+      vite-node: 1.4.0(@types/node@20.11.30)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less

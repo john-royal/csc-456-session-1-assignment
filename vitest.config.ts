@@ -6,5 +6,6 @@ export default defineConfig({
       provider: "v8",
     },
     environment: "jsdom",
+    exclude: ["node_modules", "tests/e2e"],
   },
 });

@@ -8,12 +8,13 @@
     "strict": true
   },
   "include": [
+    "playwright.config.ts",
     "postcss.config.mjs",
     "prettier.config.mjs",
     "tailwind.config.ts",
     "vite.config.ts",
     "vitest.config.ts",
     "src/**/*.test.{ts,tsx}",
-    "test/**/*.{ts,tsx}"
+    "tests/**/*.test.ts"
   ]
 }
