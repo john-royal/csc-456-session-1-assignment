@@ -1,8 +1,14 @@
 import PostList from '../../src/components/PostList'; 
-import '@testing-library/jest-dom'
-import {render, screen} from '@testing-library/react'
+// import '@testing-library/jest-dom';
+import {expect, test, describe} from 'vitest';
+// import matchers from '@testing-library/jest-dom/matchers';
+import '@testing-library/jest-dom/vitest';
+import {render, screen} from '@testing-library/react';
 
+// console.log(matchers)
 
+// expect.extend(matchers); //include methods for testing DOM elements like toBeInTheDocument() or toHaveTextContent().
+// // ref https://mayashavin.com/articles/test-react-components-with-vitest
 
 interface Post {
   id: number;

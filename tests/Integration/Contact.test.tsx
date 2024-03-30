@@ -1,8 +1,9 @@
 import Contact from '../../src/routes/Contact';
-import '@testing-library/jest-dom';
-import {render, screen, waitFor} from '@testing-library/react';
 import 'firebase/firestore'; // we mock these
 import '../../src/lib/firebase';
+import {expect, test, describe} from 'vitest'
+import '@testing-library/jest-dom/vitest';
+import {render, waitFor, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 
@@ -12,7 +13,7 @@ import userEvent from '@testing-library/user-event'
 
 
 //mocking partials of a module & mock implementations...
-jest.mock('firebase/firestore', () => {
+jest.mock('firebase/firestore', () => { // update the mocks to use vitest https://vitest.dev/guide/mocking.html
     const originalModule = jest.requireActual('firebase/firestore');
     return{
         ...originalModule,

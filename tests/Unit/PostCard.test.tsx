@@ -1,6 +1,7 @@
 import PostCard from "../../src/components/PostCard";
-import '@testing-library/jest-dom'
-import {fireEvent ,render, waitFor, screen} from '@testing-library/react'
+import {expect, test, describe} from 'vitest'
+import '@testing-library/jest-dom/vitest';
+import {fireEvent ,render, waitFor, screen, cleanup} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 //types
