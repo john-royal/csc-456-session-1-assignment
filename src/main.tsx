@@ -11,6 +11,7 @@ import HomePage from "./routes/_index";
 import CreateAccountPage from "./routes/auth.create-account";
 import SignInPage from "./routes/auth.sign-in";
 import Contact from "./routes/Contact";
+import Profile from "./routes/Profile";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
       {
         path:"/Contact",
         element: <Contact />,
+        loader: requireUser,
+      },
+      {
+        path:"/Profile",
+        element: <Profile />,
         loader: requireUser,
       },
     ],
