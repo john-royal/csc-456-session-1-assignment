@@ -6,7 +6,7 @@ import PostList from "../components/PostList";
 const HomePage: React.FC = () => {
   const posts = [
     {
-      id: 1,
+      id: "1",
       username: "petlover123",
       petProfilePhoto: "/images/catProf.png",
       petImage: "/images/cat.png",
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
       commentCount: 0,
     },
     {
-      id: 2,
+      id: "2",
       username: "furryfriends456",
       petProfilePhoto: "/images/dogProf.png",
       petImage: "/images/dog.png",
@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
       commentCount: 0,
     },
     {
-      id: 2,
+      id: "2",
       username: "furryfriends456",
       petProfilePhoto: "/images/dogProf.png",
       petImage: "/images/dog.png",
@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
       commentCount: 0,
     },
     {
-      id: 2,
+      id: "2",
       username: "furryfriends456",
       petProfilePhoto: "/images/dogProf.png",
       petImage: "/images/dog.png",
@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
       commentCount: 0,
     },
     {
-      id: 2,
+      id: "2",
       username: "furryfriends456",
       petProfilePhoto: "/images/dogProf.png",
       petImage: "/images/dog.png",
@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
       commentCount: 0,
     },
     {
-      id: 2,
+      id: "2",
       username: "furryfriends456",
       petProfilePhoto: "/images/dogProf.png",
       petImage: "/images/dog.png",
@@ -54,7 +54,7 @@ const HomePage: React.FC = () => {
       commentCount: 0,
     },
     {
-      id: 2,
+      id: "2",
       username: "furryfriends456",
       petProfilePhoto: "/images/dogProf.png",
       petImage: "/images/dog.png",

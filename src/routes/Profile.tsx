@@ -3,7 +3,7 @@ import {db} from '../lib/firebase';
 import { collection, query, where, getDocs, getDoc, doc, setDoc} from "firebase/firestore";
 import { useAuth } from "../lib/auth";
 import { getStorage, ref, uploadBytes, listAll, getDownloadURL} from "firebase/storage";
-
+import { FaComment, FaHeart } from "react-icons/fa";
 
 const ProfilePage: React.FC = () => {
     const { user } = useAuth();
@@ -12,7 +12,8 @@ const ProfilePage: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [submitPost, setSubmitPost] = useState(false);
-    const [imageList, setImageList] = useState<string[]>([]);
+    const [posts, setPosts] = useState<any[]>([]);
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,26 +46,47 @@ const ProfilePage: React.FC = () => {
 
         fetchData();
 
-        const storage = getStorage();
-        const imgRef = ref(storage, "postImages/" + user?.email); 
-        listAll(imgRef).then((res) => {
-            res.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    //setImageList((prev) => [ ...prev, url])
-                    imageList.push(url)
-                })
-            })
-        })
+        // const storage = getStorage();
+        // const imgRef = ref(storage, "postImages/" + user?.email); 
+        // listAll(imgRef).then((res) => {
+        //     res.items.forEach((item) => {
+        //         getDownloadURL(item).then((url) => {
+        //             //setImageList((prev) => [ ...prev, url])
+        //             imageList.push(url)
+        //         })
+        //     })
+        // })
         
 
-        console.log(imageList)
-    }, [db, user, imageList]);
+        //console.log(imageList)
+    }, [db, user]);
+
+
+    // Function to fetch and set user posts
+    const fetchPosts = async () => {
+        try {
+            const currentUserEmail = user?.email;
+            if (currentUserEmail) {
+                const q = query(collection(db, "posts"), where("id", "==", currentUserEmail));
+                const querySnapshot = await getDocs(q);
+                const fetchedPosts: any[] = [];
+                querySnapshot.forEach((doc) => {
+                    fetchedPosts.push(doc.data());
+                });
+                setPosts(fetchedPosts);
+            } else {
+                console.log("User email is undefined");
+            }
+        } catch (error) {
+            console.error('Error fetching user posts:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts(); // Fetch posts when component mounts or user changes
+    }, [user]);
 
     
-
-
-
-
     const [userData, setUserData] = useState({
         username: "",
         bio: '',
@@ -124,32 +146,41 @@ const ProfilePage: React.FC = () => {
             const imgRef = ref(storage, "postImages/" + user?.email + "/" + selectedImage.name + (Math.floor(Math.random() * 1000) + 1));
             const snapshot = await uploadBytes(imgRef, selectedImage);
             const url = await getDownloadURL(snapshot.ref);
-            setImageList(prev => [...prev, url]);
-            console.log("upload after: ", imageList);
+            console.log("upload after: ", url);
+
+
+            // Create a new post document in Firestore
+            const currentUserEmail = user?.email;
+            if (currentUserEmail) {
+                const postsCollectionRef = collection(db, 'posts');
+                setDoc(doc(postsCollectionRef), {
+                    id: currentUserEmail,
+                    username: userData.username,
+                    imageUrl: url,
+                    likeCount: 0,
+                    commentCount: 0,
+                    comments: [],
+                });
+            }
 
             setSelectedImage(null);
             setSubmitPost(false);
-            alert('Post created successfully!');
+            // alert('Post created successfully!');
+            fetchPosts(); // Fetch posts again after creating a new post
             
-
-        
-            //Create a new post document in Firestore
-            // const currentUserEmail = user?.email;
-            // if (currentUserEmail) {
-            //     const postsCollectionRef = collection(db, 'posts');
-            //     await setDoc(doc(postsCollectionRef), {
-            //         id: currentUserEmail,
-            //         username: userData.username,
-            //         imageUrl: postList[postList.length-1],
-            //         likeCount: 0,
-            //         commentCount: 0,
-            //         comments: []
-            //     });
-            // }
         } catch (error) {
             console.error('Error creating post:', error);
             alert('Failed to create post.');
         }
+    };
+
+    const handleLikeCount = async (imageUrl: string) => {
+        //handle the count logic
+
+    };
+
+    const handleCommentClick = async (imageUrl: string) => {
+        // Handle comment click logic here
     };
 
     return (
@@ -214,12 +245,22 @@ const ProfilePage: React.FC = () => {
                 </div>
                 {/* Posts section */}
                 <div className="bg-white rounded-xl overflow-hidden shadow-md">
-                    <div className="p-6">
-                        <h2 className="text-xl font-bold mb-4">Posts</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            {/* Sample posts */}
-                            
+                    <h2 className="text-xl font-bold ml-4 mt-4 mb-4">Posts</h2>
+                    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        
+                        {posts.map((post, index) => (
+                            <div key={index} className="border p-4 rounded-md">
+                            <img src={post.imageUrl} alt="Post" className="mt-2 w-full h-60 object-cover" />
+                            <div className="flex justify-between mt-2">
+                                <div>
+                                    <FaHeart className="mr-1 cursor-pointer" onClick={() => handleLikeCount(post.imageUrl)} /> {post.likeCount}
+                                </div>
+                                <div>
+                                    <FaComment className="mr-1 cursor-pointer" onClick={() => handleCommentClick(post.imageUrl)} /> {post.commentCount}
+                                </div>
+                            </div>
                         </div>
+                        ))}
                     </div>
                 </div>
             </div>
