@@ -1,5 +1,5 @@
 import PostCard from "../../src/components/PostCard";
-import {expect, test, describe} from 'vitest'
+import {expect, test, describe, afterEach} from 'vitest'
 import '@testing-library/jest-dom/vitest';
 import {fireEvent ,render, waitFor, screen, cleanup} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -33,6 +33,8 @@ const sendCard: PostCardProps = {
 
 
 describe('Unit Tests for PostCard component', () => {
+    afterEach(cleanup); // unmount the render that was created to avoid memory leaks...
+
     test('check if like value is rendered', () => {
         render(<PostCard post={sendCard.post}/>);
         const likeCountElem = screen.getByText(String(aPost.likeCount));
