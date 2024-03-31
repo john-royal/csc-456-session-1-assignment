@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for csc-456-paw/playwright.config.ts</title>
+    <title>Code coverage report for src/routes/auth.create-account.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">csc-456-paw</a> playwright.config.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/routes</a> auth.create-account.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/81</span>
+                <span class='fraction'>0/83</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/81</span>
+                <span class='fraction'>0/83</span>
             </div>
         
             
@@ -143,7 +143,10 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -223,103 +226,109 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { defineConfig, devices } from '@playwright/test';</span></span></span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import React, { useState } from "react";</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { useAuth } from "../lib/auth";</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >/**</span>
-<span class="cstat-no" title="statement not covered" > * Read environment variables from file.</span>
-<span class="cstat-no" title="statement not covered" > * https://github.com/motdotla/dotenv</span>
-<span class="cstat-no" title="statement not covered" > */</span>
-<span class="cstat-no" title="statement not covered" >// require('dotenv').config();</span>
+<span class="cstat-no" title="statement not covered" >interface CreateAccountFormElement extends HTMLFormElement {</span>
+<span class="cstat-no" title="statement not covered" >  username: HTMLInputElement;</span>
+<span class="cstat-no" title="statement not covered" >  email: HTMLInputElement;</span>
+<span class="cstat-no" title="statement not covered" >  password: HTMLInputElement;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >/**</span>
-<span class="cstat-no" title="statement not covered" > * See https://playwright.dev/docs/test-configuration.</span>
-<span class="cstat-no" title="statement not covered" > */</span>
-<span class="cstat-no" title="statement not covered" >export default defineConfig({</span>
-<span class="cstat-no" title="statement not covered" >  testDir: './tests/E2E',</span>
-<span class="cstat-no" title="statement not covered" >  /* Run tests in files in parallel */</span>
-<span class="cstat-no" title="statement not covered" >  fullyParallel: true,</span>
-<span class="cstat-no" title="statement not covered" >  /* Fail the build on CI if you accidentally left test.only in the source code. */</span>
-<span class="cstat-no" title="statement not covered" >  forbidOnly: !!process.env.CI,</span>
-<span class="cstat-no" title="statement not covered" >  /* Retry on CI only */</span>
-<span class="cstat-no" title="statement not covered" >  retries: process.env.CI ? 2 : 0,</span>
-<span class="cstat-no" title="statement not covered" >  /* Opt out of parallel tests on CI. */</span>
-<span class="cstat-no" title="statement not covered" >  workers: process.env.CI ? 1 : undefined,</span>
-<span class="cstat-no" title="statement not covered" >  /* Reporter to use. See https://playwright.dev/docs/test-reporters */</span>
-<span class="cstat-no" title="statement not covered" >  reporter: 'html',</span>
-<span class="cstat-no" title="statement not covered" >  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */</span>
-<span class="cstat-no" title="statement not covered" >  use: {</span>
-<span class="cstat-no" title="statement not covered" >    /* Base URL to use in actions like `await page.goto('/')`. */</span>
-<span class="cstat-no" title="statement not covered" >    // baseURL: 'http://127.0.0.1:3000',</span>
+<span class="cstat-no" title="statement not covered" >export default function CreateAccountPage() {</span>
+<span class="cstat-no" title="statement not covered" >  const { createAccount } = useAuth();</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */</span>
-<span class="cstat-no" title="statement not covered" >    trace: 'on-first-retry',</span>
-<span class="cstat-no" title="statement not covered" >  },</span>
-<span class="cstat-no" title="statement not covered" >  webServer:{</span>
-<span class="cstat-no" title="statement not covered" >    command: 'pnpm dev',</span>
-<span class="cstat-no" title="statement not covered" >    url: 'http://localhost:5173',</span>
-<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  const [loading, setLoading] = useState(false);</span>
+<span class="cstat-no" title="statement not covered" >  const [error, setError] = useState&lt;Error | null&gt;(null);</span>
+<span class="cstat-no" title="statement not covered" >  const [username, setUsername] = useState("");</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  /* Configure projects for major browsers */</span>
-<span class="cstat-no" title="statement not covered" >  projects: [</span>
-<span class="cstat-no" title="statement not covered" >    {</span>
-<span class="cstat-no" title="statement not covered" >      name: 'chromium',</span>
-<span class="cstat-no" title="statement not covered" >      use: { ...devices['Desktop Chrome'] },</span>
-<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >  const handleSubmit = async (</span>
+<span class="cstat-no" title="statement not covered" >    event: React.FormEvent&lt;CreateAccountFormElement&gt;</span>
+<span class="cstat-no" title="statement not covered" >  ) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    event.preventDefault();</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    {</span>
-<span class="cstat-no" title="statement not covered" >      name: 'firefox',</span>
-<span class="cstat-no" title="statement not covered" >      use: { ...devices['Desktop Firefox'] },</span>
-<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    setLoading(true);</span>
+<span class="cstat-no" title="statement not covered" >    setError(null);</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    {</span>
-<span class="cstat-no" title="statement not covered" >      name: 'webkit',</span>
-<span class="cstat-no" title="statement not covered" >      use: { ...devices['Desktop Safari'] },</span>
-<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    const form = event.currentTarget;</span>
+<span class="cstat-no" title="statement not covered" >    const email = form.email.value;</span>
+<span class="cstat-no" title="statement not covered" >    const password = form.password.value;</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      await createAccount(email, password);</span>
+<span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >      setError(</span>
+<span class="cstat-no" title="statement not covered" >        error instanceof Error ? error : new Error("An unknown error occurred")</span>
+<span class="cstat-no" title="statement not covered" >      );</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    /* Test against mobile viewports. */</span>
-<span class="cstat-no" title="statement not covered" >    // {</span>
-<span class="cstat-no" title="statement not covered" >    //   name: 'Mobile Chrome',</span>
-<span class="cstat-no" title="statement not covered" >    //   use: { ...devices['Pixel 5'] },</span>
-<span class="cstat-no" title="statement not covered" >    // },</span>
-<span class="cstat-no" title="statement not covered" >    // {</span>
-<span class="cstat-no" title="statement not covered" >    //   name: 'Mobile Safari',</span>
-<span class="cstat-no" title="statement not covered" >    //   use: { ...devices['iPhone 12'] },</span>
-<span class="cstat-no" title="statement not covered" >    // },</span>
+<span class="cstat-no" title="statement not covered" >    setLoading(false);</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    /* Test against branded browsers. */</span>
-<span class="cstat-no" title="statement not covered" >    // {</span>
-<span class="cstat-no" title="statement not covered" >    //   name: 'Microsoft Edge',</span>
-<span class="cstat-no" title="statement not covered" >    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },</span>
-<span class="cstat-no" title="statement not covered" >    // },</span>
-<span class="cstat-no" title="statement not covered" >    // {</span>
-<span class="cstat-no" title="statement not covered" >    //   name: 'Google Chrome',</span>
-<span class="cstat-no" title="statement not covered" >    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },</span>
-<span class="cstat-no" title="statement not covered" >    // },</span>
-<span class="cstat-no" title="statement not covered" >  ],</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  /* Run your local dev server before starting the tests */</span>
-<span class="cstat-no" title="statement not covered" >  // webServer: {</span>
-<span class="cstat-no" title="statement not covered" >  //   command: 'npm run start',</span>
-<span class="cstat-no" title="statement not covered" >  //   url: 'http://127.0.0.1:3000',</span>
-<span class="cstat-no" title="statement not covered" >  //   reuseExistingServer: !process.env.CI,</span>
-<span class="cstat-no" title="statement not covered" >  // },</span>
-<span class="cstat-no" title="statement not covered" >});</span></pre></td></tr></table></pre>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div className="bg-beige-100 flex h-screen items-center justify-center"&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;div className="w-full max-w-md rounded bg-white p-8 shadow-md"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;h1 className="mb-8 text-center text-2xl font-bold"&gt;Sign Up Here&lt;/h1&gt;</span>
+<span class="cstat-no" title="statement not covered" >        {error &amp;&amp; &lt;p className="text-red-500"&gt;{error.message}&lt;/p&gt;}</span>
+<span class="cstat-no" title="statement not covered" >        &lt;form onSubmit={handleSubmit}&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="mb-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;input</span>
+<span class="cstat-no" title="statement not covered" >              type="text"</span>
+<span class="cstat-no" title="statement not covered" >              name="username"</span>
+<span class="cstat-no" title="statement not covered" >              placeholder="Username"</span>
+<span class="cstat-no" title="statement not covered" >              className="input input-bordered w-full"</span>
+<span class="cstat-no" title="statement not covered" >              value={username}</span>
+<span class="cstat-no" title="statement not covered" >              onChange={(e) =&gt; setUsername(e.target.value)}</span>
+<span class="cstat-no" title="statement not covered" >              required</span>
+<span class="cstat-no" title="statement not covered" >            /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="mb-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;input</span>
+<span class="cstat-no" title="statement not covered" >              type="email"</span>
+<span class="cstat-no" title="statement not covered" >              name="email"</span>
+<span class="cstat-no" title="statement not covered" >              placeholder="Email"</span>
+<span class="cstat-no" title="statement not covered" >              className="input input-bordered w-full"</span>
+<span class="cstat-no" title="statement not covered" >              required</span>
+<span class="cstat-no" title="statement not covered" >            /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="mb-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;input</span>
+<span class="cstat-no" title="statement not covered" >              type="password"</span>
+<span class="cstat-no" title="statement not covered" >              name="password"</span>
+<span class="cstat-no" title="statement not covered" >              placeholder="Password"</span>
+<span class="cstat-no" title="statement not covered" >              className="input input-bordered w-full"</span>
+<span class="cstat-no" title="statement not covered" >              required</span>
+<span class="cstat-no" title="statement not covered" >            /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="mt-8"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="btn btn-primary w-full" disabled={loading}&gt;</span>
+<span class="cstat-no" title="statement not covered" >              {loading ? "Creating Account..." : "I'm ready!"}</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/form&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >  );</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-31T19:30:34.918Z
+                at 2024-03-31T19:56:16.684Z
             </div>
-        <script src="../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../sorter.js"></script>
-        <script src="../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     
