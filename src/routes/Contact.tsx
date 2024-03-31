@@ -47,7 +47,7 @@ function Contact() {
             name: formData.name,
             email: formData.email,
             message: formData.message,
-        }). then(()=>{
+        }).then(()=>{
             setShowToast(true);
             setTimeout(() => {
                 setShowToast(false);

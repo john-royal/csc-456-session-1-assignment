@@ -1,9 +1,8 @@
 import Contact from '../../src/routes/Contact';
-import 'firebase/firestore'; // we mock these
 import '../../src/lib/firebase';
-import {expect, test, describe} from 'vitest'
+import {expect, test, describe, vi, afterEach} from 'vitest'
 import '@testing-library/jest-dom/vitest';
-import {render, waitFor, screen} from '@testing-library/react'
+import {render, waitFor, screen, cleanup} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 
@@ -11,20 +10,19 @@ import userEvent from '@testing-library/user-event'
 // mock the updating of firestore
 // also ref https://github.com/programmerjoban/csc-456-paw/blob/main/tests/integration/Contact.test.tsx
 
-
-//mocking partials of a module & mock implementations...
-jest.mock('firebase/firestore', () => { // update the mocks to use vitest https://vitest.dev/guide/mocking.html
-    const originalModule = jest.requireActual('firebase/firestore');
+vi.mock('firebase/firestore', async () => {
+    const originalModule = await vi.importActual<typeof import('firebase/firestore')>('firebase/firestore');
     return{
         ...originalModule,
-        addDoc: jest.fn().mockImplementation(() => Promise.resolve(true)) // mock a succesful promise resolution
+        addDoc: vi.fn(() => Promise.resolve(true))// mock a succesful promise resolution
     };
 });
 
 
 describe('Integration test for the Contact page',() => {
     afterEach(() => {
-        jest.clearAllMocks();
+        cleanup;
+        vi.restoreAllMocks();
     });
 
     test('testing...', async () => {
