@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./global.css";
-
+import Petsitter from "./routes/Petsitter"
 import Layout from "./components/layout";
 import LoadingScreen from "./components/loading";
 import { fetchUser, requireUser } from "./lib/auth";
@@ -32,6 +32,11 @@ const router = createBrowserRouter([
       {
         path: "/auth/create-account",
         element: <CreateAccountPage />,
+      },
+      {
+        path: "/Petsitter",
+        element: <Petsitter />,
+        loader: requireUser,
       },
       {
         path:"/Contact",
