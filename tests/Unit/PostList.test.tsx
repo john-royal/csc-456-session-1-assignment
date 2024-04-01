@@ -49,7 +49,7 @@ const coupleOfPost: PostListProps = {
 
 
 describe('Unit test for PostList', () => {
-    test('testing ', () => {
+    test('should load a list of posts with a specified username', () => {
         render(<PostList posts={coupleOfPost.posts} />);
         const username = screen.getByText(/tart/i);
         expect(username).toBeInTheDocument();

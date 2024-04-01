@@ -25,7 +25,7 @@ describe('Integration test for the Contact page',() => {
         vi.restoreAllMocks();
     });
 
-    test('testing...', async () => {
+    test('should have loaded the message box', async () => {
         render(<Contact />);
         const msgBox = screen.getByTestId('msg-box');
         await waitFor(() =>{

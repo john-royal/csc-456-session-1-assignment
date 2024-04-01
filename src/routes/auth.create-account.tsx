@@ -45,6 +45,7 @@ export default function CreateAccountPage() {
           <div className="mb-4">
             <input
               type="text"
+              data-testid='username-input'
               name="username"
               placeholder="Username"
               className="input input-bordered w-full"
@@ -57,6 +58,7 @@ export default function CreateAccountPage() {
             <input
               type="email"
               name="email"
+              data-testid='email-input'
               placeholder="Email"
               className="input input-bordered w-full"
               required
@@ -66,13 +68,14 @@ export default function CreateAccountPage() {
             <input
               type="password"
               name="password"
+              data-testid='pwd-input'
               placeholder="Password"
               className="input input-bordered w-full"
               required
             />
           </div>
           <div className="mt-8">
-            <button className="btn btn-primary w-full" disabled={loading}>
+            <button data-testid='create-accnt' className="btn btn-primary w-full" disabled={loading}>
               {loading ? "Creating Account..." : "I'm ready!"}
             </button>
           </div>
