@@ -2,7 +2,7 @@ import Navbar from '../../src/components/navbar';
 import {expect, test, describe, afterEach, vi} from 'vitest';
 import '@testing-library/jest-dom/vitest'; //include methods for testing DOM elements like toBeInTheDocument() or toHaveTextContent().
 import {render, screen, cleanup} from '@testing-library/react';
-import { useAuth } from '../../src/lib/auth.ts';
+
 
 const useAuthMock = vi.hoisted(() => { //hoist before the mock so that we can have access to change it later on!!!
     return {
@@ -51,7 +51,6 @@ describe('Unit test of Sign in page components', () => {
     });
 
     test("navbar shows slightly different tabs with user sign in", () => {
-        const newData = {user: {email: 'testing@gmail.com'} , signOut: () => Promise.resolve()}
         useAuthMock.useAuth.mockReturnValueOnce({user: {email: 'testing@gmail.com'} , signOut: () => Promise.resolve(true)})
         render(<Navbar />);
         const tabs = [
