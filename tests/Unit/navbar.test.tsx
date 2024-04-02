@@ -19,7 +19,7 @@ vi.mock('../../src/lib/auth.ts', async () => {
 });
 
 vi.mock("react-router-dom", async () => {
-    const originalModule = await vi.importActual<typeof import('../../src/lib/auth.ts')>('../../src/lib/auth.ts');
+    const originalModule = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
     return {
         ...originalModule,
         Link: ({children}: {children: any}) => <a>{children}</a>
