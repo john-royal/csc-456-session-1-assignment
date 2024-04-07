@@ -17,6 +17,7 @@ Create Account Request: The Auth Context sends a request to Firebase Authenticat
 Validation: Firebase Authentication Service validates the credentials.
 Error Handling: In case of an error during account creation, such as a duplicate email, the error is returned and displayed to the user.
 Success: On successful creation of the account, the UI is updated, potentially redirecting the user to their profile or dashboard.
+
 New Account Creation Process ERD
 The Entity Relationship Diagram (ERD) maps out the data model involved in the new account creation process.
 
