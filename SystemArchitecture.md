@@ -7,7 +7,7 @@ When the web client is initiated the Vite built in web server serves either the 
 
 
 ## This is about the ER diagram...
-![img](./public/images/c-diagram.jpg)
+![img](./public/images/er-diagram.png)
 
 ## This is about the call sequence diagram...
-![img](./public/images/c-diagram.jpg)
+![img](./public/images/cs-diagram.png)
