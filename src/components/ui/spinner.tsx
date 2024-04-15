@@ -1,8 +1,9 @@
 export default function Spinner({ className }: { className?: string }) {
   return (
-    <div role="status">
+    <div data-testid="spinner" role="status">
       <svg
         aria-hidden="true"
+        data-testid="spinner-look"
         className={`${className} animate-spin`}
         viewBox="0 0 100 101"
         fill="none"
