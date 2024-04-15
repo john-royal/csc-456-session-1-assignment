@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../lib/auth";
 
 const navigation = [
-  { name: "Petsitters", href: "#" },
+  { name: "Petsitters", href: "/Petsitter" },
   { name: "Message", href: "#" },
   { name: "Profile", href: "/Profile" },
   { name: "Contact  Us", href: "/Contact" },
