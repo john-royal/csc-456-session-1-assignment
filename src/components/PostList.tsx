@@ -5,7 +5,7 @@ import React from "react";
 import PostCard from "./PostCard";
 
 interface Post {
-  id: number;
+  id: string;
   username: string;
   petProfilePhoto: string;
   petImage: string;
