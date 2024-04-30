@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaComment, FaHeart } from "react-icons/fa";
 
 interface Post {
-  id: number;
+  id: string;
   username: string;
   petProfilePhoto: string;
   petImage: string;

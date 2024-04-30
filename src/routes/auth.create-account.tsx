@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../lib/auth";
+import {db} from '../lib/firebase';
+import {doc, setDoc, collection} from 'firebase/firestore';
 
 interface CreateAccountFormElement extends HTMLFormElement {
   username: HTMLInputElement;
@@ -8,11 +10,12 @@ interface CreateAccountFormElement extends HTMLFormElement {
 }
 
 export default function CreateAccountPage() {
-  const { createAccount } = useAuth();
-
+  const { createAccount} = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
+
+  const userCollectionRef = collection(db, "users");
 
   const handleSubmit = async (
     event: React.FormEvent<CreateAccountFormElement>
@@ -23,6 +26,7 @@ export default function CreateAccountPage() {
     setError(null);
 
     const form = event.currentTarget;
+    const username = form.username.value;
     const email = form.email.value;
     const password = form.password.value;
     try {
@@ -32,6 +36,15 @@ export default function CreateAccountPage() {
         error instanceof Error ? error : new Error("An unknown error occurred")
       );
     }
+
+    setDoc(doc(userCollectionRef, email), {
+      username: username,
+      email: email,
+      bio: "No description Yet",
+      profilePicURL: ""
+    }).catch((error)=>{
+      console.log(error.message)
+    })
 
     setLoading(false);
   };
@@ -48,8 +61,8 @@ export default function CreateAccountPage() {
               name="username"
               placeholder="Username"
               className="input input-bordered w-full"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              // value={username}
+              // onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
