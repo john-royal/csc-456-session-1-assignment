@@ -30,6 +30,7 @@ jobs:
       run: terraform validate -no-color
 
     - name: Terraform Plan
+      working-directory: ./terraform
       id: plan
       if: ${{ github.event_name == 'pull_request' }}
       run: terraform plan -no-color -input=false
@@ -43,6 +44,7 @@ jobs:
           core.setFailed('Plan failed!')
 
     - name: Terraform Apply
+      working-directory: ./terraform
       id: apply
       if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/session-10-Assignment') }}
       run: terraform apply -auto-approve -input=false
