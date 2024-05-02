@@ -2,9 +2,9 @@ name: Vercel Deployment Using Terraform
 
 on:
   push:
-    branches: [ "john-royal:main", "session-10-Assignment" ] 
+    branches: [ "main", "john-royal:main", "session-10-Assignment" ] 
   pull_request:
-    branches: [ "john-royal:main", "session-10-Assignment" ]
+    branches: [ "main", "john-royal:main", "session-10-Assignment" ]
 
 jobs:
   terraform: 
