@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {db} from '../lib/firebase';
 import { collection, query, where, getDocs, getDoc, doc, setDoc} from "firebase/firestore";
 import { useAuth } from "../lib/auth";
-import { getStorage, ref, uploadBytes, listAll, getDownloadURL} from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import { FaComment, FaHeart } from "react-icons/fa";
 
 const ProfilePage: React.FC = () => {
@@ -174,12 +174,12 @@ const ProfilePage: React.FC = () => {
         }
     };
 
-    const handleLikeCount = async (imageUrl: string) => {
+    const handleLikeCount = async () => {
         //handle the count logic
 
     };
 
-    const handleCommentClick = async (imageUrl: string) => {
+    const handleCommentClick = async () => {
         // Handle comment click logic here
     };
 
@@ -253,10 +253,10 @@ const ProfilePage: React.FC = () => {
                             <img src={post.imageUrl} alt="Post" className="mt-2 w-full h-60 object-cover" />
                             <div className="flex justify-between mt-2">
                                 <div>
-                                    <FaHeart className="mr-1 cursor-pointer" onClick={() => handleLikeCount(post.imageUrl)} /> {post.likeCount}
+                                    <FaHeart className="mr-1 cursor-pointer" onClick={() => handleLikeCount()} /> {post.likeCount}
                                 </div>
                                 <div>
-                                    <FaComment className="mr-1 cursor-pointer" onClick={() => handleCommentClick(post.imageUrl)} /> {post.commentCount}
+                                    <FaComment className="mr-1 cursor-pointer" onClick={() => handleCommentClick()} /> {post.commentCount}
                                 </div>
                             </div>
                         </div>
