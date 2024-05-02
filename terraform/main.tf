@@ -16,3 +16,4 @@ resource "vercel_project" "vercelTerraform" {
     repo = "programmerjoban/csc-456-paw"
   }
 }
+
