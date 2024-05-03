@@ -2,9 +2,9 @@ name: Vercel Deployment
 
 on:
   workflow_run:
-    workflows: [Paw] # Triggered by the Paw workflow
-    types: [completed] # The test workflow must complete
-    branches: [ "main", "john-royal:main", "session-10-Assignment" ] # Only when these are updated is updated
+    workflows: ["Paw"]
+    types:
+      - completed
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest

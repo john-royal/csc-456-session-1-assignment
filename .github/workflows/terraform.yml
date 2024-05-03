@@ -1,4 +1,4 @@
-name: Vercel Deployment Using Terraform
+name: Vercel Terraform
 
 on:
   push:
