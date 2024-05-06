@@ -7,27 +7,38 @@ import {
   getDoc,
   getDocs,
   onSnapshot,
+  orderBy,
   query,
   Query,
+  QuerySnapshot,
   setDoc,
   where,
 } from "firebase/firestore";
+import { z } from "zod";
 
-import type { ContactInput, Post, UserProfile } from "./schema";
 import { db } from "./firebase";
+import { ContactInput, Post, UserProfile } from "./schema";
 
 type QueryBuilder = (
   collection: CollectionReference,
   helpers: {
     query: typeof query;
+    orderBy: typeof orderBy;
     where: typeof where;
   },
 ) => Query;
 
-class Repository<T extends DocumentData> {
+class Repository<
+  TSchema extends z.AnyZodObject,
+  TData extends z.infer<TSchema> & DocumentData = z.infer<TSchema> &
+    DocumentData,
+> {
   collection: CollectionReference;
 
-  constructor(collectionName: string) {
+  constructor(
+    collectionName: string,
+    private readonly schema: TSchema,
+  ) {
     this.collection = collection(db, collectionName);
   }
 
@@ -37,14 +48,20 @@ class Repository<T extends DocumentData> {
 
   async get(id: string) {
     const doc = await getDoc(this.doc(id));
-    return doc.data() as T | undefined;
+    const data = doc.data();
+    if (data) {
+      const result = this.schema.safeParse(data);
+      return result.success ? result.data : null;
+    }
+    return null;
   }
 
-  async add(data: T) {
+  async add(data: TData) {
     await setDoc(doc(this.collection), data);
   }
 
-  async set(id: string, data: Partial<T>) {
+  async set(id: string, data: Partial<TData>) {
+    this.schema.partial().parse(data);
     await setDoc(this.doc(id), data, { merge: true });
   }
 
@@ -54,23 +71,37 @@ class Repository<T extends DocumentData> {
 
   async list(withQuery?: QueryBuilder) {
     const querySnapshot = await getDocs(
-      withQuery?.(this.collection, { query, where }) ?? this.collection,
+      withQuery?.(this.collection, { query, orderBy, where }) ??
+        this.collection,
     );
-    return querySnapshot.docs.map((doc) => doc.data() as T);
+    return this.safeParseSnapshot(querySnapshot);
   }
 
-  subscribe(withQuery: QueryBuilder, callback: (data: T[]) => void) {
+  subscribe(withQuery: QueryBuilder, callback: (data: TData[]) => void) {
     const unsubscribe = onSnapshot(
-      withQuery(this.collection, { query, where }),
-      (snapshot) => {
-        callback(snapshot.docs.map((doc) => doc.data() as T));
+      withQuery(this.collection, { query, orderBy, where }),
+      (querySnapshot) => {
+        const items = this.safeParseSnapshot(querySnapshot);
+        callback(items);
       },
     );
     return unsubscribe;
   }
+
+  private safeParseSnapshot(snapshot: QuerySnapshot) {
+    const items: TData[] = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      const result = this.schema.safeParse(data);
+      if (result.success) {
+        items.push(result.data as TData);
+      }
+    });
+    return items;
+  }
 }
-export const users = new Repository<UserProfile>("users");
+export const users = new Repository("users", UserProfile);
 
-export const contactEntries = new Repository<ContactInput>("contactdata");
+export const contactEntries = new Repository("contactdata", ContactInput);
 
-export const posts = new Repository<Post>("posts");
+export const posts = new Repository("posts", Post);
