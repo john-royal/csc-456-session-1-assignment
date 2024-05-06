@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { FaComment, FaHeart } from "react-icons/fa";
 
-import LoadingScreen from "../components/loading";
-import { useAuth } from "../lib/auth";
-import { Post, posts, User, users } from "../lib/repositories";
+import LoadingScreen from "~/components/loading";
+import { useAuth } from "~/lib/auth";
+import { Post, posts, User, users } from "~/lib/repositories";
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();

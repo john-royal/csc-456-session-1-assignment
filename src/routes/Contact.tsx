@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { contactEntries } from "../lib/repositories";
+import { contactEntries } from "~/lib/repositories";
 
 function Contact() {
   const [formData, setFormData] = useState({

@@ -2,17 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import "./global.css";
+import "~/global.css";
 
-import Layout from "./components/layout";
-import LoadingScreen from "./components/loading";
-import { fetchUser, requireUser } from "./lib/auth";
-import HomePage from "./routes/_index";
-import CreateAccountPage from "./routes/auth.create-account";
-import SignInPage from "./routes/auth.sign-in";
-import Contact from "./routes/Contact";
-import Petsitter from "./routes/Petsitter";
-import Profile from "./routes/Profile";
+import Layout from "~/components/layout";
+import LoadingScreen from "~/components/loading";
+import { fetchUser, requireUser } from "~/lib/auth";
+import HomePage from "~/routes/_index";
+import CreateAccountPage from "~/routes/auth.create-account";
+import SignInPage from "~/routes/auth.sign-in";
+import Contact from "~/routes/Contact";
+import Petsitter from "~/routes/Petsitter";
+import Profile from "~/routes/Profile";
 
 const router = createBrowserRouter([
   {

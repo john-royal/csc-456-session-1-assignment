@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { useAuth } from "../lib/auth";
+import { useAuth } from "~/lib/auth";
 
 interface CreateAccountFormElement extends HTMLFormElement {
   username: HTMLInputElement;
