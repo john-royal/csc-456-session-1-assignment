@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaComment, FaHeart } from "react-icons/fa";
+import { ChatBubbleLeftIcon, HeartIcon } from "@heroicons/react/20/solid";
 
 import type { Post } from "~/lib/schema";
 
@@ -69,13 +69,13 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
           className={`mr-2 flex items-center rounded-md px-4 py-2 ${isLiked ? "bg-red-500 text-white" : "bg-gray-300 text-gray-900"}`}
           onClick={handleLikeClick}
         >
-          <FaHeart className="mr-1" /> {likeCount}
+          <HeartIcon className="mr-1 size-5" /> {likeCount}
         </button>
         <button
           className="flex items-center rounded-md bg-gray-300 px-4 py-2"
           onClick={handleCommentClick}
         >
-          <FaComment className="mr-1" /> {commentCount}
+          <ChatBubbleLeftIcon className="mr-1 size-5" /> {commentCount}
         </button>
       </div>
       {showComments && (
