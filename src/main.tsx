@@ -10,9 +10,9 @@ import { fetchUser, requireUser } from "~/lib/auth";
 import HomePage from "~/routes/_index";
 import CreateAccountPage from "~/routes/auth.create-account";
 import SignInPage from "~/routes/auth.sign-in";
-import Contact from "~/routes/Contact";
-import Petsitter from "~/routes/Petsitter";
-import Profile from "~/routes/Profile";
+import Contact from "~/routes/contact";
+import Petsitter from "~/routes/petsitter";
+import Profile from "~/routes/profile";
 
 const router = createBrowserRouter([
   {
