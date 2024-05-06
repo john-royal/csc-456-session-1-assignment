@@ -25,7 +25,7 @@ export const Post = z.object({
   user: z.object({
     id: z.string(),
     username: z.string(),
-    imageUrl: z.string().url().optional(),
+    imageUrl: z.string().url().nullable(),
   }),
   imageUrl: z.string().url(),
 });

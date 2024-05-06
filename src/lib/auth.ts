@@ -1,4 +1,3 @@
-import type { User } from "firebase/auth";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
@@ -82,7 +81,7 @@ export const useAuth = () => {
  * A React hook that returns the currently authenticated user, or `null` if the user is not authenticated.
  */
 export const useOptionalUser = () => {
-  return useRouteLoaderData("root") as User | null;
+  return useRouteLoaderData("root") as Awaited<ReturnType<typeof fetchUser>>;
 };
 
 /**
@@ -108,7 +107,15 @@ export const useUser = () => {
  */
 export const fetchUser = async () => {
   await auth.authStateReady();
-  return auth.currentUser;
+  const user = auth.currentUser;
+  if (!user) {
+    return null;
+  }
+  const profile = (await users.get(user.email!))!;
+  return {
+    ...user,
+    ...profile,
+  };
 };
 
 /**

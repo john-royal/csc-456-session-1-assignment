@@ -1,9 +1,11 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
+import { Transition } from "@headlessui/react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 
 import { cn } from "~/lib/ui";
+import Spinner from "./spinner";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-gray-300",
@@ -56,4 +58,35 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+export interface LoadingButtonProps extends ButtonProps {
+  loading?: boolean;
+}
+
+const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
+  ({ children, loading, disabled, ...props }, ref) => {
+    return (
+      <Button
+        type="submit"
+        disabled={loading ?? disabled ?? false}
+        ref={ref}
+        {...props}
+      >
+        <Transition
+          show={loading ?? false}
+          enter="transition-all overflow-clip duration-150"
+          enterFrom="opacity-0 w-0"
+          enterTo="opacity-100 w-6"
+          leave="transition-all overflow-clip duration-150"
+          leaveFrom="opacity-100 w-6"
+          leaveTo="opacity-0 w-0"
+        >
+          <Spinner className="mr-1.5 size-4 animate-spin fill-gray-200 text-gray-500" />
+        </Transition>
+        {children}
+      </Button>
+    );
+  },
+);
+LoadingButton.displayName = "LoadingButton";
+
+export { Button, buttonVariants, LoadingButton };

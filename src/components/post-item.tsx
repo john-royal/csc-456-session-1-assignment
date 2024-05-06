@@ -41,7 +41,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     <div className="mb-4 rounded-md border border-gray-200 bg-white p-4">
       <div className="mb-2 flex items-center">
         <img
-          src={post.user.imageUrl}
+          src={post.user.imageUrl ?? undefined}
           alt="Pet Profile"
           className="mr-2 h-12 w-12 rounded-full"
         />
