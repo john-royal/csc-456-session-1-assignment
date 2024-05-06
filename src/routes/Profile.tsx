@@ -1,24 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
-import {
-  getDownloadURL,
-  getStorage,
-  listAll,
-  ref,
-  uploadBytes,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { FaComment, FaHeart } from "react-icons/fa";
 
+import LoadingScreen from "../components/loading";
 import { useAuth } from "../lib/auth";
-import { db } from "../lib/firebase";
+import { Post, posts, User, users } from "../lib/repositories";
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
@@ -27,81 +13,35 @@ const ProfilePage: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [submitPost, setSubmitPost] = useState(false);
-  const [posts, setPosts] = useState<any[]>([]);
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
+
+  const [userData, setUserData] = useState<User>();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currentUserEmail = user?.email;
-        if (currentUserEmail) {
-          // method1: using query
-          // const q = query(collection(db, "users"), where("email", "==", currentUserEmail));
-          // const querySnapshot = await getDocs(q);
-          // querySnapshot.forEach((doc) => {
-          //     // Update userData state with the retrieved data
-          //     setUserData(doc.data() as { username: string, bio: string });
-          // });
-
-          // method 2: using document ref this is quick for single documentation retrival
-          const userRef = doc(db, "users", currentUserEmail);
-          const userdoc: any = await getDoc(userRef);
-
-          setUserData(userdoc.data() as { username: string; bio: string });
-        } else {
-          console.log("User email is undefined");
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchData();
-
-    // const storage = getStorage();
-    // const imgRef = ref(storage, "postImages/" + user?.email);
-    // listAll(imgRef).then((res) => {
-    //     res.items.forEach((item) => {
-    //         getDownloadURL(item).then((url) => {
-    //             //setImageList((prev) => [ ...prev, url])
-    //             imageList.push(url)
-    //         })
-    //     })
-    // })
-
-    //console.log(imageList)
-  }, [db, user]);
-
-  // Function to fetch and set user posts
-  const fetchPosts = async () => {
-    try {
-      const currentUserEmail = user?.email;
-      if (currentUserEmail) {
-        const q = query(
-          collection(db, "posts"),
-          where("id", "==", currentUserEmail),
-        );
-        const querySnapshot = await getDocs(q);
-        const fetchedPosts: any[] = [];
-        querySnapshot.forEach((doc) => {
-          fetchedPosts.push(doc.data());
-        });
-        setPosts(fetchedPosts);
-      } else {
-        console.log("User email is undefined");
-      }
-    } catch (error) {
-      console.error("Error fetching user posts:", error);
+    if (!user?.email) {
+      return;
     }
-  };
 
-  useEffect(() => {
-    fetchPosts(); // Fetch posts when component mounts or user changes
-  }, [user]);
+    const unsubscribeUser = users.subscribe(
+      (collection, { query, where }) =>
+        query(collection, where("email", "==", user.email)),
+      (data) => {
+        setUserData(data[0]);
+      },
+    );
+    const unsubscribePosts = posts.subscribe(
+      (collection, { query, where }) =>
+        query(collection, where("id", "==", user.email)),
+      (data) => {
+        setUserPosts(data);
+      },
+    );
 
-  const [userData, setUserData] = useState({
-    username: "",
-    bio: "",
-  });
+    return () => {
+      unsubscribeUser();
+      unsubscribePosts();
+    };
+  }, [user?.email]);
 
   // Handler for edit button click
   const handleEditClick = () => {
@@ -110,26 +50,25 @@ const ProfilePage: React.FC = () => {
 
   // Handler for form submission
   // update the user profile bio
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleProfileSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsEditing(false);
-    // update the bio when the user clicks the save button
 
-    const setData = async () => {
-      try {
-        const currentUserEmail = user?.email;
-        if (currentUserEmail) {
-          const userRef = doc(db, "users", currentUserEmail);
-          setDoc(userRef, { bio: userData.bio }, { merge: true });
-        } else {
-          console.log("User email is undefined when setting data");
-        }
-      } catch (error) {
-        console.error("Error setting user data:", error);
-      }
-    };
+    if (!user?.email || !userData) {
+      return;
+    }
 
-    setData();
+    users
+      .set(user.email, {
+        username: userData.username,
+        bio: userData.bio,
+      })
+      .then(() => {
+        console.log("User data updated successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating user data:", error);
+      });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,7 +80,11 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleCreatePostClick = async () => {
-    // Ensure a file is selected
+    if (!user?.email || !userData) {
+      alert("You must be logged in to create a post.");
+      return;
+    }
+
     if (!selectedImage) {
       alert("Please select an image.");
       return;
@@ -163,24 +106,17 @@ const ProfilePage: React.FC = () => {
       const url = await getDownloadURL(snapshot.ref);
       console.log("upload after: ", url);
 
-      // Create a new post document in Firestore
-      const currentUserEmail = user?.email;
-      if (currentUserEmail) {
-        const postsCollectionRef = collection(db, "posts");
-        setDoc(doc(postsCollectionRef), {
-          id: currentUserEmail,
-          username: userData.username,
-          imageUrl: url,
-          likeCount: 0,
-          commentCount: 0,
-          comments: [],
-        });
-      }
+      await posts.add({
+        id: user.email,
+        username: userData.username,
+        imageUrl: url,
+        likeCount: 0,
+        commentCount: 0,
+        comments: [],
+      });
 
       setSelectedImage(null);
       setSubmitPost(false);
-      // alert('Post created successfully!');
-      fetchPosts(); // Fetch posts again after creating a new post
     } catch (error) {
       console.error("Error creating post:", error);
       alert("Failed to create post.");
@@ -194,6 +130,10 @@ const ProfilePage: React.FC = () => {
   const handleCommentClick = async (imageUrl: string) => {
     // Handle comment click logic here
   };
+
+  if (!userData) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="container mx-auto mt-8 pt-8">
@@ -212,7 +152,7 @@ const ProfilePage: React.FC = () => {
             {/* User profile info */}
             <div className="text-center">
               {isEditing ? (
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleProfileSubmit}>
                   <input
                     type="text"
                     className="mb-2 w-full rounded border border-gray-300 p-2"
@@ -283,7 +223,7 @@ const ProfilePage: React.FC = () => {
         <div className="overflow-hidden rounded-xl bg-white shadow-md">
           <h2 className="mb-4 ml-4 mt-4 text-xl font-bold">Posts</h2>
           <div className="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 md:grid-cols-3">
-            {posts.map((post, index) => (
+            {userPosts.map((post, index) => (
               <div key={index} className="rounded-md border p-4">
                 <img
                   src={post.imageUrl}

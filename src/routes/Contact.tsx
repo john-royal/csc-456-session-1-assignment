@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
 
-import { db } from "../lib/firebase";
+import { contactEntries } from "../lib/repositories";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -9,8 +8,6 @@ function Contact() {
     email: "",
     message: "",
   });
-
-  const userCollectionRef = collection(db, "contactdata");
 
   const [formErrors, setFormErrors] = useState({
     name: false,
@@ -30,7 +27,7 @@ function Contact() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const errors = {
@@ -45,13 +42,20 @@ function Contact() {
       return;
     }
 
-    addDoc(userCollectionRef, {
-      name: formData.name,
-      email: formData.email,
-      message: formData.message,
-    })
+    contactEntries
+      .add({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      })
       .then(() => {
         setShowToast(true);
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+
         setTimeout(() => {
           setShowToast(false);
         }, 8000);
@@ -59,12 +63,6 @@ function Contact() {
       .catch((error) => {
         console.log(error.message);
       });
-
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
   };
 
   return (

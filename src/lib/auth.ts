@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 
 import { auth } from "./firebase";
+import { users } from "./repositories";
 
 //const DEFAULT_REDIRECT = "/"; // After you sign in, you'll be redirected to this page.
 const SIGN_IN_PATH = "/auth/sign-in";
@@ -48,8 +49,19 @@ export const useAuth = () => {
    * @param email
    * @param password
    */
-  const createAccount = async (email: string, password: string) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+  const createAccount = async (input: {
+    email: string;
+    username: string;
+    password: string;
+  }) => {
+    await createUserWithEmailAndPassword(auth, input.email, input.password);
+
+    // TODO: Use user.uid as the document ID instead of the email address.
+    await users.set(input.email, {
+      username: input.username,
+      email: input.email,
+    });
+
     revalidator.revalidate();
     //const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
     navigate("/");
