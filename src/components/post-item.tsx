@@ -3,11 +3,11 @@ import { FaComment, FaHeart } from "react-icons/fa";
 
 import type { Post } from "~/lib/schema";
 
-interface PostCardProps {
+interface PostItemProps {
   post: Post;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+const PostItem: React.FC<PostItemProps> = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likeCount);
   const [commentCount, setCommentCount] = useState(post.commentCount);
@@ -43,7 +43,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     setCommentCount((prevCount) => prevCount + 1);
   };
 
-  const writingComment = (event: any) => {
+  const handleEditingCommentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     setEditingComment(event.target.value);
   };
 
@@ -78,17 +80,17 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       </div>
       {showComments && (
         <div className="mt-4 rounded-md bg-gray-100 p-4">
-          {/* Add comment section here */}
           Comments:
-          {comments.map((cmnt) => (
-            <div>
-              User {comments.indexOf(cmnt) + 1}: {cmnt}
+          {comments.map((cmnt, index) => (
+            <div key={index}>
+              User {index + 1}: {cmnt}
             </div>
           ))}
           <textarea
             className="mt-2 w-full p-2"
             placeholder="Add a comment..."
-            onChange={writingComment}
+            value={editingComment}
+            onChange={handleEditingCommentChange}
           />
           <button
             className="flex items-center rounded-md bg-gray-300 px-4 py-2"
@@ -102,4 +104,4 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   );
 };
 
-export default PostCard;
+export default PostItem;

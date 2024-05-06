@@ -1,7 +1,7 @@
 // HomePage.tsx
 import React from "react";
 
-import PostList from "~/components/PostList";
+import PostCard from "~/components/PostCard";
 
 const HomePage: React.FC = () => {
   const posts = [
@@ -66,7 +66,11 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center ">
-      <PostList posts={posts} />
+      <div className="mt-5 w-4/12">
+        {posts.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 };
