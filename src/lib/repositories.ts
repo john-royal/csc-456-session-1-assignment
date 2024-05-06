@@ -83,11 +83,26 @@ export class Repository<
   }
 
   subscribe(withQuery: QueryBuilder, callback: (data: TData[]) => void) {
+    let previousData: TData[] | undefined;
     const unsubscribe = onSnapshot(
       withQuery(this.collection, { query, orderBy, where }),
       (querySnapshot) => {
-        const items = this.safeParseSnapshot(querySnapshot);
-        callback(items);
+        const newData = this.safeParseSnapshot(querySnapshot);
+
+        // This is a workaround for a Firebase bug that causes the list to
+        // fluctuate in length when a new item is added.
+        const singleUpdateValue =
+          newData.length === 1 ? JSON.stringify(newData[0]) : null;
+        if (
+          singleUpdateValue &&
+          previousData &&
+          previousData.some((d) => JSON.stringify(d) === singleUpdateValue)
+        ) {
+          return;
+        }
+
+        previousData = newData;
+        callback(newData);
       },
     );
     return unsubscribe;
@@ -115,3 +130,5 @@ export const users = new Repository("users", UserProfile);
 export const contactEntries = new Repository("contactdata", ContactInput);
 
 export const posts = new Repository("posts", Post);
+
+export const comments = new Repository("comments", Comment);
