@@ -1,69 +1,37 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
+import { Alert } from "~/components/ui/alert";
+import { Button } from "~/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useForm,
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
 import { contactEntries } from "~/lib/repositories";
+import { ContactInput } from "~/lib/schema";
 
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [formErrors, setFormErrors] = useState({
-    name: false,
-    email: false,
-    message: false,
+  const form = useForm({
+    schema: ContactInput,
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
   });
 
   const [showToast, setShowToast] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const errors = {
-      name: formData.name === "",
-      email: formData.email === "",
-      message: formData.message === "",
-    };
-
-    setFormErrors(errors);
-
-    if (Object.values(errors).some((error) => error)) {
-      return;
-    }
-
-    contactEntries
-      .add({
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      })
-      .then(() => {
-        setShowToast(true);
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
-
-        setTimeout(() => {
-          setShowToast(false);
-        }, 8000);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
+  const handleSubmit = form.handleSubmit(async (data) => {
+    await contactEntries.add(data);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 10_000);
+  });
 
   return (
     <div className="contact__wrapper">
@@ -75,54 +43,64 @@ function Contact() {
         )}
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="mx-auto mt-20 w-full max-w-md rounded bg-white p-5 shadow"
-      >
-        <div className="mb-4 text-center text-3xl font-bold">Contact Us</div>
-
-        <div className="mb-4">
-          <label className="mb-1 block">Name</label>
-          <input
-            type="text"
+      <Form {...form}>
+        <form
+          onSubmit={handleSubmit}
+          className="mx-auto mt-20 w-full max-w-md space-y-4 rounded bg-white p-5 shadow"
+        >
+          <div className="mb-4 text-center text-3xl font-bold">Contact Us</div>
+          {form.formState.errors.root && (
+            <Alert variant="destructive">
+              {form.formState.errors.root.message}
+            </Alert>
+          )}
+          <FormField
+            control={form.control}
             name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={`input input-bordered w-full ${formErrors.name && "border-red-500"}`}
-            placeholder="Enter your name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
-
-        <div className="mb-4">
-          <label className="mb-1 block">Email</label>
-          <input
-            type="email"
+          <FormField
+            control={form.control}
             name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={`input input-bordered w-full ${formErrors.email && "border-red-500"}`}
-            placeholder="Enter your email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
-
-        <div className="mb-4">
-          <label className="mb-1 block">Message</label>
-          <textarea
-            rows={3}
+          <FormField
+            control={form.control}
             name="message"
-            value={formData.message}
-            onChange={handleChange}
-            className={`input input-bordered w-full ${formErrors.message && "border-red-500"}`}
-            placeholder="Enter your message"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Message</FormLabel>
+                <FormControl>
+                  <Textarea {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
 
-        <div className="text-center">
-          <button type="submit" className="btn btn-primary bg-black">
-            Send Message
-          </button>
-        </div>
-      </form>
+          <Button type="submit" className="w-full">
+            {form.formState.isSubmitting
+              ? "Sending Message..."
+              : "Send Message"}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 }

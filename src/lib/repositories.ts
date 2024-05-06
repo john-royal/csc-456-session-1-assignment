@@ -13,6 +13,7 @@ import {
   where,
 } from "firebase/firestore";
 
+import type { ContactInput } from "./schema";
 import { db } from "./firebase";
 
 type QueryBuilder = (
@@ -78,13 +79,7 @@ export interface User {
 
 export const users = new Repository<User>("users");
 
-export interface ContactEntry {
-  name: string;
-  email: string;
-  message: string;
-}
-
-export const contactEntries = new Repository<ContactEntry>("contactdata");
+export const contactEntries = new Repository<ContactInput>("contactdata");
 
 export interface Post {
   id: string;

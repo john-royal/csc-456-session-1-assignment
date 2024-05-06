@@ -1,81 +1,90 @@
-import React, { useState } from "react";
-
+import { Alert } from "~/components/ui/alert";
+import { Button } from "~/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useForm,
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
 import { useAuth } from "~/lib/auth";
-
-interface CreateAccountFormElement extends HTMLFormElement {
-  username: HTMLInputElement;
-  email: HTMLInputElement;
-  password: HTMLInputElement;
-}
+import { CreateAccountInput } from "~/lib/schema";
 
 export default function CreateAccountPage() {
   const { createAccount } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
 
-  const handleSubmit = async (
-    event: React.FormEvent<CreateAccountFormElement>,
-  ) => {
-    event.preventDefault();
-
-    setLoading(true);
-    setError(null);
-
-    const form = event.currentTarget;
-    try {
-      await createAccount({
-        email: form.email.value,
-        username: form.username.value,
-        password: form.password.value,
-      });
-    } catch (error) {
-      setError(
-        error instanceof Error ? error : new Error("An unknown error occurred"),
-      );
-    }
-
-    setLoading(false);
-  };
+  const form = useForm({
+    schema: CreateAccountInput,
+    defaultValues: {
+      email: "",
+      username: "",
+      password: "",
+    },
+  });
 
   return (
     <div className="bg-beige-100 flex h-screen items-center justify-center">
       <div className="w-full max-w-md rounded bg-white p-8 shadow-md">
         <h1 className="mb-8 text-center text-2xl font-bold">Sign Up Here</h1>
-        {error && <p className="text-red-500">{error.message}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <input
-              type="text"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(createAccount)}
+            className="space-y-4"
+          >
+            {form.formState.errors.root && (
+              <Alert variant="destructive">
+                {form.formState.errors.root.message}
+              </Alert>
+            )}
+            <FormField
+              control={form.control}
               name="username"
-              placeholder="Username"
-              className="input input-bordered w-full"
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="mb-4">
-            <input
-              type="email"
+            <FormField
+              control={form.control}
               name="email"
-              placeholder="Email"
-              className="input input-bordered w-full"
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="mb-4">
-            <input
-              type="password"
+            <FormField
+              control={form.control}
               name="password"
-              placeholder="Password"
-              className="input input-bordered w-full"
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="mt-8">
-            <button className="btn btn-primary w-full" disabled={loading}>
-              {loading ? "Creating Account..." : "I'm ready!"}
-            </button>
-          </div>
-        </form>
+            <Button type="submit" className="w-full">
+              {form.formState.isSubmitting
+                ? "Creating Account..."
+                : "Create Account"}
+            </Button>
+          </form>
+        </Form>
       </div>
     </div>
   );

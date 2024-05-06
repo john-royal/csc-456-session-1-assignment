@@ -13,6 +13,7 @@ import {
   //useSearchParams,
 } from "react-router-dom";
 
+import type { CreateAccountInput, SignInInput } from "./schema";
 import { auth } from "./firebase";
 import { users } from "./repositories";
 
@@ -37,7 +38,7 @@ export const useAuth = () => {
    * @param email
    * @param password
    */
-  const signIn = async (email: string, password: string) => {
+  const signIn = async ({ email, password }: SignInInput) => {
     await signInWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
     //const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
@@ -49,11 +50,7 @@ export const useAuth = () => {
    * @param email
    * @param password
    */
-  const createAccount = async (input: {
-    email: string;
-    username: string;
-    password: string;
-  }) => {
+  const createAccount = async (input: CreateAccountInput) => {
     await createUserWithEmailAndPassword(auth, input.email, input.password);
 
     // TODO: Use user.uid as the document ID instead of the email address.
