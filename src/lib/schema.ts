@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { z } from "zod";
 
 export const CreateAccountInput = z.object({
@@ -21,13 +22,14 @@ export const ContactInput = z.object({
 export type ContactInput = z.infer<typeof ContactInput>;
 
 export const Post = z.object({
-  id: z.string(),
+  id: z.string().default(nanoid),
   user: z.object({
     id: z.string(),
     username: z.string(),
     imageUrl: z.string().url().nullable(),
   }),
   imageUrl: z.string().url(),
+  createdAt: z.number().default(() => Date.now()),
 });
 export type Post = z.infer<typeof Post>;
 

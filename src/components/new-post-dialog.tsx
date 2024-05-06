@@ -24,7 +24,6 @@ export default function NewPostDialog(
   const form = useForm({
     schema: Post,
     defaultValues: {
-      id: user.email,
       user: {
         id: user.uid,
         username: user.username,
@@ -34,7 +33,7 @@ export default function NewPostDialog(
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    await posts.add(data);
+    await posts.set(data.id!, data as Post);
     props.onOpenChange?.(false);
   });
 
