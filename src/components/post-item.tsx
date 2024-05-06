@@ -9,23 +9,11 @@ interface PostItemProps {
 
 const PostItem: React.FC<PostItemProps> = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likeCount);
-  const [commentCount, setCommentCount] = useState(post.commentCount);
+  const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
   const [showComments, setShowComments] = useState(false);
   const [comments, setNewComment] = useState<string[]>([]);
   const [editingComment, setEditingComment] = useState("");
-
-  // Check if essential fields are present in the post object
-  if (
-    !post.id ||
-    !post.username ||
-    !post.petProfilePhoto ||
-    !post.petImage ||
-    post.likeCount === undefined ||
-    post.commentCount === undefined
-  ) {
-    throw new Error("Invalid post data: Essential fields are missing.");
-  }
 
   const handleLikeClick = () => {
     isLiked
@@ -53,14 +41,14 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     <div className="mb-4 rounded-md border border-gray-200 bg-white p-4">
       <div className="mb-2 flex items-center">
         <img
-          src={post.petProfilePhoto}
+          src={post.user.imageUrl}
           alt="Pet Profile"
           className="mr-2 h-12 w-12 rounded-full"
         />
-        <span>{post.username}</span>
+        <span>{post.user.username}</span>
       </div>
       <img
-        src={post.petImage}
+        src={post.imageUrl}
         alt="Pet"
         className="mb-2 h-full w-full rounded-md object-cover"
       />

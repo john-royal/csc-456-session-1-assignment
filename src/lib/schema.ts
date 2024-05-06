@@ -22,13 +22,12 @@ export type ContactInput = z.infer<typeof ContactInput>;
 
 export const Post = z.object({
   id: z.string(),
-  username: z.string(),
+  user: z.object({
+    id: z.string(),
+    username: z.string(),
+    imageUrl: z.string().url().optional(),
+  }),
   imageUrl: z.string().url(),
-  petProfilePhoto: z.string().url(),
-  petImage: z.string().url(),
-  likeCount: z.number(),
-  commentCount: z.number(),
-  comments: z.array(z.string()),
 });
 export type Post = z.infer<typeof Post>;
 

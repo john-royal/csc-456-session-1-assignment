@@ -1,74 +1,54 @@
 // HomePage.tsx
 import React from "react";
 
-import PostCard from "~/components/post-item";
+import type { Post } from "~/lib/schema";
+import PostItem from "~/components/post-item";
 
 const HomePage: React.FC = () => {
-  const posts = [
+  const posts: Post[] = [
     {
       id: "1",
-      username: "petlover123",
-      petProfilePhoto: "/images/catProf.png",
-      petImage: "/images/cat.png",
-      likeCount: 0,
-      commentCount: 0,
+      user: {
+        id: "1",
+        username: "petlover123",
+        imageUrl: "/images/catProf.png",
+      },
+      imageUrl: "/images/cat.png",
     },
     {
       id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
+      user: {
+        id: "2",
+        username: "furryfriends456",
+        imageUrl: "/images/dogProf.png",
+      },
+      imageUrl: "/images/dog.png",
     },
     {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
+      id: "3",
+      user: {
+        id: "1",
+        username: "petlover123",
+        imageUrl: "/images/catProf.png",
+      },
+      imageUrl: "/images/cat.png",
     },
     {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
+      id: "4",
+      user: {
+        id: "2",
+        username: "furryfriends456",
+        imageUrl: "/images/dogProf.png",
+      },
+      imageUrl: "/images/dog.png",
     },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    // Add more posts as needed
   ];
 
   return (
     <div className="flex items-center justify-center ">
       <div className="mt-5 w-4/12">
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <PostItem key={post.id} post={post} />
         ))}
       </div>
     </div>

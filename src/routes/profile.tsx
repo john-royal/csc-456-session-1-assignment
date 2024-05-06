@@ -109,13 +109,12 @@ const ProfilePage: React.FC = () => {
 
       await posts.add({
         id: user.email,
-        username: userData.username,
+        user: {
+          id: userData.email,
+          username: userData.username,
+          imageUrl: userData.profilePicURL,
+        },
         imageUrl: url,
-        petImage: "",
-        petProfilePhoto: "",
-        likeCount: 0,
-        commentCount: 0,
-        comments: [],
       });
 
       setSelectedImage(null);
