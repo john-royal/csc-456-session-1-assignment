@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { FaComment, FaHeart } from "react-icons/fa";
 
 import type { Post, UserProfile } from "~/lib/schema";
 import LoadingScreen from "~/components/loading";
+import PostItem from "~/components/post-item";
 import { useAuth } from "~/lib/auth";
 import { posts, users } from "~/lib/repositories";
 
@@ -126,14 +126,6 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const handleLikeCount = async (imageUrl: string) => {
-    //handle the count logic
-  };
-
-  const handleCommentClick = async (imageUrl: string) => {
-    // Handle comment click logic here
-  };
-
   if (!userData) {
     return <LoadingScreen />;
   }
@@ -227,29 +219,7 @@ const ProfilePage: React.FC = () => {
           <h2 className="mb-4 ml-4 mt-4 text-xl font-bold">Posts</h2>
           <div className="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 md:grid-cols-3">
             {userPosts.map((post, index) => (
-              <div key={index} className="rounded-md border p-4">
-                <img
-                  src={post.imageUrl}
-                  alt="Post"
-                  className="mt-2 h-60 w-full object-cover"
-                />
-                <div className="mt-2 flex justify-between">
-                  <div>
-                    <FaHeart
-                      className="mr-1 cursor-pointer"
-                      onClick={() => handleLikeCount(post.imageUrl)}
-                    />{" "}
-                    {post.likeCount}
-                  </div>
-                  <div>
-                    <FaComment
-                      className="mr-1 cursor-pointer"
-                      onClick={() => handleCommentClick(post.imageUrl)}
-                    />{" "}
-                    {post.commentCount}
-                  </div>
-                </div>
-              </div>
+              <PostItem key={index} post={post} />
             ))}
           </div>
         </div>

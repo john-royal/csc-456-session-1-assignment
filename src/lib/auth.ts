@@ -19,9 +19,7 @@ import { users } from "./repositories";
 //const DEFAULT_REDIRECT = "/"; // After you sign in, you'll be redirected to this page.
 const SIGN_IN_PATH = "/auth/sign-in";
 
-(async () => {
-  await auth.setPersistence(browserLocalPersistence);
-})();
+void auth.setPersistence(browserLocalPersistence);
 
 /**
  * A hook that provides authentication methods and the currently authenticated user.

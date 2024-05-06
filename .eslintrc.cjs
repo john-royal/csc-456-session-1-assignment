@@ -30,6 +30,8 @@ module.exports = {
         checksVoidReturn: { attributes: false },
       },
     ],
+    "react/prop-types": "off",
+    "react-refresh/only-export-components": "off",
   },
   settings: {
     react: {
