@@ -1,95 +1,90 @@
-import React, { useState } from "react";
-import { useAuth } from "../lib/auth";
-import {db} from '../lib/firebase';
-import {doc, setDoc, collection} from 'firebase/firestore';
-
-interface CreateAccountFormElement extends HTMLFormElement {
-  username: HTMLInputElement;
-  email: HTMLInputElement;
-  password: HTMLInputElement;
-}
+import { Alert } from "~/components/ui/alert";
+import { Button } from "~/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useForm,
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { useAuth } from "~/lib/auth";
+import { CreateAccountInput } from "~/lib/schema";
 
 export default function CreateAccountPage() {
-  const { createAccount} = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-  // const [username, setUsername] = useState("");
+  const { createAccount } = useAuth();
 
-  const userCollectionRef = collection(db, "users");
-
-  const handleSubmit = async (
-    event: React.FormEvent<CreateAccountFormElement>
-  ) => {
-    event.preventDefault();
-
-    setLoading(true);
-    setError(null);
-
-    const form = event.currentTarget;
-    const username = form.username.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    try {
-      await createAccount(email, password);
-    } catch (error) {
-      setError(
-        error instanceof Error ? error : new Error("An unknown error occurred")
-      );
-    }
-
-    setDoc(doc(userCollectionRef, email), {
-      username: username,
-      email: email,
-      bio: "No description Yet",
-      profilePicURL: ""
-    }).catch((error)=>{
-      console.log(error.message)
-    })
-
-    setLoading(false);
-  };
+  const form = useForm({
+    schema: CreateAccountInput,
+    defaultValues: {
+      email: "",
+      username: "",
+      password: "",
+    },
+  });
 
   return (
     <div className="bg-beige-100 flex h-screen items-center justify-center">
       <div className="w-full max-w-md rounded bg-white p-8 shadow-md">
         <h1 className="mb-8 text-center text-2xl font-bold">Sign Up Here</h1>
-        {error && <p className="text-red-500">{error.message}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <input
-              type="text"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(createAccount)}
+            className="space-y-4"
+          >
+            {form.formState.errors.root && (
+              <Alert variant="destructive">
+                {form.formState.errors.root.message}
+              </Alert>
+            )}
+            <FormField
+              control={form.control}
               name="username"
-              placeholder="Username"
-              className="input input-bordered w-full"
-              // value={username}
-              // onChange={(e) => setUsername(e.target.value)}
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="mb-4">
-            <input
-              type="email"
+            <FormField
+              control={form.control}
               name="email"
-              placeholder="Email"
-              className="input input-bordered w-full"
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="mb-4">
-            <input
-              type="password"
+            <FormField
+              control={form.control}
               name="password"
-              placeholder="Password"
-              className="input input-bordered w-full"
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="mt-8">
-            <button className="btn btn-primary w-full" disabled={loading}>
-              {loading ? "Creating Account..." : "I'm ready!"}
-            </button>
-          </div>
-        </form>
+            <Button type="submit" className="w-full">
+              {form.formState.isSubmitting
+                ? "Creating Account..."
+                : "Create Account"}
+            </Button>
+          </form>
+        </Form>
       </div>
     </div>
   );

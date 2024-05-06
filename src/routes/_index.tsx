@@ -1,74 +1,27 @@
-// HomePage.tsx
 import React from "react";
+import { useLoaderData } from "react-router";
 
-import PostList from "../components/PostList";
+import type { Post } from "~/lib/schema";
+import PostItem from "~/components/post-item";
+import { posts } from "~/lib/repositories";
+
+const loadPosts = async () => {
+  return await posts.list();
+};
 
 const HomePage: React.FC = () => {
-  const posts = [
-    {
-      id: "1",
-      username: "petlover123",
-      petProfilePhoto: "/images/catProf.png",
-      petImage: "/images/cat.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    {
-      id: "2",
-      username: "furryfriends456",
-      petProfilePhoto: "/images/dogProf.png",
-      petImage: "/images/dog.png",
-      likeCount: 0,
-      commentCount: 0,
-    },
-    // Add more posts as needed
-  ];
+  const posts = useLoaderData() as Post[];
 
   return (
     <div className="flex items-center justify-center ">
-      <PostList posts={posts} />
+      <div className="mt-5 w-4/12">
+        {posts.map((post) => (
+          <PostItem key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default HomePage;
+export { loadPosts };

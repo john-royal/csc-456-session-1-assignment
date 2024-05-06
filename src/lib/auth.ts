@@ -1,4 +1,3 @@
-import type { User } from "firebase/auth";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
@@ -10,18 +9,16 @@ import {
   useNavigate,
   useRevalidator,
   useRouteLoaderData,
-  //useSearchParams,
 } from "react-router-dom";
 
+import type { CreateAccountInput, SignInInput } from "./schema";
 import { auth } from "./firebase";
+import { users } from "./repositories";
 
 //const DEFAULT_REDIRECT = "/"; // After you sign in, you'll be redirected to this page.
 const SIGN_IN_PATH = "/auth/sign-in";
 
-(async () => {
-  await auth.setPersistence(browserLocalPersistence);
-  
-})();
+void auth.setPersistence(browserLocalPersistence);
 
 /**
  * A hook that provides authentication methods and the currently authenticated user.
@@ -37,7 +34,7 @@ export const useAuth = () => {
    * @param email
    * @param password
    */
-  const signIn = async (email: string, password: string) => {
+  const signIn = async ({ email, password }: SignInInput) => {
     await signInWithEmailAndPassword(auth, email, password);
     revalidator.revalidate();
     //const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
@@ -49,8 +46,15 @@ export const useAuth = () => {
    * @param email
    * @param password
    */
-  const createAccount = async (email: string, password: string) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+  const createAccount = async (input: CreateAccountInput) => {
+    await createUserWithEmailAndPassword(auth, input.email, input.password);
+
+    // TODO: Use user.uid as the document ID instead of the email address.
+    await users.set(input.email, {
+      username: input.username,
+      email: input.email,
+    });
+
     revalidator.revalidate();
     //const next = searchParams.get("next") ?? DEFAULT_REDIRECT;
     navigate("/");
@@ -77,7 +81,7 @@ export const useAuth = () => {
  * A React hook that returns the currently authenticated user, or `null` if the user is not authenticated.
  */
 export const useOptionalUser = () => {
-  return useRouteLoaderData("root") as User | null;
+  return useRouteLoaderData("root") as Awaited<ReturnType<typeof fetchUser>>;
 };
 
 /**
@@ -103,7 +107,15 @@ export const useUser = () => {
  */
 export const fetchUser = async () => {
   await auth.authStateReady();
-  return auth.currentUser;
+  const user = auth.currentUser;
+  if (!user) {
+    return null;
+  }
+  const profile = (await users.get(user.email!))!;
+  return {
+    ...user,
+    ...profile,
+  };
 };
 
 /**
