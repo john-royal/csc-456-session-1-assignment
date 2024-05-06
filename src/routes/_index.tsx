@@ -1,48 +1,16 @@
-// HomePage.tsx
 import React from "react";
+import { useLoaderData } from "react-router";
 
 import type { Post } from "~/lib/schema";
 import PostItem from "~/components/post-item";
+import { posts } from "~/lib/repositories";
+
+const loadPosts = async () => {
+  return await posts.list();
+};
 
 const HomePage: React.FC = () => {
-  const posts: Post[] = [
-    {
-      id: "1",
-      user: {
-        id: "1",
-        username: "petlover123",
-        imageUrl: "/images/catProf.png",
-      },
-      imageUrl: "/images/cat.png",
-    },
-    {
-      id: "2",
-      user: {
-        id: "2",
-        username: "furryfriends456",
-        imageUrl: "/images/dogProf.png",
-      },
-      imageUrl: "/images/dog.png",
-    },
-    {
-      id: "3",
-      user: {
-        id: "1",
-        username: "petlover123",
-        imageUrl: "/images/catProf.png",
-      },
-      imageUrl: "/images/cat.png",
-    },
-    {
-      id: "4",
-      user: {
-        id: "2",
-        username: "furryfriends456",
-        imageUrl: "/images/dogProf.png",
-      },
-      imageUrl: "/images/dog.png",
-    },
-  ];
+  const posts = useLoaderData() as Post[];
 
   return (
     <div className="flex items-center justify-center ">
@@ -56,3 +24,4 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+export { loadPosts };
