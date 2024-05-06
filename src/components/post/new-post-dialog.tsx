@@ -3,10 +3,15 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { useUser } from "~/lib/auth";
 import { posts } from "~/lib/repositories";
 import { Post } from "~/lib/schema";
-import ImageUploadButton from "./image-upload-button";
-import { Alert } from "./ui/alert";
-import { LoadingButton } from "./ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "./ui/dialog";
+import ImageUploadButton from "../image-upload-button";
+import { Alert } from "../ui/alert";
+import { LoadingButton } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "../ui/dialog";
 import {
   Form,
   FormControl,
@@ -15,7 +20,7 @@ import {
   FormLabel,
   FormMessage,
   useForm,
-} from "./ui/form";
+} from "../ui/form";
 
 export default function NewPostDialog(
   props: React.ComponentProps<typeof Dialog>,

@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
+import type { QueryBuilder } from "~/lib/repositories";
 import { useOptionalUser } from "~/lib/auth";
 import { comments } from "~/lib/repositories";
 import { Comment } from "~/lib/schema";
 import { cn } from "~/lib/ui";
-import { useFirestoreSubscription } from "~/lib/use-subscription";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button, LoadingButton } from "./ui/button";
+import { useSubscription } from "~/lib/use-subscription";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button, LoadingButton } from "../ui/button";
 import {
   Form,
   FormControl,
@@ -16,26 +17,11 @@ import {
   FormLabel,
   FormMessage,
   useForm,
-} from "./ui/form";
-import { Textarea } from "./ui/textarea";
+} from "../ui/form";
+import { Textarea } from "../ui/textarea";
 
 export default function PostComments({ postId }: { postId: string }) {
-  return (
-    <div>
-      <h2 className="sr-only">Comments</h2>
-      <CommentsList postId={postId} />
-      <NewCommentForm postId={postId} />
-    </div>
-  );
-}
-
-function CommentsList({ postId }: { postId: string }) {
-  const { data, error, status } = useFirestoreSubscription({
-    queryKey: ["comments", postId],
-    queryFn: (ref, { query, where, orderBy }) =>
-      query(ref, where("postId", "==", postId), orderBy("createdAt", "asc")),
-    repository: comments,
-  });
+  const { data, error, status } = useComments(postId);
 
   if (status === "pending") {
     return <p>Loading...</p>;
@@ -44,16 +30,31 @@ function CommentsList({ postId }: { postId: string }) {
   } else if (data.length === 0) {
     return <p>No comments yet</p>;
   }
+
   return (
-    <ul>
-      {data.map((comment) => (
-        <li key={comment.id}>
-          <CommentItem comment={comment} />
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul>
+        {data.map((comment) => (
+          <li key={comment.id}>
+            <CommentItem comment={comment} />
+          </li>
+        ))}
+      </ul>
+      <NewCommentForm postId={postId} />
+    </div>
   );
 }
+
+const useComments = (postId: string) => {
+  const qb: QueryBuilder = (ref, { query, where, orderBy }) =>
+    query(ref, where("postId", "==", postId), orderBy("createdAt", "asc"));
+
+  return useSubscription({
+    queryKey: ["comments", postId],
+    getInitialData: () => comments.list(qb),
+    getSubscription: (onValue) => comments.subscribe(qb, onValue),
+  });
+};
 
 function CommentItem({ comment }: { comment: Comment }) {
   return (

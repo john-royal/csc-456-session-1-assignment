@@ -1,34 +1,42 @@
-import type { z } from "zod";
 import { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  DefaultError,
+  QueryKey,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 
-import type { QueryBuilder, Repository } from "./repositories";
-
-export interface UseFirestoreSubscriptionOptions<
-  TKey extends string[],
-  TSchema extends z.AnyZodObject,
-  TData extends z.infer<TSchema>,
-> {
-  queryKey: TKey;
-  repository: Repository<TSchema, TData>;
-  queryFn: QueryBuilder;
+export interface UseSubscriptionOptions<
+  TQueryFnData = unknown,
+  TError = DefaultError,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+> extends Omit<
+    UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+    "queryFn"
+  > {
+  getInitialData: () => Promise<TQueryFnData>;
+  getSubscription: (
+    onValue: (data: TQueryFnData) => void,
+    onError: (error: TError) => void,
+  ) => () => void;
 }
 
-export const useFirestoreSubscription = <
-  TKey extends string[],
-  TSchema extends z.AnyZodObject,
-  TData extends z.infer<TSchema>,
+export const useSubscription = <
+  TQueryFnData = unknown,
+  TError = DefaultError,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
 >({
   queryKey,
-  queryFn,
-  repository,
-}: UseFirestoreSubscriptionOptions<TKey, TSchema, TData>) => {
+  getInitialData,
+  getSubscription,
+  ...queryOptions
+}: UseSubscriptionOptions<TData, TError, TData, TQueryKey>) => {
   const query = useQuery({
     queryKey,
-    queryFn: async () => {
-      const result = await repository.list(queryFn);
-      return result;
-    },
+    queryFn: getInitialData,
 
     // Refetching is disabled because the subscription updates the value in real-time.
     refetchInterval: false,
@@ -36,17 +44,24 @@ export const useFirestoreSubscription = <
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
+
+    ...queryOptions,
   });
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const unsubscribe = repository.subscribe(queryFn, (updateData) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
-      queryClient.setQueryData(queryKey, updateData as any);
-    });
+    const unsubscribe = getSubscription(
+      (data) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
+        queryClient.setQueryData(queryKey, data as any);
+      },
+      () => {
+        void queryClient.invalidateQueries({ queryKey });
+      },
+    );
 
     return unsubscribe;
-  }, [queryClient, repository, queryFn, queryKey]);
+  }, [queryClient, getSubscription, queryKey]);
 
   return query;
 };

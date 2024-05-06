@@ -53,3 +53,9 @@ export const Comment = z.object({
   createdAt: z.number().default(() => Date.now()),
 });
 export type Comment = z.infer<typeof Comment>;
+
+export const Like = z.object({
+  postId: z.string(),
+  userId: z.string(),
+});
+export type Like = z.infer<typeof Like>;

@@ -2,7 +2,7 @@ import React from "react";
 import { useLoaderData } from "react-router";
 
 import type { Post } from "~/lib/schema";
-import PostItem from "~/components/post-item";
+import PostItem from "~/components/post/post-item";
 import { posts } from "~/lib/repositories";
 
 const loadPosts = async () => {

@@ -16,7 +16,7 @@ import {
 import { z } from "zod";
 
 import { db } from "./firebase";
-import { Comment, ContactInput, Post, UserProfile } from "./schema";
+import { Comment, ContactInput, Like, Post, UserProfile } from "./schema";
 
 export type QueryBuilder = (
   collection: CollectionReference,
@@ -132,3 +132,5 @@ export const contactEntries = new Repository("contactdata", ContactInput);
 export const posts = new Repository("posts", Post);
 
 export const comments = new Repository("comments", Comment);
+
+export const likes = new Repository("likes", Like);
