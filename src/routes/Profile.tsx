@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { FaComment, FaHeart } from "react-icons/fa";
 
+import type { Post, UserProfile } from "~/lib/schema";
 import LoadingScreen from "~/components/loading";
 import { useAuth } from "~/lib/auth";
-import { Post, posts, User, users } from "~/lib/repositories";
+import { posts, users } from "~/lib/repositories";
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
@@ -15,7 +16,7 @@ const ProfilePage: React.FC = () => {
   const [submitPost, setSubmitPost] = useState(false);
   const [userPosts, setUserPosts] = useState<Post[]>([]);
 
-  const [userData, setUserData] = useState<User>();
+  const [userData, setUserData] = useState<UserProfile>();
 
   useEffect(() => {
     if (!user?.email) {
@@ -110,6 +111,8 @@ const ProfilePage: React.FC = () => {
         id: user.email,
         username: userData.username,
         imageUrl: url,
+        petImage: "",
+        petProfilePhoto: "",
         likeCount: 0,
         commentCount: 0,
         comments: [],

@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { FaComment, FaHeart } from "react-icons/fa";
 
-interface Post {
-  id: string;
-  username: string;
-  petProfilePhoto: string;
-  petImage: string;
-  likeCount: number;
-  commentCount: number;
-}
+import type { Post } from "~/lib/schema";
 
 interface PostCardProps {
   post: Post;

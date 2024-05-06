@@ -19,3 +19,23 @@ export const ContactInput = z.object({
   message: z.string().min(10),
 });
 export type ContactInput = z.infer<typeof ContactInput>;
+
+export const Post = z.object({
+  id: z.string(),
+  username: z.string(),
+  imageUrl: z.string().url(),
+  petProfilePhoto: z.string().url(),
+  petImage: z.string().url(),
+  likeCount: z.number(),
+  commentCount: z.number(),
+  comments: z.array(z.string()),
+});
+export type Post = z.infer<typeof Post>;
+
+export const UserProfile = z.object({
+  username: z.string(),
+  email: z.string().email(),
+  bio: z.string().optional(),
+  profilePicURL: z.string().url().optional(),
+});
+export type UserProfile = z.infer<typeof UserProfile>;

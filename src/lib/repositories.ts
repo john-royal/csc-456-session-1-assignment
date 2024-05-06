@@ -13,7 +13,7 @@ import {
   where,
 } from "firebase/firestore";
 
-import type { ContactInput } from "./schema";
+import type { ContactInput, Post, UserProfile } from "./schema";
 import { db } from "./firebase";
 
 type QueryBuilder = (
@@ -69,25 +69,8 @@ class Repository<T extends DocumentData> {
     return unsubscribe;
   }
 }
-
-export interface User {
-  username: string;
-  email: string;
-  bio?: string;
-  profilePicURL?: string;
-}
-
-export const users = new Repository<User>("users");
+export const users = new Repository<UserProfile>("users");
 
 export const contactEntries = new Repository<ContactInput>("contactdata");
-
-export interface Post {
-  id: string;
-  username: string;
-  imageUrl: string;
-  likeCount: number;
-  commentCount: number;
-  comments: string[];
-}
 
 export const posts = new Repository<Post>("posts");

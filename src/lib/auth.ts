@@ -10,7 +10,6 @@ import {
   useNavigate,
   useRevalidator,
   useRouteLoaderData,
-  //useSearchParams,
 } from "react-router-dom";
 
 import type { CreateAccountInput, SignInInput } from "./schema";

@@ -2,16 +2,8 @@
 //list of PostCard components and make them scrollable.
 import React from "react";
 
+import type { Post } from "~/lib/schema";
 import PostCard from "./PostCard";
-
-interface Post {
-  id: string;
-  username: string;
-  petProfilePhoto: string;
-  petImage: string;
-  likeCount: number;
-  commentCount: number;
-}
 
 interface PostListProps {
   posts: Post[];
