@@ -113,7 +113,7 @@ export const fetchUser = async () => {
   }
   const profile = (await users.get(user.email!))!;
   return {
-    ...user,
+    uid: user.uid,
     ...profile,
   };
 };

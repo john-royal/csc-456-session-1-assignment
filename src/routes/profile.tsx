@@ -34,7 +34,7 @@ const ProfilePage: React.FC = () => {
     );
     const unsubscribePosts = posts.subscribe(
       (collection, { query, where }) =>
-        query(collection, where("id", "==", user.email)),
+        query(collection, where("user.uid", "==", user.uid)),
       (data) => {
         setUserPosts(data);
       },
@@ -44,7 +44,7 @@ const ProfilePage: React.FC = () => {
       unsubscribeUser();
       unsubscribePosts();
     };
-  }, [user?.email]);
+  }, [user?.email, user?.uid]);
 
   if (!userData) {
     return <LoadingScreen />;
