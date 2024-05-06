@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChatBubbleLeftIcon, HeartIcon } from "@heroicons/react/20/solid";
 
 import type { Post } from "~/lib/schema";
+import PostComments from "./post-comments";
 
 interface PostItemProps {
   post: Post;
@@ -10,10 +11,7 @@ interface PostItemProps {
 const PostItem: React.FC<PostItemProps> = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  const [commentCount, setCommentCount] = useState(0);
   const [showComments, setShowComments] = useState(false);
-  const [comments, setNewComment] = useState<string[]>([]);
-  const [editingComment, setEditingComment] = useState("");
 
   const handleLikeClick = () => {
     isLiked
@@ -24,17 +22,6 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
 
   const handleCommentClick = () => {
     setShowComments(!showComments);
-  };
-
-  const handleCommentAddition = () => {
-    setNewComment((prev) => [...prev, editingComment]);
-    setCommentCount((prevCount) => prevCount + 1);
-  };
-
-  const handleEditingCommentChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
-    setEditingComment(event.target.value);
   };
 
   return (
@@ -63,31 +50,10 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
           className="flex items-center rounded-md bg-gray-300 px-4 py-2"
           onClick={handleCommentClick}
         >
-          <ChatBubbleLeftIcon className="mr-1 size-5" /> {commentCount}
+          <ChatBubbleLeftIcon className="size-5" />
         </button>
       </div>
-      {showComments && (
-        <div className="mt-4 rounded-md bg-gray-100 p-4">
-          Comments:
-          {comments.map((cmnt, index) => (
-            <div key={index}>
-              User {index + 1}: {cmnt}
-            </div>
-          ))}
-          <textarea
-            className="mt-2 w-full p-2"
-            placeholder="Add a comment..."
-            value={editingComment}
-            onChange={handleEditingCommentChange}
-          />
-          <button
-            className="flex items-center rounded-md bg-gray-300 px-4 py-2"
-            onClick={handleCommentAddition}
-          >
-            Post comment
-          </button>
-        </div>
-      )}
+      {showComments && <PostComments postId={post.id} />}
     </div>
   );
 };

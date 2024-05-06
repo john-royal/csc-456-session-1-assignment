@@ -3,7 +3,6 @@ import {
   CollectionReference,
   deleteDoc,
   doc,
-  DocumentData,
   getDoc,
   getDocs,
   onSnapshot,
@@ -17,9 +16,9 @@ import {
 import { z } from "zod";
 
 import { db } from "./firebase";
-import { ContactInput, Post, UserProfile } from "./schema";
+import { Comment, ContactInput, Post, UserProfile } from "./schema";
 
-type QueryBuilder = (
+export type QueryBuilder = (
   collection: CollectionReference,
   helpers: {
     query: typeof query;
@@ -28,7 +27,7 @@ type QueryBuilder = (
   },
 ) => Query;
 
-class Repository<
+export class Repository<
   TSchema extends z.AnyZodObject,
   TData extends z.infer<TSchema>,
 > {

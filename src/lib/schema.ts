@@ -40,3 +40,16 @@ export const UserProfile = z.object({
   profilePicURL: z.string().url().optional(),
 });
 export type UserProfile = z.infer<typeof UserProfile>;
+
+export const Comment = z.object({
+  id: z.string().default(nanoid),
+  postId: z.string(),
+  user: z.object({
+    id: z.string(),
+    username: z.string(),
+    imageUrl: z.string().url().nullable(),
+  }),
+  content: z.string(),
+  createdAt: z.number().default(() => Date.now()),
+});
+export type Comment = z.infer<typeof Comment>;
