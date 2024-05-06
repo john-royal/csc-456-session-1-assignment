@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { collection, doc, setDoc } from "firebase/firestore";
+
 import { useAuth } from "../lib/auth";
-import {db} from '../lib/firebase';
-import {doc, setDoc, collection} from 'firebase/firestore';
+import { db } from "../lib/firebase";
 
 interface CreateAccountFormElement extends HTMLFormElement {
   username: HTMLInputElement;
@@ -10,7 +11,7 @@ interface CreateAccountFormElement extends HTMLFormElement {
 }
 
 export default function CreateAccountPage() {
-  const { createAccount} = useAuth();
+  const { createAccount } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   // const [username, setUsername] = useState("");
@@ -18,7 +19,7 @@ export default function CreateAccountPage() {
   const userCollectionRef = collection(db, "users");
 
   const handleSubmit = async (
-    event: React.FormEvent<CreateAccountFormElement>
+    event: React.FormEvent<CreateAccountFormElement>,
   ) => {
     event.preventDefault();
 
@@ -33,7 +34,7 @@ export default function CreateAccountPage() {
       await createAccount(email, password);
     } catch (error) {
       setError(
-        error instanceof Error ? error : new Error("An unknown error occurred")
+        error instanceof Error ? error : new Error("An unknown error occurred"),
       );
     }
 
@@ -41,10 +42,10 @@ export default function CreateAccountPage() {
       username: username,
       email: email,
       bio: "No description Yet",
-      profilePicURL: ""
-    }).catch((error)=>{
-      console.log(error.message)
-    })
+      profilePicURL: "",
+    }).catch((error) => {
+      console.log(error.message);
+    });
 
     setLoading(false);
   };

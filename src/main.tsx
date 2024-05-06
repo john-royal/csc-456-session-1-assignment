@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./global.css";
-import Petsitter from "./routes/Petsitter"
+
 import Layout from "./components/layout";
 import LoadingScreen from "./components/loading";
 import { fetchUser, requireUser } from "./lib/auth";
@@ -11,6 +11,7 @@ import HomePage from "./routes/_index";
 import CreateAccountPage from "./routes/auth.create-account";
 import SignInPage from "./routes/auth.sign-in";
 import Contact from "./routes/Contact";
+import Petsitter from "./routes/Petsitter";
 import Profile from "./routes/Profile";
 
 const router = createBrowserRouter([
@@ -24,7 +25,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: requireUser,
-       
       },
       {
         path: "/auth/sign-in",
@@ -40,12 +40,12 @@ const router = createBrowserRouter([
         loader: requireUser,
       },
       {
-        path:"/Contact",
+        path: "/Contact",
         element: <Contact />,
         loader: requireUser,
       },
       {
-        path:"/Profile",
+        path: "/Profile",
         element: <Profile />,
         loader: requireUser,
       },

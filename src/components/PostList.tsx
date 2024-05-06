@@ -19,7 +19,7 @@ interface PostListProps {
 
 const PostList: React.FC<PostListProps> = ({ posts }) => {
   return (
-    <div className="w-4/12 mt-5">
+    <div className="mt-5 w-4/12">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}

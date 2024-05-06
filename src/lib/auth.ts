@@ -20,7 +20,6 @@ const SIGN_IN_PATH = "/auth/sign-in";
 
 (async () => {
   await auth.setPersistence(browserLocalPersistence);
-  
 })();
 
 /**

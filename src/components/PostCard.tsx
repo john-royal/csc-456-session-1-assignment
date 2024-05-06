@@ -23,12 +23,21 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const [editingComment, setEditingComment] = useState("");
 
   // Check if essential fields are present in the post object
-  if (!post.id || !post.username || !post.petProfilePhoto || !post.petImage || post.likeCount === undefined || post.commentCount === undefined) {
-    throw new Error('Invalid post data: Essential fields are missing.');
+  if (
+    !post.id ||
+    !post.username ||
+    !post.petProfilePhoto ||
+    !post.petImage ||
+    post.likeCount === undefined ||
+    post.commentCount === undefined
+  ) {
+    throw new Error("Invalid post data: Essential fields are missing.");
   }
 
   const handleLikeClick = () => {
-    isLiked ? setLikeCount(prevCount => prevCount - 1) : setLikeCount(prevCount => prevCount + 1);
+    isLiked
+      ? setLikeCount((prevCount) => prevCount - 1)
+      : setLikeCount((prevCount) => prevCount + 1);
     setIsLiked(!isLiked);
   };
 
@@ -37,16 +46,16 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   };
 
   const handleCommentAddition = () => {
-    setNewComment(prev => [...prev, editingComment]);
-    setCommentCount(prevCount => prevCount + 1)
+    setNewComment((prev) => [...prev, editingComment]);
+    setCommentCount((prevCount) => prevCount + 1);
   };
 
-  const writingComment = (event:any) => {
+  const writingComment = (event: any) => {
     setEditingComment(event.target.value);
-  }
+  };
 
   return (
-    <div className="mb-4 rounded-md border border-gray-200 p-4 bg-white">
+    <div className="mb-4 rounded-md border border-gray-200 bg-white p-4">
       <div className="mb-2 flex items-center">
         <img
           src={post.petProfilePhoto}
@@ -78,14 +87,22 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <div className="mt-4 rounded-md bg-gray-100 p-4">
           {/* Add comment section here */}
           Comments:
-            {comments.map(cmnt => <div>User {comments.indexOf(cmnt) + 1}: {cmnt}</div>)}
-            <textarea className="mt-2 p-2 w-full" placeholder="Add a comment..." onChange={writingComment}/>
-            <button
-              className="flex items-center px-4 py-2 bg-gray-300 rounded-md"
-              onClick={handleCommentAddition}
-            >
-              Post comment
-            </button>
+          {comments.map((cmnt) => (
+            <div>
+              User {comments.indexOf(cmnt) + 1}: {cmnt}
+            </div>
+          ))}
+          <textarea
+            className="mt-2 w-full p-2"
+            placeholder="Add a comment..."
+            onChange={writingComment}
+          />
+          <button
+            className="flex items-center rounded-md bg-gray-300 px-4 py-2"
+            onClick={handleCommentAddition}
+          >
+            Post comment
+          </button>
         </div>
       )}
     </div>
