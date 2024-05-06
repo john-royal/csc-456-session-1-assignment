@@ -1,7 +1,7 @@
 // HomePage.tsx
 import React from "react";
 
-import PostCard from "~/components/PostCard";
+import PostCard from "~/components/post-item";
 
 const HomePage: React.FC = () => {
   const posts = [
