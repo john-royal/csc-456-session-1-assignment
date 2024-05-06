@@ -30,8 +30,7 @@ type QueryBuilder = (
 
 class Repository<
   TSchema extends z.AnyZodObject,
-  TData extends z.infer<TSchema> & DocumentData = z.infer<TSchema> &
-    DocumentData,
+  TData extends z.infer<TSchema>,
 > {
   collection: CollectionReference;
 
@@ -46,12 +45,19 @@ class Repository<
     return doc(this.collection, id);
   }
 
-  async get(id: string) {
+  async get(id: string): Promise<TData | null> {
     const doc = await getDoc(this.doc(id));
     const data = doc.data();
     if (data) {
       const result = this.schema.safeParse(data);
-      return result.success ? result.data : null;
+      if (result.success) {
+        return result.data as TData;
+      } else {
+        console.warn(
+          `The query for "${this.collection.path}/${id}" returned null because the document is invalid:`,
+          result.error.flatten(),
+        );
+      }
     }
     return null;
   }
@@ -95,6 +101,11 @@ class Repository<
       const result = this.schema.safeParse(data);
       if (result.success) {
         items.push(result.data as TData);
+      } else {
+        console.warn(
+          `A query for "${this.collection.path}" returned document "${doc.id}", which is invalid. The document will be omitted from the returned result.`,
+          result.error.flatten(),
+        );
       }
     });
     return items;
