@@ -38,3 +38,19 @@ export const UserProfile = z.object({
   profilePicURL: z.string().url().optional(),
 });
 export type UserProfile = z.infer<typeof UserProfile>;
+
+
+export const Petsitter = z.object({
+  id: z.string(),
+  username: z.string(),
+  name: z.string().min(3),
+  email: z.string().email(),
+  location: z.string(),
+  hourlyRate: z.string(),
+  yearExperience: z.string(),
+  petExperience: z.string(),
+  bio: z.string().optional(),
+  profilePicURL: z.string().url().optional(),
+ 
+});
+export type Petsitter = z.infer<typeof Petsitter>;

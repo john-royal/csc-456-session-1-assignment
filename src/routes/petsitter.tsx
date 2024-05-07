@@ -1,349 +1,234 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
+import { Petsitter } from "~/lib/schema";
+import { petsitters } from "~/lib/repositories";
+import { Button } from "~/components/ui/button";
+import NewPetsitterDialog from "~/components/new-petsitter-dialog";
+import { useAuth } from "~/lib/auth";
 
-interface PetSitter {
-  id: number;
-  name: string;
-  location: string;
-  petExperience: string;
-  yearsOfExperience: number;
-  hourlyRate: number;
-  description: string;
-}
 
-const dummyPetSitters: PetSitter[] = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    location: "New York",
-    petExperience: "Dogs, Cats",
-    yearsOfExperience: 5,
-    hourlyRate: 20,
-    description:
-      "Loves pets and taking care of them. Great with dogs and cats.",
-  },
-  {
-    id: 2,
-    name: "Bob Smith",
-    location: "Los Angeles",
-    petExperience: "Birds, Reptiles",
-    yearsOfExperience: 3,
-    hourlyRate: 15,
-    description:
-      "Specializes in exotic pets like birds and reptiles. Friendly and experienced.",
-  },
-  {
-    id: 3,
-    name: "Charlie Williams",
-    location: "Chicago",
-    petExperience: "Dogs, Cats, Birds",
-    yearsOfExperience: 8,
-    hourlyRate: 25,
-    description:
-      "Very experienced with many types of pets. Loves spending time with them.",
-  },
-  {
-    id: 4,
-    name: "Diana King",
-    location: "San Francisco",
-    petExperience: "Dogs, Cats, Birds, Fish",
-    yearsOfExperience: 7,
-    hourlyRate: 22,
-    description:
-      "Reliable pet sitter with experience in multiple types of pets.",
-  },
-  {
-    id: 5,
-    name: "Evan Green",
-    location: "Miami",
-    petExperience: "Dogs, Cats, Fish",
-    yearsOfExperience: 4,
-    hourlyRate: 18,
-    description:
-      "Passionate about pets and enjoys taking care of them. Great with cats and fish.",
-  },
-  {
-    id: 6,
-    name: "Fiona White",
-    location: "New York",
-    petExperience: "Dogs, Cats, Birds, Reptiles",
-    yearsOfExperience: 10,
-    hourlyRate: 28,
-    description:
-      "Extremely experienced pet sitter with a focus on high-quality care.",
-  },
-  {
-    id: 7,
-    name: "George Lee",
-    location: "Los Angeles",
-    petExperience: "Dogs, Birds",
-    yearsOfExperience: 6,
-    hourlyRate: 19,
-    description:
-      "Friendly and reliable pet sitter with great reviews. Loves dogs and birds.",
-  },
-  {
-    id: 8,
-    name: "Hannah Patel",
-    location: "Chicago",
-    petExperience: "Cats, Birds, Reptiles",
-    yearsOfExperience: 9,
-    hourlyRate: 26,
-    description: "Great with small and exotic animals. Caring and attentive.",
-  },
-  {
-    id: 9,
-    name: "Isabella Scott",
-    location: "San Francisco",
-    petExperience: "Dogs, Cats, Birds",
-    yearsOfExperience: 7,
-    hourlyRate: 23,
-    description:
-      "Expert pet sitter with many satisfied clients. Loves caring for pets.",
-  },
-  {
-    id: 10,
-    name: "Jack Wilson",
-    location: "Miami",
-    petExperience: "Dogs, Cats",
-    yearsOfExperience: 3,
-    hourlyRate: 15,
-    description: "Young but skilled pet sitter with a love for dogs and cats.",
-  },
-  {
-    id: 11,
-    name: "Kara Baker",
-    location: "New York",
-    petExperience: "Cats, Birds, Fish",
-    yearsOfExperience: 5,
-    hourlyRate: 20,
-    description:
-      "Loves animals of all kinds and has great experience caring for them.",
-  },
-  {
-    id: 12,
-    name: "Liam Rodriguez",
-    location: "Los Angeles",
-    petExperience: "Dogs, Cats, Birds, Fish",
-    yearsOfExperience: 4,
-    hourlyRate: 18,
-    description:
-      "Friendly pet sitter with experience in a variety of animals. Highly recommended.",
-  },
-  {
-    id: 13,
-    name: "Maya Kim",
-    location: "Chicago",
-    petExperience: "Dogs, Cats, Birds, Reptiles",
-    yearsOfExperience: 7,
-    hourlyRate: 23,
-    description:
-      "Knowledgeable pet sitter with a passion for animals. Great with all pets.",
-  },
-  {
-    id: 14,
-    name: "Nathan Clark",
-    location: "San Francisco",
-    petExperience: "Dogs, Cats, Birds",
-    yearsOfExperience: 10,
-    hourlyRate: 27,
-    description:
-      "Veteran pet sitter with lots of experience. Reliable and trustworthy.",
-  },
-  {
-    id: 15,
-    name: "Olivia Morris",
-    location: "Miami",
-    petExperience: "Cats, Birds, Reptiles",
-    yearsOfExperience: 5,
-    hourlyRate: 20,
-    description:
-      "Loves caring for pets and providing them with great attention and care.",
-  },
-  {
-    id: 16,
-    name: "Peter Turner",
-    location: "New York",
-    petExperience: "Dogs, Cats, Fish",
-    yearsOfExperience: 6,
-    hourlyRate: 22,
-    description:
-      "Passionate about animal welfare and enjoys spending time with pets.",
-  },
-  {
-    id: 17,
-    name: "Quinn Walker",
-    location: "Los Angeles",
-    petExperience: "Cats, Birds",
-    yearsOfExperience: 4,
-    hourlyRate: 18,
-    description: "Enjoys caring for cats and birds. Friendly and attentive.",
-  },
-  {
-    id: 18,
-    name: "Rachel Bennett",
-    location: "Chicago",
-    petExperience: "Dogs, Cats, Fish",
-    yearsOfExperience: 8,
-    hourlyRate: 24,
-    description: "Experienced with different pets and loves caring for them.",
-  },
-  {
-    id: 19,
-    name: "Samuel Johnson",
-    location: "San Francisco",
-    petExperience: "Dogs, Cats",
-    yearsOfExperience: 6,
-    hourlyRate: 20,
-    description:
-      "Loves caring for dogs and cats and is very reliable and friendly.",
-  },
-  {
-    id: 20,
-    name: "Tara Cooper",
-    location: "Miami",
-    petExperience: "Birds, Reptiles",
-    yearsOfExperience: 4,
-    hourlyRate: 17,
-    description:
-      "Specializes in exotic pets and is very knowledgeable about their care.",
-  },
-];
+const PetSitter: React.FC = () => {
+  const { user } = useAuth();
 
-const availableLocations = ["New York", "Los Angeles", "Chicago"];
+  const [petSitters, setPetSitters] = useState<Petsitter[]>([]);
+  const [selectedPetSitter, setSelectedPetSitter] = useState<Petsitter | null>(null);
 
-const Petsitter: React.FC = () => {
-  const [petSitters] = useState<PetSitter[]>(dummyPetSitters);
-  const [locationFilter, setLocationFilter] = useState("");
-  const [minExperienceFilter, setMinExperienceFilter] = useState<number>(0);
-  const [maxExperienceFilter, setMaxExperienceFilter] = useState<number>(10);
-  const [selectedPetSitter, setSelectedPetSitter] = useState<PetSitter | null>(
-    null,
-  );
+  const [isUserPetSitter, setIsUserPetSitter] = useState(false);
 
-  const applyFilters = (): PetSitter[] => {
-    return petSitters.filter((ps) => {
-      const locationMatch =
-        locationFilter === "" || ps.location === locationFilter;
-      const experienceMatch =
-        ps.yearsOfExperience >= minExperienceFilter &&
-        ps.yearsOfExperience <= maxExperienceFilter;
-      return locationMatch && experienceMatch;
-    });
+  const [isPostDialogOpen, setPostDialogOpen] = useState(false);
+
+
+  // Filter states
+  const [locationFilter, setLocationFilter] = useState<string>("");
+  const [maxHourlyRateFilter, setMaxHourlyRateFilter] = useState<number | null>(null);
+  const [minYearsExperienceFilter, setMinYearsExperienceFilter] = useState<number | null>(null);
+
+  // // Function to fetch pet sitters data from Firebase
+  const fetchPetSitters = async () => {
+    try {
+      const petSittersData = await petsitters.list();
+      setPetSitters(petSittersData);
+    } catch (error) {
+      console.error("Error fetching pet sitters:", error);
+    }
   };
 
-  const filteredPetSitters = applyFilters();
+  useEffect(() => {
+    fetchPetSitters();
+  }, []);
+
+  
+
+  // Filter the list 
+  const filteredPetSitters = petSitters.filter((petSitter) => {
+    if (locationFilter && !petSitter.location.toLowerCase().includes(locationFilter)) {
+      return false;
+    }
+
+    if (maxHourlyRateFilter !== null && parseFloat(petSitter.hourlyRate) > maxHourlyRateFilter) {
+      return false;
+    }
+
+    if (minYearsExperienceFilter !== null && parseFloat(petSitter.yearExperience) < minYearsExperienceFilter) {
+      return false;
+    }
+
+    return true;
+  });
+
+  useEffect(() => {
+    // Reset selected pet sitter if the filtered list is empty
+    if (filteredPetSitters.length === 0) {
+      setSelectedPetSitter(null);
+    }
+  }, [filteredPetSitters]);
+
+  const checkIfUserIsPetSitter = async () => {
+    try {
+      const petSitter = await petsitters.get(user.uid);
+      setIsUserPetSitter(!!petSitter);
+    } catch (error) {
+      console.error("Error checking if user is a pet sitter:", error);
+    }
+
+  };
+
+  useEffect(() => {
+    // Check if the current user is a pet sitter
+  
+    if (user) {
+      checkIfUserIsPetSitter();
+    }
+
+  }, []);
+
+  const handleRemoveFromPetSitters = async () => {
+    //remove the current user from the list of pet sitters
+    try {
+      await petsitters.del(user.uid);
+      setIsUserPetSitter(false);
+      fetchPetSitters();
+    } catch (error) {
+      console.error("Error removing user from pet sitters:", error);
+    }
+
+  };
+
+  const handleAddToPetSitters = () => {
+    fetchPetSitters();
+    setIsUserPetSitter(true);
+  };
+
+
+  const handleResetFilter = () => {
+    setLocationFilter("")
+    setMaxHourlyRateFilter(null)
+    setMinYearsExperienceFilter(null)
+    fetchPetSitters();
+  };
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-3">
-      {/* Filters column */}
-      <div className="col-span-1 rounded-lg border p-4">
-        <h2 className="mb-4 text-xl font-semibold">Filters</h2>
+    <div>
 
-        {/* Location Filter */}
-        <div className="mb-4">
-          <label className="mb-2 block font-semibold">Location:</label>
-          {availableLocations.map((location) => (
-            <div key={location} className="mb-2">
-              <input
-                type="radio"
-                id={location}
-                name="location"
-                value={location}
-                checked={locationFilter === location}
-                onChange={(e) => setLocationFilter(e.target.value)}
-                className="mr-2"
-              />
-              <label htmlFor={location}>{location}</label>
-            </div>
-          ))}
-        </div>
+      <NewPetsitterDialog open={isPostDialogOpen} onOpenChange={setPostDialogOpen} onAdd={handleAddToPetSitters}/>
+      <div className="flex justify-end mt-4 mb-4 mr-10">
 
-        {/* Min Experience Filter */}
-        <div className="mb-4">
-          <label className="mb-2 block font-semibold">
-            Min Years of Experience:
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="20"
-            value={minExperienceFilter}
-            onChange={(e) => setMinExperienceFilter(Number(e.target.value))}
-            className="w-full"
-          />
-          <p>{minExperienceFilter} years</p>
-        </div>
-
-        {/* Max Experience Filter */}
-        <div className="mb-4">
-          <label className="mb-2 block font-semibold">
-            Max Years of Experience:
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="20"
-            value={maxExperienceFilter}
-            onChange={(e) => setMaxExperienceFilter(Number(e.target.value))}
-            className="w-full"
-          />
-          <p>{maxExperienceFilter} years</p>
-        </div>
-      </div>
-
-      {/* List of Pet Sitters */}
-      <div className="col-span-1 rounded-lg border p-4 lg:col-span-1">
-        <h2 className="mb-4 text-xl font-semibold">Pet Sitters</h2>
-        <ul>
-          {filteredPetSitters.map((ps) => (
-            <li
-              key={ps.id}
-              onClick={() => setSelectedPetSitter(ps)}
-              className="cursor-pointer border-b px-4 py-2 hover:bg-gray-100"
-            >
-              <strong>{ps.name}</strong> - {ps.location}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Pet Sitter Details */}
-      <div className="col-span-1 rounded-lg border p-4 lg:col-span-1">
-        {selectedPetSitter ? (
-          <>
-            <h2 className="mb-4 text-xl font-semibold">Pet Sitter Details</h2>
-            <p>
-              <strong>Name:</strong> {selectedPetSitter.name}
-            </p>
-            <p>
-              <strong>Location:</strong> {selectedPetSitter.location}
-            </p>
-            <p>
-              <strong>Pet Experience:</strong> {selectedPetSitter.petExperience}
-            </p>
-            <p>
-              <strong>Years of Experience:</strong>{" "}
-              {selectedPetSitter.yearsOfExperience}
-            </p>
-            <p>
-              <strong>Hourly Rate:</strong> {selectedPetSitter.hourlyRate}$/hr
-            </p>
-            <p>
-              <strong>Description:</strong> {selectedPetSitter.description}
-            </p>
-            <button
-              onClick={() => alert(`Message sent to ${selectedPetSitter.name}`)}
-              className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
-            >
-              Message Pet Sitter
-            </button>
-          </>
-        ) : (
-          <p>Select a pet sitter to see details.</p>
+        {!isUserPetSitter && (
+          <Button onClick={() => setPostDialogOpen(true)}>
+            Become a Petsitter!
+          </Button>
         )}
+        {isUserPetSitter && (
+          <Button onClick={handleRemoveFromPetSitters}>Remove Yourself from Pet Sitters</Button>
+        )}
+      </div>
+    
+
+      <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-3">
+
+        {/* Filter options */}
+        <div>
+          <h2>Filter Options</h2>
+          <input 
+            type="text" 
+            placeholder="Location" 
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+          />
+          
+          <div>
+            <label className="mb-2 block font-semibold">
+              Max Hourly Pay:
+            </label>
+              <input
+                type="range"
+                min="0"
+                max="200"
+                value={maxHourlyRateFilter || 0}
+                onChange={(e) => setMaxHourlyRateFilter(Number(e.target.value))}
+              />
+              <p>${maxHourlyRateFilter}</p>
+          </div>
+
+
+          <div>
+            <label className="mb-2 block font-semibold">
+              Min Years of Experience:
+            </label>
+          
+            <input 
+              type="range" 
+              min="0"
+              max="100"
+              value={minYearsExperienceFilter || 0}
+              onChange={(e) => setMinYearsExperienceFilter(Number(e.target.value))}
+            />
+            <p>{minYearsExperienceFilter} years</p>
+
+          </div>
+
+          <Button className="mt-5" onClick={handleResetFilter}>
+            Reset Filter
+          </Button>
+        </div>
+        
+        {/* List of Pet Sitters */}
+        <div className="col-span-1 rounded-lg border p-4 lg:col-span-1">
+          <h2 className="mb-4 text-xl font-semibold">Pet Sitters</h2>
+          {filteredPetSitters.length === 0 ? (
+            <p>No results found.</p>
+          ) : (
+            <ul>
+              {filteredPetSitters.map((ps) => (
+                <li
+                  key={ps.id}
+                  onClick={() => setSelectedPetSitter(ps)}
+                  className="cursor-pointer border-b px-4 py-2 hover:bg-gray-100"
+                >
+                  <strong>{ps.name}</strong> - {ps.location}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Pet Sitter Details */}
+        <div className="col-span-1 rounded-lg border p-4 lg:col-span-1">
+          {selectedPetSitter ? (
+            <>
+              <h2 className="mb-4 text-xl font-semibold">Pet Sitter Details</h2>
+              <p>
+                <strong>Name:</strong> {selectedPetSitter.name}
+              </p>
+              <p>
+                <strong>Location:</strong> {selectedPetSitter.location}
+              </p>
+              <p>
+                <strong>Pet Experience:</strong>{" "}
+                {selectedPetSitter.petExperience}
+              </p>
+              <p>
+                <strong>Years of Experience:</strong>{" "}
+                {selectedPetSitter.yearExperience}
+              </p>
+              <p>
+                <strong>Hourly Rate:</strong> ${selectedPetSitter.hourlyRate}/hr
+              </p>
+              <p>
+                <strong>Description:</strong> {selectedPetSitter.bio}
+              </p>
+
+              <Button className="mt-5" onClick={() => alert(`Message sent to ${selectedPetSitter.name}`)}>
+                Send a Message
+             </Button>
+              
+            </>
+          ) : (
+            <p>Select a pet sitter to see details.</p>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Petsitter;
+export default PetSitter;

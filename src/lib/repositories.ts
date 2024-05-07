@@ -17,7 +17,7 @@ import {
 import { z } from "zod";
 
 import { db } from "./firebase";
-import { ContactInput, Post, UserProfile } from "./schema";
+import { ContactInput, Post, UserProfile, Petsitter } from "./schema";
 
 type QueryBuilder = (
   collection: CollectionReference,
@@ -105,3 +105,5 @@ export const users = new Repository("users", UserProfile);
 export const contactEntries = new Repository("contactdata", ContactInput);
 
 export const posts = new Repository("posts", Post);
+
+export const petsitters = new Repository("petsitters", Petsitter);
