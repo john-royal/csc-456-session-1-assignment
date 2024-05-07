@@ -1,5 +1,9 @@
-name: SST workflow
-on: push
+name: SST
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 concurrency:
   group: merge-${{ github.ref }}
@@ -26,4 +30,4 @@ jobs:
         run: curl -fsSL https://ion.sst.dev/install | bash
       - name: Deploy app
         run: |
-          sst deploy --stage prod
+          sst deploy --stage ${{ github.ref == 'refs/heads/main' && 'prod' || github.ref_name }}
