@@ -17,7 +17,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::496131963451:role/GitHub-Paw
+          role-to-assume: arn:aws:iam::496131963451:role/GitHub
           role-duration-seconds: 14390
           aws-region: us-east-1
       - name: Deploy app
