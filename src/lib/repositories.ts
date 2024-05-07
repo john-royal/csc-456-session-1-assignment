@@ -30,8 +30,7 @@ type QueryBuilder = (
 
 class Repository<
   TSchema extends z.AnyZodObject,
-  TData extends z.infer<TSchema> & DocumentData = z.infer<TSchema> &
-    DocumentData,
+  TData extends z.infer<TSchema>,
 > {
   collection: CollectionReference;
 
@@ -51,7 +50,7 @@ class Repository<
     const data = doc.data();
     if (data) {
       const result = this.schema.safeParse(data);
-      return result.success ? result.data : null;
+      return result.success ? (result.data as TData) : null;
     }
     return null;
   }
