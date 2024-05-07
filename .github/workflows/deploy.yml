@@ -20,6 +20,8 @@ jobs:
           role-to-assume: arn:aws:iam::496131963451:role/GitHub
           role-duration-seconds: 3600
           aws-region: us-east-1
+      - name: Install dependencies
+        run: npm i && npm i -g sst@ion
       - name: Deploy app
         run: |
-          npm i && npm run deploy:prod
+          sst deploy --stage prod
