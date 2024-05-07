@@ -30,4 +30,4 @@ jobs:
         run: curl -fsSL https://ion.sst.dev/install | bash
       - name: Deploy app
         run: |
-          sst deploy --stage ${{ github.ref == 'refs/heads/main' && 'prod' || github.ref_name }}
+          sst deploy --stage ${{ github.ref == 'refs/heads/main' && 'prod' || github.head_ref }}
