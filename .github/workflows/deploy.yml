@@ -21,7 +21,9 @@ jobs:
           role-duration-seconds: 3600
           aws-region: us-east-1
       - name: Install dependencies
-        run: npm i && npm i -g sst@ion
+        run: npm i
+      - name: Install SST
+        run: curl -fsSL https://ion.sst.dev/install | bash
       - name: Deploy app
         run: |
           sst deploy --stage prod
