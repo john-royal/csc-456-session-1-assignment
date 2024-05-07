@@ -13,8 +13,7 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
-import { contactEntries } from "~/lib/repositories";
-import { ContactInput } from "~/lib/schema";
+import { ContactInput, contactRepository } from "~/data/contact";
 
 function Contact() {
   const form = useForm({
@@ -28,7 +27,7 @@ function Contact() {
 
   const [showToast, setShowToast] = useState(false);
   const handleSubmit = form.handleSubmit(async (data) => {
-    await contactEntries.add(data);
+    await contactRepository.add(data);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 10_000);
   });

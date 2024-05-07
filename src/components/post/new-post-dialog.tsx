@@ -1,8 +1,7 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
 
+import { Post, postsRepository } from "~/data/post";
 import { useUser } from "~/lib/auth";
-import { posts } from "~/lib/repositories";
-import { Post } from "~/lib/schema";
 import ImageUploadButton from "../image-upload-button";
 import { Alert } from "../ui/alert";
 import { LoadingButton } from "../ui/button";
@@ -38,7 +37,7 @@ export default function NewPostDialog(
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    await posts.set(data.id!, data as Post);
+    await postsRepository.set(data.id!, data as Post);
     props.onOpenChange?.(false);
   });
 

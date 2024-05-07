@@ -1,8 +1,7 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
 
+import { UserProfile, usersRepository } from "~/data/user";
 import { useUser } from "~/lib/auth";
-import { users } from "~/lib/repositories";
-import { UserProfile } from "~/lib/schema";
 import ImageUploadButton from "./image-upload-button";
 import { Alert } from "./ui/alert";
 import { LoadingButton } from "./ui/button";
@@ -34,7 +33,7 @@ export default function EditProfileDialog(
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    await users.set(user.email, data);
+    await usersRepository.set(user.email, data);
     props.onOpenChange?.(false); // Close the dialog
   });
 

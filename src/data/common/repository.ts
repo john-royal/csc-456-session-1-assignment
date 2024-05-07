@@ -15,8 +15,7 @@ import {
 } from "firebase/firestore";
 import { z } from "zod";
 
-import { db } from "./firebase";
-import { Comment, ContactInput, Like, Post, UserProfile } from "./schema";
+import { db } from "~/lib/firebase";
 
 export type QueryBuilder = (
   collection: CollectionReference,
@@ -125,12 +124,3 @@ export class Repository<
     return items;
   }
 }
-export const users = new Repository("users", UserProfile);
-
-export const contactEntries = new Repository("contactdata", ContactInput);
-
-export const posts = new Repository("posts", Post);
-
-export const comments = new Repository("comments", Comment);
-
-export const likes = new Repository("likes", Like);

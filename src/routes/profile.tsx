@@ -1,52 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import type { Post, UserProfile } from "~/lib/schema";
 import EditProfileDialog from "~/components/edit-profile-dialog";
 import LoadingScreen from "~/components/loading";
 import NewPostDialog from "~/components/post/new-post-dialog";
 import PostItem from "~/components/post/post-item";
 import { Button } from "~/components/ui/button";
-import { useAuth } from "~/lib/auth";
-import { posts, users } from "~/lib/repositories";
+import { usePostsByUser } from "~/data/post";
+import { useUser } from "~/lib/auth";
 
 const ProfilePage: React.FC = () => {
-  const { user } = useAuth();
+  const user = useUser();
+  const userPosts = usePostsByUser(user.uid);
 
   const [isPostDialogOpen, setPostDialogOpen] = useState(false);
   const [isEditingProfile, setEditingProfile] = useState(false);
 
-  // State to manage edit mode
-  const [userPosts, setUserPosts] = useState<Post[]>([]);
-
-  const [userData, setUserData] = useState<UserProfile>();
-
-  useEffect(() => {
-    if (!user?.email) {
-      return;
-    }
-
-    const unsubscribeUser = users.subscribe(
-      (collection, { query, where }) =>
-        query(collection, where("email", "==", user.email)),
-      (data) => {
-        setUserData(data[0]);
-      },
-    );
-    const unsubscribePosts = posts.subscribe(
-      (collection, { query, where }) =>
-        query(collection, where("user.uid", "==", user.uid)),
-      (data) => {
-        setUserPosts(data);
-      },
-    );
-
-    return () => {
-      unsubscribeUser();
-      unsubscribePosts();
-    };
-  }, [user?.email, user?.uid]);
-
-  if (!userData) {
+  if (!userPosts.data) {
     return <LoadingScreen />;
   }
 
@@ -72,8 +41,8 @@ const ProfilePage: React.FC = () => {
                 />
               </div>
               <div className="mb-4 text-center">
-                <h1 className="mb-2 text-2xl font-bold">{userData.username}</h1>
-                <p className="mt-2">{userData.bio}</p>
+                <h1 className="mb-2 text-2xl font-bold">{user.username}</h1>
+                <p className="mt-2">{user.bio}</p>
               </div>
               <div className="mx-auto flex w-fit gap-x-2">
                 <Button onClick={() => setEditingProfile(true)}>
@@ -88,7 +57,7 @@ const ProfilePage: React.FC = () => {
           <div className="overflow-hidden rounded-xl bg-white shadow-md">
             <h2 className="mb-4 ml-4 mt-4 text-xl font-bold">Posts</h2>
             <div className="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 md:grid-cols-3">
-              {userPosts.map((post, index) => (
+              {userPosts.data.map((post, index) => (
                 <PostItem key={index} post={post} />
               ))}
             </div>

@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
-import type { QueryBuilder } from "~/lib/repositories";
+import { Comment, commentsRepository, useComments } from "~/data/comment";
 import { useOptionalUser } from "~/lib/auth";
-import { comments } from "~/lib/repositories";
-import { Comment } from "~/lib/schema";
 import { cn } from "~/lib/ui";
-import { useSubscription } from "~/lib/use-subscription";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button, LoadingButton } from "../ui/button";
 import {
@@ -44,17 +41,6 @@ export default function PostComments({ postId }: { postId: string }) {
     </div>
   );
 }
-
-const useComments = (postId: string) => {
-  const qb: QueryBuilder = (ref, { query, where, orderBy }) =>
-    query(ref, where("postId", "==", postId), orderBy("createdAt", "asc"));
-
-  return useSubscription({
-    queryKey: ["comments", postId],
-    getInitialData: () => comments.list(qb),
-    getSubscription: (onValue) => comments.subscribe(qb, onValue),
-  });
-};
 
 function CommentItem({ comment }: { comment: Comment }) {
   return (
@@ -101,7 +87,7 @@ function NewCommentForm({ postId }: { postId: string }) {
 
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
-      await comments.set(data.id!, data as Comment);
+      await commentsRepository.set(data.id!, data as Comment);
       form.reset();
     } catch (error) {
       toast.error("Failed to post comment", {

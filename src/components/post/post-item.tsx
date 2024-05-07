@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ChatBubbleLeftIcon, HeartIcon } from "@heroicons/react/20/solid";
 
-import type { Post } from "~/lib/schema";
-import { useLike } from "./like-button";
+import type { Post } from "~/data/post";
+import { useLikes } from "~/data/like";
 import PostComments from "./post-comments";
 
 interface PostItemProps {
@@ -10,7 +10,7 @@ interface PostItemProps {
 }
 
 const PostItem: React.FC<PostItemProps> = ({ post }) => {
-  const { isLiked, likeCount, handleLikeClick } = useLike(post.id);
+  const { isLiked, likeCount, handleLikeClick } = useLikes(post.id);
   const [showComments, setShowComments] = useState(false);
 
   const handleCommentClick = () => {
@@ -35,7 +35,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
       <div className="flex items-center justify-between">
         <button
           className={`mr-2 flex items-center rounded-md px-4 py-2 ${isLiked ? "bg-red-500 text-white" : "bg-gray-300 text-gray-900"}`}
-          onClick={() => handleLikeClick()}
+          onClick={handleLikeClick}
         >
           <HeartIcon className="mr-1 size-5" /> {likeCount}
         </button>

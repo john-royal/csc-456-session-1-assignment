@@ -1,9 +1,19 @@
-import { useOptionalUser } from "~/lib/auth";
-import { likes, QueryBuilder } from "~/lib/repositories";
-import { Like } from "~/lib/schema";
-import { useSubscription } from "~/lib/use-subscription";
+import { z } from "zod";
 
-export const useLike = (postId: string) => {
+import { QueryBuilder, Repository } from "~/data/common/repository";
+import { useSubscription } from "~/data/common/use-subscription";
+import { useOptionalUser } from "~/lib/auth";
+
+export const Like = z.object({
+  postId: z.string(),
+  userId: z.string(),
+});
+
+export type Like = z.infer<typeof Like>;
+
+export const likes = new Repository("likes", Like);
+
+export const useLikes = (postId: string) => {
   const user = useOptionalUser();
 
   const userPostLikeId = user ? `${user.uid}-${postId}` : null;
