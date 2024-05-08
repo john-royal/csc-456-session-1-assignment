@@ -2,17 +2,15 @@ name: Terraform build
 on:
   push:
     branches: [main]
-    path:
-      - terraform/**
+
   pull_request:
     branches: [main]
-    path:
-      - terraform/**
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: cd ${{ github.workspace }}/terraform
+      - path: terraform/**
       - run: terraform init
       
