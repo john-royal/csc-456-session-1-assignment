@@ -35,5 +35,10 @@ jobs:
       - name: Applying terraform 
         working-directory: ${{github.workspace}}/terraform
         run: terraform apply
+
+      - name: destroying terraform created files 
+        working-directory: ${{github.workspace}}/terraform
+        run: terraform destroy
+
           
 
