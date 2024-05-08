@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initializing terraform 
-        working-directory: ${{github.workspace}}/terraform
         uses: actions/checkout@v2
+      - working-directory: ${{github.workspace}}/terraform
       - run: | 
             terraform init
           
