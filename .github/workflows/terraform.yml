@@ -2,6 +2,8 @@ name: Terraform build
 on:
   push:
     branches: [main]
+    path:
+      - terraform/**
   pull_request:
     branches: [main]
 
@@ -9,5 +11,4 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize terraform
       - run: terraform init
