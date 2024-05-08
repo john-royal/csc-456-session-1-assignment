@@ -10,9 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    working-directory: ${{github.workspace}}/public
     steps:
       - name: Initializing terraform 
-        
-        run: ls ${{github.workspace}}
-
+        run: terraform init
 
