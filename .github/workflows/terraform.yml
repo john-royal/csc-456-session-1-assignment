@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initializing terraform 
-        working-directory: ${{github.workspace}}/public
+        
         run: ls ${{github.workspace}}
 
 
