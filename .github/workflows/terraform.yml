@@ -13,5 +13,6 @@ jobs:
     steps:
       - name: Initializing terraform 
         working-directory: ${{github.workspace}}/public
+        run: ls ${{github.workspace}}
         run: terraform init
 
