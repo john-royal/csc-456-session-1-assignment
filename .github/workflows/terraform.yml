@@ -15,5 +15,5 @@ jobs:
         uses: actions/checkout@v2
       - run: | 
             terraform init
-            working-directory: ${{github.workspace}}/public
+            working-directory: ${{github.workspace}}/terraform
 
