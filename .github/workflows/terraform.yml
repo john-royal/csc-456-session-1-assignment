@@ -1,0 +1,16 @@
+name: Terraform build
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: terraform init
+      - name: Check out repository code
+      - run: terraform validate
+      - name: List files in the repository
+      - run: terraform apply
