@@ -24,13 +24,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      - name: Validating terraform 
-        working-directory: ${{github.workspace}}/terraform
-        run: terraform validate
-
       - name: Initializing terraform 
         working-directory: ${{github.workspace}}/terraform
         run: terraform init
+
+      - name: Validating terraform 
+        working-directory: ${{github.workspace}}/terraform
+        run: terraform validate
 
       - name: Applying terraform 
         working-directory: ${{github.workspace}}/terraform
