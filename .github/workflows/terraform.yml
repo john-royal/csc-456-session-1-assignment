@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Initializing terraform 
         uses: actions/checkout@v2
-        working-directory: ${{github.workspace}}/public
-      - run: terraform init
+      - run: | 
+            terraform init
+            working-directory: ${{github.workspace}}/public
 
