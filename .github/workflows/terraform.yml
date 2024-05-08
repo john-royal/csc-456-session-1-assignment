@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initializing terraform 
-        working-directory: ${{github.workspace}}/terraform
+        working-directory: ${{github.workspace}}/public
         run: terraform init
 
