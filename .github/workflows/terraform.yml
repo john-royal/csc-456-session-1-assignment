@@ -11,5 +11,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: terraform init
       - name: Initialize terraform
+      - run: terraform init
