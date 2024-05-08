@@ -10,8 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    uses: actions/checkout@v2
     steps:
+        uses: actions/checkout@v2
         name: Initializing terraform 
         working-directory: ${{github.workspace}}/public
         run: terraform init
