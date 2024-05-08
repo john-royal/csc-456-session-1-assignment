@@ -1,4 +1,4 @@
-# Logs
+.terraform/# Logs
 logs
 *.log
 npm-debug.log*
@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .terraform/
+.terraform.lock.hcl/
+
