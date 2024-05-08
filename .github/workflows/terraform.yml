@@ -34,7 +34,7 @@ jobs:
 
       - name: Applying terraform 
         working-directory: ${{github.workspace}}/terraform
-        run: terraform apply
+        run: terraform apply -auto-approve
 
       - name: destroying terraform created files 
         working-directory: ${{github.workspace}}/terraform
