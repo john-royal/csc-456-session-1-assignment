@@ -11,8 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Initializing terraform 
         uses: actions/checkout@v2
-        name: Initializing terraform 
         working-directory: ${{github.workspace}}/public
-        run: terraform init
+      - run: terraform init
 
