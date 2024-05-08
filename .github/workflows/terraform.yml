@@ -8,19 +8,26 @@ on:
 
 
 jobs:
-  build:
+  terraform:
     runs-on: ubuntu-latest
     steps:
-      - name: Get the directory and files
+      - name: Get the directory and files (Chekcout the repo)
         uses: actions/checkout@v2
 
-        
+      - name: set up terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: config AWS creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
 
       - name: Initializing terraform 
         env:
           tf_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
           tf_secret_access_key_id: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-
         working-directory: ${{github.workspace}}/terraform
         run: terraform init
           
