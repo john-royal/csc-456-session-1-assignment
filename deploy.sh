@@ -1,6 +1,6 @@
 APPLICATION_NAME="paw_bvasquez07"
 ENVIRONMENT_NAME="paw-environment"
-ZIP_FILE="./paw_app.zip"
+ZIP_FILE="paw_app.zip"
 BUILD_DIR="dist"
 VITE_BUILD_COMMAND="npm run build"
 S3_BUCKET="terraform-state-paw-bvasquez07"
