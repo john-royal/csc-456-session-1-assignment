@@ -1,4 +1,4 @@
-APPLICATION_NAME="paw_bvasquez07"
+APPLICATION_NAME="bvasquez07paw"
 ENVIRONMENT_NAME="paw-environment"
 ZIP_FILE="paw_app.zip"
 BUILD_DIR="dist"
