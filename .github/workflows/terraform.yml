@@ -36,9 +36,7 @@ jobs:
         working-directory: ${{github.workspace}}/terraform
         run: terraform apply -auto-approve
 
-      - name: destroying terraform created files 
-        working-directory: ${{github.workspace}}/terraform
-        run: terraform destroy -auto-approve
+
 
           
 
