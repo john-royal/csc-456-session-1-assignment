@@ -1,6 +1,5 @@
-import { UserProfile, usersRepository } from "~/data/user";
+import { Petsitter, petsittersRepository } from "~/data/petsitter";
 import { useUser } from "~/lib/auth";
-import ImageUploadButton from "./image-upload-button";
 import { Alert } from "./ui/alert";
 import { LoadingButton } from "./ui/button";
 import {
@@ -22,32 +21,38 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 
-export default function EditProfileDialog(
+export default function NewPetsitterDialog(
   props: React.ComponentProps<typeof Dialog>,
 ) {
   const user = useUser();
   const form = useForm({
-    schema: UserProfile,
+    schema: Petsitter,
     defaultValues: {
-      email: user.email,
+      id: user.uid, // Assuming user ID is used as the petsitter ID
       username: user.username,
+      email: user.email,
+      name: "",
+      location: "",
+      hourlyRate: 0,
+      yearExperience: 0,
+      petExperience: 0,
+      bio: "",
       profilePicURL: user.profilePicURL,
-      bio: user.bio,
     },
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    await usersRepository.set(user.email, data);
-    props.onOpenChange?.(false); // Close the dialog
+    await petsittersRepository.set(data.id ?? user.uid, data as Petsitter);
+    props.onOpenChange?.(false);
   });
 
   return (
     <Dialog {...props}>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <DialogHeader>
-              <DialogTitle>New Post</DialogTitle>
+              <DialogTitle>Add Petsitter</DialogTitle>
             </DialogHeader>
 
             {form.formState.errors.root && (
@@ -58,10 +63,10 @@ export default function EditProfileDialog(
 
             <FormField
               control={form.control}
-              name="username"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="mr-5">Name</FormLabel>
                   <FormControl>
                     <Input type="text" {...field} />
                   </FormControl>
@@ -72,12 +77,54 @@ export default function EditProfileDialog(
 
             <FormField
               control={form.control}
-              name="email"
+              name="location"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="mr-5">Location</FormLabel>
                   <FormControl>
-                    <Input type="email" {...field} />
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="hourlyRate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="mr-5">Hourly Rate</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="yearExperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="mr-5">Years of Experience</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="petExperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="mr-5">Pet Experience</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +136,7 @@ export default function EditProfileDialog(
               name="bio"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Bio</FormLabel>
+                  <FormLabel className="mr-5">Bio</FormLabel>
                   <FormControl>
                     <Textarea {...field} />
                   </FormControl>
@@ -98,23 +145,9 @@ export default function EditProfileDialog(
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="profilePicURL"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image</FormLabel>
-                  <FormControl>
-                    <ImageUploadButton onChange={field.onChange} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <DialogFooter>
               <LoadingButton loading={form.formState.isLoading}>
-                {form.formState.isLoading ? "Saving..." : "Save"}
+                {form.formState.isLoading ? "Adding..." : "Add"}
               </LoadingButton>
             </DialogFooter>
           </form>
