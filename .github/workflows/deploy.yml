@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-  checkout_and_build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Get the directory and files (Chekcout the repo)
@@ -19,12 +19,7 @@ jobs:
         run: pnpm install 
       - name: build applications
         run: pnpm run build
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
       - name: run deployment script
         run: ./deploy.sh
-
           
 
