@@ -1,21 +1,23 @@
 APPLICATION_NAME="paw_bvasquez07"
 ENVIRONMENT_NAME="paw-environment"
-ZIP_FILE="application.zip"
+ZIP_FILE="./paw_app.zip"
 BUILD_DIR="dist"
 VITE_BUILD_COMMAND="npm run build"
 S3_BUCKET="terraform-state-paw-bvasquez07"
 AWS_REGION="us-east-2"
 
 
-# Step 1: Build your Vite project
-echo "Building aplication"
+
+
+echo "Building app"
 $VITE_BUILD_COMMAND
 
-# Step 2: Package your application into a ZIP file
 echo "Packaging application into a ZIP file..."
 zip -r $ZIP_FILE $BUILD_DIR
 
-# Step 3: Deploy the ZIP file to Elastic Beanstalk
+echo "uploading application file to AWS"
+aws s3 cp $ZIP_FILE s3://terraform-state-paw-bvasquez07
+
 echo "Deploying application to Elastic Beanstalk..."
 aws elasticbeanstalk create-application-version \
   --application-name $APPLICATION_NAME \
