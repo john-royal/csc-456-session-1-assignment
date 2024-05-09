@@ -49,6 +49,14 @@ const PetSitter: React.FC = () => {
   const [isNewPetsitterDialogOpen, setIsNewPetsitterDialogOpen] =
     useState(false);
 
+  useEffect(() => {
+    if (selectedPetsitter && filteredPetsitters) {
+      if (!filteredPetsitters.includes(selectedPetsitter)) {
+        setSelectedPetsitter(null);
+      }
+    }
+  }, [filteredPetsitters, selectedPetsitter]);
+
   const isUserPetsitter = useMemo(() => {
     return petsitters?.some((petSitter) => petSitter.id === user.uid);
   }, [petsitters, user.uid]);
