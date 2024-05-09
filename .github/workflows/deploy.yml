@@ -17,9 +17,9 @@ jobs:
         run: npm install -g pnpm
       - name: Install dependencies
         run: pnpm install 
-      - name: build applications
+      - name: build application
         run: pnpm run build
       - name: run deployment script
-        run: ./deploy.sh
+        run: bash ./deploy.sh
           
 
