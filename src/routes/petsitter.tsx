@@ -191,7 +191,6 @@ const PetSitter: React.FC = () => {
 
 const useFilteredPetsitters = () => {
   const petsittersQuery = usePetsitters();
-  const user = useUser();
 
   const [filters, setFilters] = useState<Filter>({
     location: null,
