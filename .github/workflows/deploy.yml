@@ -40,7 +40,7 @@ jobs:
         run: |
           aws elasticbeanstalk create-application-version \
             --application-name vite \
-            --version-label $(date +%Y%m%d%)env \
+            --version-label $(date +%Y%m%d%H%M)env \
             --source-bundle S3Bucket="terraform-state-paw-bvasquez07",S3Key="paw_app.zip" \
             --region us-east-2
       - name: deploy app
@@ -48,7 +48,7 @@ jobs:
           aws elasticbeanstalk update-environment \
             --application-name vite \
             --environment-name paw-environment \
-            --version-label $(date +%Y%m%d%)env\
+            --version-label $(date +%Y%m%d%H%M)env\
             --region us-east-2
           
         
