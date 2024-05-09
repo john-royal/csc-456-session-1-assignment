@@ -18,7 +18,7 @@ zip -r $ZIP_FILE $BUILD_DIR
 echo "uploading application file to AWS"
 aws s3 cp $ZIP_FILE s3://terraform-state-paw-bvasquez07
 
-echo "Deploying to Elastic Beanstalk"
+echo "Deploying to elastic beanstalk"
 aws elasticbeanstalk create-application-version \
   --application-name $APPLICATION_NAME \
   --version-label $(date +%Y%m%d%)env \
