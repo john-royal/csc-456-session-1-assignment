@@ -1,10 +1,14 @@
-import { DialogTitle } from "@radix-ui/react-dialog";
-
 import { Petsitter, petsittersRepository } from "~/data/petsitter";
 import { useUser } from "~/lib/auth";
 import { Alert } from "./ui/alert";
 import { LoadingButton } from "./ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "./ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
 import {
   Form,
   FormControl,

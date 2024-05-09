@@ -1,11 +1,15 @@
-import { DialogTitle } from "@radix-ui/react-dialog";
-
 import { UserProfile, usersRepository } from "~/data/user";
 import { useUser } from "~/lib/auth";
 import ImageUploadButton from "./image-upload-button";
 import { Alert } from "./ui/alert";
 import { LoadingButton } from "./ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "./ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
 import {
   Form,
   FormControl,
