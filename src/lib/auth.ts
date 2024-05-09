@@ -12,8 +12,8 @@ import {
 } from "react-router-dom";
 
 import type { CreateAccountInput, SignInInput } from "./schema";
+import { usersRepository } from "~/data/user";
 import { auth } from "./firebase";
-import { users } from "./repositories";
 
 //const DEFAULT_REDIRECT = "/"; // After you sign in, you'll be redirected to this page.
 const SIGN_IN_PATH = "/auth/sign-in";
@@ -50,7 +50,7 @@ export const useAuth = () => {
     await createUserWithEmailAndPassword(auth, input.email, input.password);
 
     // TODO: Use user.uid as the document ID instead of the email address.
-    await users.set(input.email, {
+    await usersRepository.set(input.email, {
       username: input.username,
       email: input.email,
     });
@@ -111,9 +111,9 @@ export const fetchUser = async () => {
   if (!user) {
     return null;
   }
-  const profile = (await users.get(user.email!))!;
+  const profile = (await usersRepository.get(user.email!))!;
   return {
-    ...user,
+    uid: user.uid,
     ...profile,
   };
 };

@@ -1,12 +1,16 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
 
+import { Post, postsRepository } from "~/data/post";
 import { useUser } from "~/lib/auth";
-import { posts } from "~/lib/repositories";
-import { Post } from "~/lib/schema";
-import ImageUploadButton from "./image-upload-button";
-import { Alert } from "./ui/alert";
-import { LoadingButton } from "./ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "./ui/dialog";
+import ImageUploadButton from "../image-upload-button";
+import { Alert } from "../ui/alert";
+import { LoadingButton } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "../ui/dialog";
 import {
   Form,
   FormControl,
@@ -15,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
   useForm,
-} from "./ui/form";
+} from "../ui/form";
 
 export default function NewPostDialog(
   props: React.ComponentProps<typeof Dialog>,
@@ -24,7 +28,6 @@ export default function NewPostDialog(
   const form = useForm({
     schema: Post,
     defaultValues: {
-      id: user.email,
       user: {
         id: user.uid,
         username: user.username,
@@ -34,7 +37,7 @@ export default function NewPostDialog(
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    await posts.add(data);
+    await postsRepository.set(data.id!, data as Post);
     props.onOpenChange?.(false);
   });
 

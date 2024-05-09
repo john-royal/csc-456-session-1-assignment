@@ -1,14 +1,25 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
+
+import { Petsitter, petsittersRepository } from "~/data/petsitter";
 import { useUser } from "~/lib/auth";
-import { petsitters } from "~/lib/repositories";
-import { Petsitter } from "~/lib/schema";
-import ImageUploadButton from "./image-upload-button";
 import { Alert } from "./ui/alert";
 import { LoadingButton } from "./ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "./ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, useForm } from "./ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useForm,
+} from "./ui/form";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
-export default function NewPetsitterDialog(props: { onAdd?: () => void } & React.ComponentProps<typeof Dialog>) {
+export default function NewPetsitterDialog(
+  props: React.ComponentProps<typeof Dialog>,
+) {
   const user = useUser();
   const form = useForm({
     schema: Petsitter,
@@ -18,17 +29,16 @@ export default function NewPetsitterDialog(props: { onAdd?: () => void } & React
       email: user.email,
       name: "",
       location: "",
-      hourlyRate: "",
-      yearsExperience: "",
-      petExperience: "",
+      hourlyRate: 0,
+      yearExperience: 0,
+      petExperience: 0,
       bio: "",
-      profilePicURL: user.profilePicURL ?? null,
+      profilePicURL: user.profilePicURL,
     },
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    await petsitters.set(data.id!, data as Petsitter);
-    props.onAdd?.(true);
+    await petsittersRepository.set(data.id ?? user.uid, data as Petsitter);
     props.onOpenChange?.(false);
   });
 
@@ -54,14 +64,12 @@ export default function NewPetsitterDialog(props: { onAdd?: () => void } & React
                 <FormItem>
                   <FormLabel className="mr-5">Name</FormLabel>
                   <FormControl>
-                    <input type="text" {...field} />
+                    <Input type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-
 
             <FormField
               control={form.control}
@@ -70,7 +78,7 @@ export default function NewPetsitterDialog(props: { onAdd?: () => void } & React
                 <FormItem>
                   <FormLabel className="mr-5">Location</FormLabel>
                   <FormControl>
-                    <input type="text" {...field} />
+                    <Input type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,59 +86,59 @@ export default function NewPetsitterDialog(props: { onAdd?: () => void } & React
             />
 
             <FormField
-                control={form.control}
-                name="hourlyRate"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel className="mr-5">Hourly Rate</FormLabel>
-                    <FormControl>
-                        <input type="text" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
+              control={form.control}
+              name="hourlyRate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="mr-5">Hourly Rate</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             <FormField
-                control={form.control}
-                name="yearExperience"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel className="mr-5">Years of Experience</FormLabel>
-                    <FormControl>
-                        <input type="text" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
+              control={form.control}
+              name="yearExperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="mr-5">Years of Experience</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             <FormField
-                control={form.control}
-                name="petExperience"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel className="mr-5">Pet Experience</FormLabel>
-                    <FormControl>
-                        <input type="text" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
+              control={form.control}
+              name="petExperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="mr-5">Pet Experience</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel className="mr-5">Bio</FormLabel>
-                    <FormControl>
-                        <textarea {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
+              control={form.control}
+              name="bio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="mr-5">Bio</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             <DialogFooter>

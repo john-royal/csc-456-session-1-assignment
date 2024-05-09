@@ -1,21 +1,20 @@
 import React from "react";
-import { useLoaderData } from "react-router";
 
-import type { Post } from "~/lib/schema";
-import PostItem from "~/components/post-item";
-import { posts } from "~/lib/repositories";
-
-const loadPosts = async () => {
-  return await posts.list();
-};
+import LoadingScreen from "~/components/loading";
+import PostItem from "~/components/post/post-item";
+import { usePosts } from "~/data/post";
 
 const HomePage: React.FC = () => {
-  const posts = useLoaderData() as Post[];
+  const { data } = usePosts();
+
+  if (!data) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="flex items-center justify-center ">
       <div className="mt-5 w-4/12">
-        {posts.map((post) => (
+        {data.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}
       </div>
@@ -24,4 +23,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-export { loadPosts };
