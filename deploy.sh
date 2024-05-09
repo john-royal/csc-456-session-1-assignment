@@ -1,9 +1,9 @@
 APPLICATION_NAME="paw_bvasquez07"
-ENVIRONMENT_NAME="vite-environment"
+ENVIRONMENT_NAME="paw-environment"
 ZIP_FILE="application.zip"
 BUILD_DIR="dist"
 VITE_BUILD_COMMAND="npm run build"
-S3_BUCKET="elasticbeanstalk-us-east-2-548433422951"
+S3_BUCKET="terraform-state-paw-bvasquez07"
 AWS_REGION="us-east-2"
 
 
