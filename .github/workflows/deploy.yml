@@ -1,0 +1,29 @@
+name: deploy
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the directory and files (Chekcout the repo)
+        uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: pnpm install
+      - run: pnpm run build
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run deployment script
+        run: ./deploy.sh
+
+          
+
