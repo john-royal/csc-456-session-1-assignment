@@ -19,13 +19,37 @@ jobs:
         run: pnpm install 
       - name: build application
         run: pnpm run build
+
+      - name: compress app build into zip
+        run: zip -r "paw_app.zip" "dist"
+      - name: Upload application artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: paw_bvasq_app_artifact
+          path: paw_app.zip
       - name: config AWS creds
         uses: aws-actions/configure-aws-credentials@v4
         with: 
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-      - name: run deployment script
-        run: bash ./deploy.sh
-          
 
+      - name: uploading application file to AWS
+        run: aws s3 cp paw_app.zip s3://terraform-state-paw-bvasquez07
+      - name: create new app version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name $APPLICATION_NAME \
+            --version-label $(date +%Y%m%d%)env \
+            --source-bundle S3Bucket="$S3_BUCKET",S3Key="$ZIP_FILE" \
+            --region $AWS_REGION
+      - name: deploy app
+        run: |  
+          aws elasticbeanstalk update-environment \
+            --application-name $APPLICATION_NAME \
+            --environment-name $ENVIRONMENT_NAME \
+            --version-label $(date +%Y%m%d%)env\
+            --region $AWS_REGION
+          
+        
+        
