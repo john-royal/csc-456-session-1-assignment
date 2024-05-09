@@ -97,7 +97,7 @@ const PetSitter: React.FC = () => {
               max="200"
               value={filters.maxHourlyRate ?? 0}
               onChange={(e) =>
-                setFilter("maxHourlyRate", Number(e.target.value))
+                setFilter("maxHourlyRate", Number(e.target.value) ?? null)
               }
             />
             <p>${filters.maxHourlyRate}</p>
@@ -114,7 +114,7 @@ const PetSitter: React.FC = () => {
               max="100"
               value={filters.minYearsExperience ?? 0}
               onChange={(e) =>
-                setFilter("minYearsExperience", Number(e.target.value))
+                setFilter("minYearsExperience", Number(e.target.value) ?? null)
               }
             />
             <p>{filters.minYearsExperience} years</p>
@@ -215,29 +215,24 @@ const useFilteredPetsitters = () => {
       return null;
     }
     return (
-      petsittersQuery.data?.filter((petSitter) => {
-        if (
-          filters.location &&
-          !petSitter.location.toLowerCase().includes(filters.location)
-        ) {
-          return false;
-        }
-
-        if (
-          filters.maxHourlyRate &&
-          petSitter.hourlyRate > filters.maxHourlyRate
-        ) {
-          return false;
-        }
-
-        if (
-          filters.minYearsExperience &&
-          petSitter.yearExperience < filters.minYearsExperience
-        ) {
-          return false;
-        }
-
-        return true;
+      petsittersQuery.data?.filter((petsitter) => {
+        const hasLocation =
+          !filters.location ||
+          petsitter.location
+            .toLowerCase()
+            .includes(filters.location.toLowerCase());
+        const hasMaxHourlyRate =
+          filters.maxHourlyRate === null ||
+          petsitter.hourlyRate <= filters.maxHourlyRate;
+        const hasMinYearsExperience =
+          filters.minYearsExperience === null ||
+          petsitter.yearExperience >= filters.minYearsExperience;
+        console.log(
+          hasMaxHourlyRate,
+          petsitter.hourlyRate,
+          filters.maxHourlyRate,
+        );
+        return hasLocation && hasMaxHourlyRate && hasMinYearsExperience;
       }) ?? []
     );
   }, [filters, petsittersQuery.data]);

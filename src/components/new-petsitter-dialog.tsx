@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+
 import { Petsitter, petsittersRepository } from "~/data/petsitter";
 import { useUser } from "~/lib/auth";
 import { Alert } from "./ui/alert";
@@ -44,6 +46,8 @@ export default function NewPetsitterDialog(
   const handleSubmit = form.handleSubmit(async (data) => {
     await petsittersRepository.set(data.id ?? user.uid, data as Petsitter);
     props.onOpenChange?.(false);
+    form.reset();
+    toast.success("You have been added as a petsitter.");
   });
 
   return (
