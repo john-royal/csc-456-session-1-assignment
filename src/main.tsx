@@ -7,7 +7,7 @@ import "~/global.css";
 import Layout from "~/components/layout";
 import LoadingScreen from "~/components/loading";
 import { fetchUser, requireUser } from "~/lib/auth";
-import HomePage, { loadPosts } from "~/routes/_index";
+import HomePage from "~/routes/_index";
 import CreateAccountPage from "~/routes/auth.create-account";
 import SignInPage from "~/routes/auth.sign-in";
 import Contact from "~/routes/contact";
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-        loader: loadPosts,
+        loader: requireUser,
       },
       {
         path: "/auth/sign-in",

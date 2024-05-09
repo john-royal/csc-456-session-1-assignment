@@ -3,7 +3,6 @@ import {
   CollectionReference,
   deleteDoc,
   doc,
-  DocumentData,
   getDoc,
   getDocs,
   onSnapshot,
@@ -16,10 +15,9 @@ import {
 } from "firebase/firestore";
 import { z } from "zod";
 
-import { db } from "./firebase";
-import { ContactInput, Post, UserProfile } from "./schema";
+import { db } from "~/lib/firebase";
 
-type QueryBuilder = (
+export type QueryBuilder = (
   collection: CollectionReference,
   helpers: {
     query: typeof query;
@@ -28,10 +26,9 @@ type QueryBuilder = (
   },
 ) => Query;
 
-class Repository<
+export class Repository<
   TSchema extends z.AnyZodObject,
-  TData extends z.infer<TSchema> & DocumentData = z.infer<TSchema> &
-    DocumentData,
+  TData extends z.infer<TSchema>,
 > {
   collection: CollectionReference;
 
@@ -46,12 +43,19 @@ class Repository<
     return doc(this.collection, id);
   }
 
-  async get(id: string) {
+  async get(id: string): Promise<TData | null> {
     const doc = await getDoc(this.doc(id));
     const data = doc.data();
     if (data) {
       const result = this.schema.safeParse(data);
-      return result.success ? result.data : null;
+      if (result.success) {
+        return result.data as TData;
+      } else {
+        console.warn(
+          `The query for "${this.collection.path}/${id}" returned null because the document is invalid:`,
+          result.error.flatten(),
+        );
+      }
     }
     return null;
   }
@@ -78,11 +82,26 @@ class Repository<
   }
 
   subscribe(withQuery: QueryBuilder, callback: (data: TData[]) => void) {
+    let previousData: TData[] | undefined;
     const unsubscribe = onSnapshot(
       withQuery(this.collection, { query, orderBy, where }),
       (querySnapshot) => {
-        const items = this.safeParseSnapshot(querySnapshot);
-        callback(items);
+        const newData = this.safeParseSnapshot(querySnapshot);
+
+        // This is a workaround for a Firebase bug that causes the list to
+        // fluctuate in length when a new item is added.
+        const singleUpdateValue =
+          newData.length === 1 ? JSON.stringify(newData[0]) : null;
+        if (
+          singleUpdateValue &&
+          previousData &&
+          previousData.some((d) => JSON.stringify(d) === singleUpdateValue)
+        ) {
+          return;
+        }
+
+        previousData = newData;
+        callback(newData);
       },
     );
     return unsubscribe;
@@ -95,13 +114,13 @@ class Repository<
       const result = this.schema.safeParse(data);
       if (result.success) {
         items.push(result.data as TData);
+      } else {
+        console.warn(
+          `A query for "${this.collection.path}" returned document "${doc.id}", which is invalid. The document will be omitted from the returned result.`,
+          result.error.flatten(),
+        );
       }
     });
     return items;
   }
 }
-export const users = new Repository("users", UserProfile);
-
-export const contactEntries = new Repository("contactdata", ContactInput);
-
-export const posts = new Repository("posts", Post);
