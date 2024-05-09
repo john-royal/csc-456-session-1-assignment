@@ -8,20 +8,18 @@ on:
 
 
 jobs:
-  checkout:
+  checkout_and_build:
     runs-on: ubuntu-latest
     steps:
       - name: Get the directory and files (Chekcout the repo)
         uses: actions/checkout@v4
-  build:
-    runs-on: ubuntu-latest
-    steps:
       - name: Install pnpm
         run: npm install -g pnpm
       - name: Install dependencies
         run: pnpm install 
       - name: build applications
         run: pnpm run build
+
   deploy:
     runs-on: ubuntu-latest
     steps:
