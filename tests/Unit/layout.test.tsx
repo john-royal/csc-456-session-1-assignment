@@ -3,7 +3,6 @@ import SignInPage from '../../src/routes/auth.sign-in.tsx';
 import {expect, test, describe, afterEach, vi} from 'vitest';
 import '@testing-library/jest-dom/vitest'; //include methods for testing DOM elements like toBeInTheDocument() or toHaveTextContent().
 import {render, screen, cleanup} from '@testing-library/react';
-import { url } from 'inspector';
 
 
 const useAuthMock = vi.hoisted(() => { //hoist before the mock so that we can have access to change it later on!!!
@@ -31,6 +30,8 @@ vi.mock("react-router-dom", async () => {
 
 describe('testing layout renders correctly', () => {
     afterEach(cleanup);
+
+    //TO DO: finish implementing layout test 
 
     test('actually loads', () => {
         render(<Layout />);

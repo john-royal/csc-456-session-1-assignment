@@ -9,9 +9,9 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest ./tests/Unit/ ./tests/Integration/",
     "coverage": "vitest run --coverage ./tests/Unit/ ./tests/Integration/",
-    "_comment": "for the coverage script, the only tracked directories are the Unit and Integration, not E2E as it uses playwright"
+    "_comment": "for the coverage and testing script, the only tracked directories are the Unit and Integration, not E2E as it uses playwright"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",

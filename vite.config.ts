@@ -17,7 +17,8 @@ export default defineConfig({
         '**\/*.config.*/**',
         '**\/*.cjs/**',
         '**\/vite-env.d.ts/**',
-        '**\/spinner.tsx/**'
+        '**\/spinner.tsx/**',
+        '**\/_index.tsx/**'
       ]
     },
   }
