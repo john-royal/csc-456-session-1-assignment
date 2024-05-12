@@ -13,6 +13,7 @@ import SignInPage from "~/routes/auth.sign-in";
 import Contact from "~/routes/contact";
 import Petsitter from "~/routes/petsitter";
 import Profile from "~/routes/profile";
+import Message from "~/routes/Message"; // Ensure the path and file name are correctly cased and spelled
 
 const router = createBrowserRouter([
   {
@@ -35,18 +36,23 @@ const router = createBrowserRouter([
         element: <CreateAccountPage />,
       },
       {
-        path: "/Petsitter",
+        path: "/petsitter",
         element: <Petsitter />,
         loader: requireUser,
       },
       {
-        path: "/Contact",
+        path: "/contact",
         element: <Contact />,
         loader: requireUser,
       },
       {
-        path: "/Profile",
+        path: "/profile",
         element: <Profile />,
+        loader: requireUser,
+      },
+      {
+        path: "/message",
+        element: <Message />,
         loader: requireUser,
       },
     ],
