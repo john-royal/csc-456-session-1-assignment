@@ -1,5 +1,3 @@
-import { DialogTitle } from "@radix-ui/react-dialog";
-
 import { Post, postsRepository } from "~/data/post";
 import { useUser } from "~/lib/auth";
 import ImageUploadButton from "../image-upload-button";
@@ -10,6 +8,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "../ui/dialog";
 import {
   Form,
