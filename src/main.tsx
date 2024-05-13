@@ -15,6 +15,7 @@ import MessagesIndex from "~/routes/messages";
 import MessagesPage from "~/routes/messages.$id";
 import Petsitter from "~/routes/petsitter";
 import Profile from "~/routes/profile";
+import Account from "~/routes/account";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,12 @@ const router = createBrowserRouter([
         loader: requireUser,
       },
       {
+
+        path: "/Account",
+        element: <Account />,
+        loader: requireUser,
+      },
+ 
         path: "/messages",
         element: <MessagesIndex />,
         loader: requireUser,
