@@ -3,9 +3,8 @@ import { toast } from "sonner";
 
 import { conversationsRepository } from "~/data/conversation";
 import { Message, messagesRepository, useMessages } from "~/data/message";
-import { useOptionalUser } from "~/lib/auth";
+import { useOptionalUser, useUser } from "~/lib/auth";
 import { cn } from "~/lib/ui";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button, LoadingButton } from "../ui/button";
 import {
   Form,
@@ -16,7 +15,7 @@ import {
   FormMessage,
   useForm,
 } from "../ui/form";
-import { Textarea } from "../ui/textarea";
+import { Input } from "../ui/input";
 
 export default function Messages({
   conversationId,
@@ -32,8 +31,8 @@ export default function Messages({
   }
 
   return (
-    <div>
-      <ul>
+    <div className="relative w-full">
+      <ul className="flex h-[calc(100%-70px)] w-full flex-col gap-y-4 overflow-y-scroll p-4">
         {data.length === 0 && <p>No messages yet</p>}
         {data.map((message) => (
           <li key={message.id}>
@@ -47,35 +46,36 @@ export default function Messages({
 }
 
 function MessageItem({ message }: { message: Message }) {
+  const user = useUser();
   return (
-    <div>
-      <div className="flex items-center">
-        <Avatar>
-          {message.user.imageUrl && (
-            <AvatarImage
-              src={message.user.imageUrl}
-              alt={message.user.username}
-            />
-          )}
-          <AvatarFallback>{message.user.username[0]}</AvatarFallback>
-        </Avatar>
-        <h3>{message.user.username}</h3>
+    <div
+      className={cn(
+        "flex w-fit flex-col",
+        message.user.id === user.uid
+          ? "ml-auto items-end"
+          : "mr-auto items-start",
+      )}
+    >
+      <h3 className="mb-1 text-xs font-medium text-slate-500">
+        {message.user.username}
+      </h3>
+      <div className="rounded-lg bg-slate-100 p-2">
+        <p>{message.content}</p>
       </div>
-      <p>{message.content}</p>
     </div>
   );
 }
 
 function NewMessageForm({ conversationId }: { conversationId: string }) {
-  const user = useOptionalUser();
+  const user = useUser();
   const form = useForm({
     schema: Message,
     defaultValues: {
       conversationId,
       user: {
-        id: user?.uid,
-        username: user?.username,
-        imageUrl: user?.profilePicURL,
+        id: user.uid,
+        username: user.username,
+        imageUrl: user.profilePicURL,
       },
       content: "",
     },
@@ -92,7 +92,10 @@ function NewMessageForm({ conversationId }: { conversationId: string }) {
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
       await Promise.allSettled([
-        messagesRepository.set(data.id!, data as Message),
+        messagesRepository.set(data.id!, {
+          ...data,
+          createdAt: Date.now(),
+        } as Message),
         conversationsRepository.set(conversationId, {
           lastMessageContent: data.content,
           lastMessageTime: Date.now(),
@@ -111,25 +114,31 @@ function NewMessageForm({ conversationId }: { conversationId: string }) {
     <Form {...form}>
       <form
         onSubmit={handleSubmit}
-        className={cn("space-y-4", !user && "opacity-50")}
+        className={cn(
+          "absolute bottom-0 left-0 right-0 flex gap-x-4 border-t bg-white p-4",
+          !user && "opacity-50",
+        )}
       >
-        <h2 className="sr-only">New Message</h2>
         <FormField
           control={form.control}
           name="content"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Message</FormLabel>
+            <FormItem className="flex-1 space-y-0">
+              <FormLabel className="sr-only">Message</FormLabel>
               <FormControl>
-                <Textarea {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <LoadingButton type="submit" loading={form.formState.isLoading}>
-          Send
-        </LoadingButton>
+        <FormItem>
+          <FormControl>
+            <LoadingButton type="submit" loading={form.formState.isLoading}>
+              Send
+            </LoadingButton>
+          </FormControl>
+        </FormItem>
       </form>
     </Form>
   );

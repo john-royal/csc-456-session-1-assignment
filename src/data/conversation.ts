@@ -41,6 +41,7 @@ export const useStartConversation = () => {
           .join("-"),
         participants,
         participantIds: participants.map((p) => p.id),
+        lastMessageTime: Date.now(),
       };
       const existingConversation = await conversationsRepository.get(
         conversation.id,
@@ -61,7 +62,11 @@ export const useConversations = () => {
   const user = useUser();
 
   const qb: QueryBuilder = (conversations, { query, where, orderBy }) => {
-    return query(conversations);
+    return query(
+      conversations,
+      where("participantIds", "array-contains", user.uid),
+      orderBy("lastMessageTime", "desc"),
+    );
   };
 
   const format = (conversations: Conversation[]) => {

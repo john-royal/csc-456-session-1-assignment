@@ -25,7 +25,7 @@ export const useMessages = (conversationId: string) => {
     return query(
       messages,
       where("conversationId", "==", conversationId),
-      orderBy("createdAt", "desc"),
+      orderBy("createdAt", "asc"),
     );
   };
 
