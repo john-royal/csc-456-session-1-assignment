@@ -39,7 +39,7 @@ export default function NewPetsitterDialog(
       yearExperience: 0,
       petExperience: 0,
       bio: "",
-      profilePicURL: user.profilePicURL || "",
+      profilePicURL: user.profilePicURL ?? null,
     },
   });
 

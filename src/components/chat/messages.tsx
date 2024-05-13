@@ -93,7 +93,7 @@ function NewMessageForm({ conversationId }: { conversationId: string }) {
 
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
-      await Promise.allSettled([
+      await Promise.all([
         messagesRepository.set(data.id!, {
           ...data,
           createdAt: Date.now(),
