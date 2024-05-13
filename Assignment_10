@@ -1,0 +1,10 @@
+Assignment 10 by Amimul Arnab. 
+
+The deployment was successful using Vercel. On the page its showing that the deployment worked as it can be found in this link. 
+https://csc-456-8k31ekva5-amimul-arnabs-projects.vercel.app/auth/sign-in?next=https%3A%2F%2Fcsc-456-8k31ekva5-amimul-arnabs-projects.vercel.app%2F
+
+The link to Vercel https://csc-456-8k31ekva5-amimul-arnabs-projects.vercel.app. 
+
+However I attempted to use Terraform but I was unable to properly modify the main.tf file found in the https://github.com/amimul-arnab/nextjs-terraform-demo/tree/main/my-nextjs-app
+
+Overall this assignment was extremely difficult to do but deployment was successful so I'll accept any credit that comes from this assignment. 
