@@ -7,7 +7,7 @@ import { useAuth } from "~/lib/auth";
 
 const navigation = [
   { name: "Petsitters", href: "/Petsitter" },
-  { name: "Message", href: "#" },
+  { name: "Message", href: "/messages" },
   { name: "Profile", href: "/Profile" },
   { name: "Contact  Us", href: "/Contact" },
 ];
