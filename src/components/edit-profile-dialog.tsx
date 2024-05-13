@@ -111,7 +111,6 @@ export default function EditProfileDialog(
                 </FormItem>
               )}
             />
-
             <DialogFooter>
               <LoadingButton loading={form.formState.isLoading}>
                 {form.formState.isLoading ? "Saving..." : "Save"}
