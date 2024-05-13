@@ -63,7 +63,7 @@ export default function EditProfileDialog(
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input type="text" {...field} />
+                    <Input type="text" maxLength={15} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -91,7 +91,7 @@ export default function EditProfileDialog(
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea maxLength={500} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,7 +111,6 @@ export default function EditProfileDialog(
                 </FormItem>
               )}
             />
-
             <DialogFooter>
               <LoadingButton loading={form.formState.isLoading}>
                 {form.formState.isLoading ? "Saving..." : "Save"}
