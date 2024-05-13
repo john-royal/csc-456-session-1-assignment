@@ -188,7 +188,7 @@ const PetSitter: React.FC = () => {
                     {
                       id: user.uid,
                       username: user.username,
-                      imageUrl: user.profilePicURL,
+                      imageUrl: user.profilePicURL ?? null,
                     },
                     {
                       id: selectedPetsitter.id,

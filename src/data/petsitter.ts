@@ -13,7 +13,7 @@ export const Petsitter = z.object({
   yearExperience: z.coerce.number(),
   petExperience: z.coerce.number(),
   bio: z.string().optional(),
-  profilePicURL: z.string().url().optional(),
+  profilePicURL: z.string().url().nullable().default(null),
 });
 
 export type Petsitter = z.infer<typeof Petsitter>;

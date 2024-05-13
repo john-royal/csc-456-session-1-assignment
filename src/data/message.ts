@@ -10,7 +10,7 @@ export const Message = z.object({
   user: z.object({
     id: z.string(),
     username: z.string(),
-    imageUrl: z.string().optional(),
+    imageUrl: z.string().nullable().default(null),
   }),
   content: z.string(),
   createdAt: z.number().default(Date.now()),

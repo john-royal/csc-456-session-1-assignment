@@ -65,8 +65,8 @@ export class Repository<
   }
 
   async set(id: string, data: Partial<TData>) {
-    this.schema.partial().parse(data);
-    await setDoc(this.doc(id), data, { merge: true });
+    const result = this.schema.partial().parse(data);
+    await setDoc(this.doc(id), result, { merge: true });
   }
 
   async del(id: string) {
