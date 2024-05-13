@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 import { conversationsRepository } from "~/data/conversation";
 import { Message, messagesRepository, useMessages } from "~/data/message";
-import { useOptionalUser, useUser } from "~/lib/auth";
+import { useUser } from "~/lib/auth";
 import { cn } from "~/lib/ui";
-import { Button, LoadingButton } from "../ui/button";
+import { LoadingButton } from "../ui/button";
 import {
   Form,
   FormControl,
@@ -23,6 +23,14 @@ export default function Messages({
   conversationId: string;
 }) {
   const { data, error, status } = useMessages(conversationId);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (anchorRef.current) {
+      anchorRef.current.scrollIntoView();
+    }
+  }, [data?.length]);
 
   if (status === "pending") {
     return <p>Loading...</p>;
@@ -32,14 +40,16 @@ export default function Messages({
 
   return (
     <div className="relative w-full">
-      <ul className="flex h-[calc(100%-70px)] w-full flex-col gap-y-4 overflow-y-scroll p-4">
+      <div
+        ref={scrollRef}
+        className="h-[calc(100%-70px)] w-full space-y-4 overflow-y-scroll p-4"
+      >
         {data.length === 0 && <p>No messages yet</p>}
         {data.map((message) => (
-          <li key={message.id}>
-            <MessageItem message={message} />
-          </li>
+          <MessageItem message={message} key={message.id} />
         ))}
-      </ul>
+        <div className="h-px w-full" ref={anchorRef} />
+      </div>
       <NewMessageForm conversationId={conversationId} />
     </div>
   );
@@ -80,14 +90,6 @@ function NewMessageForm({ conversationId }: { conversationId: string }) {
       content: "",
     },
   });
-
-  if (!user) {
-    return (
-      <Button asChild>
-        <Link to="/auth/sign-in">Sign in to message</Link>
-      </Button>
-    );
-  }
 
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
