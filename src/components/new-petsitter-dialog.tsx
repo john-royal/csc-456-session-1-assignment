@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+
 import { Petsitter, petsittersRepository } from "~/data/petsitter";
 import { useUser } from "~/lib/auth";
 import { Alert } from "./ui/alert";
@@ -38,7 +39,7 @@ export default function NewPetsitterDialog(
       yearExperience: 0,
       petExperience: 0,
       bio: "",
-      profilePicURL: user.profilePicURL || '',
+      profilePicURL: user.profilePicURL || "",
     },
   });
 
@@ -48,7 +49,7 @@ export default function NewPetsitterDialog(
     form.reset();
     toast.success("You have been added as a petsitter.");
   });
-  
+
   return (
     <Dialog {...props}>
       <DialogContent>

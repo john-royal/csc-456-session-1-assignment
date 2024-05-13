@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import { ChatBubbleLeftIcon, HeartIcon } from "@heroicons/react/20/solid";
+import React, { useState } from "react";
 
-import type { Post } from "~/data/post";
 import { useLikes } from "~/data/like";
+import type { Post } from "~/data/post";
 import PostComments from "./post-comments";
 
 interface PostItemProps {

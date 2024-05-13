@@ -24,15 +24,13 @@ export default function PostComments({ postId }: { postId: string }) {
     return <p>Loading...</p>;
   } else if (status === "error") {
     return <p className="text-red-500">Error: {error.message}</p>;
-  } 
-  else if (data.length === 0) {
+  } else if (data.length === 0) {
     return (
       <div>
         <p>No comments yet</p>
         <NewCommentForm postId={postId} />
       </div>
     );
-    
   }
 
   return (

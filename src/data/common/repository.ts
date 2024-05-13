@@ -81,8 +81,11 @@ export class Repository<
     return this.safeParseSnapshot(querySnapshot);
   }
 
-  subscribe(withQuery: QueryBuilder, callback: (data: TData[]) => void) {
-    let previousData: TData[] | undefined;
+  subscribe(
+    withQuery: QueryBuilder,
+    handleSnapshot: (data: TData[]) => void,
+    handleError?: (error: Error) => void,
+  ) {
     const unsubscribe = onSnapshot(
       withQuery(this.collection, { query, orderBy, where }),
       (querySnapshot) => {
@@ -90,19 +93,13 @@ export class Repository<
 
         // This is a workaround for a Firebase bug that causes the list to
         // fluctuate in length when a new item is added.
-        const singleUpdateValue =
-          newData.length === 1 ? JSON.stringify(newData[0]) : null;
-        if (
-          singleUpdateValue &&
-          previousData &&
-          previousData.some((d) => JSON.stringify(d) === singleUpdateValue)
-        ) {
+        if (newData.length === 1 && querySnapshot.metadata.hasPendingWrites) {
           return;
         }
 
-        previousData = newData;
-        callback(newData);
+        handleSnapshot(newData);
       },
+      handleError,
     );
     return unsubscribe;
   }
