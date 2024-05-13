@@ -10,6 +10,7 @@ const navigation = [
   { name: "Message", href: "/messages" },
   { name: "Profile", href: "/Profile" },
   { name: "Contact  Us", href: "/Contact" },
+  { name: "Account", href: "/Account" },
 ];
 
 export default function Navbar() {

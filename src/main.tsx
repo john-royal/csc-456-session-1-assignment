@@ -14,6 +14,7 @@ import SignInPage from "~/routes/auth.sign-in";
 import Contact from "~/routes/contact";
 import Petsitter from "~/routes/petsitter";
 import Profile from "~/routes/profile";
+import Account from "~/routes/account";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
       {
         path: "/Profile",
         element: <Profile />,
+        loader: requireUser,
+      },
+      {
+        path: "/Account",
+        element: <Account />,
         loader: requireUser,
       },
       {
