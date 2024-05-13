@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { useUser } from "~/lib/auth";
@@ -14,7 +15,7 @@ export const Conversation = z.object({
     z.object({
       id: z.string(),
       username: z.string(),
-      imageUrl: z.string().optional(),
+      imageUrl: z.string().nullable().default(null),
     }),
   ),
   lastMessageContent: z.string().optional(),
@@ -54,6 +55,11 @@ export const useStartConversation = () => {
     },
     onSuccess: (data) => {
       navigate(`/messages/${data.id}`);
+    },
+    onError: (error) => {
+      toast.error("Failed to start conversation", {
+        description: error.message,
+      });
     },
   });
 };
