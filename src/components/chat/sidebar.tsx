@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { db } from "~/lib/firebase";
-import { collection, onSnapshot, query } from 'firebase/firestore';
-import { Conversation } from '../../data/conversation'; // Adjust the path as necessary
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
-  const [conversations, setConversations] = useState<Conversation[]>([]);
+import { useConversations } from "~/data/conversation"; // Adjust the path as necessary
+import { Button } from "../ui/button";
 
-  useEffect(() => {
-    const q = query(collection(db, 'conversations'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const loadedConversations = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }) as Conversation); // Ensure type safety
-      setConversations(loadedConversations);
-    });
-
-    return () => unsubscribe();
-  }, []);
+const Sidebar = () => {
+  const conversationsQuery = useConversations();
+  const currentConversationId = useParams().id;
 
   return (
-    <div style={{ width: '300px', overflowY: 'auto' }}>
-      {conversations.map(convo => (
-        <div key={convo.id}>
-          {convo.participantIds.join(', ')}
-        </div>
+    <div className="h-screen w-64 overflow-y-scroll">
+      {conversationsQuery.data?.map((convo) => (
+        <Button
+          key={convo.id}
+          variant={currentConversationId === convo.id ? "secondary" : "default"}
+          asChild
+        >
+          <Link to={`/messages/${convo.id}`}>
+            {convo.participants
+              .map((participant) => participant.username)
+              .join(", ")}
+          </Link>
+        </Button>
       ))}
     </div>
   );
-}
+};
 
 export default Sidebar;

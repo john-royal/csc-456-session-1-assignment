@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import LoadingScreen from "~/components/loading";
 import NewPetsitterDialog from "~/components/new-petsitter-dialog";
 import { Button, LoadingButton } from "~/components/ui/button";
+import { useStartConversation } from "~/data/conversation";
 import {
   Petsitter,
   petsittersRepository,
@@ -43,6 +44,7 @@ const PetSitter: React.FC = () => {
       });
     },
   });
+  const startConversation = useStartConversation();
   const [selectedPetsitter, setSelectedPetsitter] = useState<Petsitter | null>(
     null,
   );
@@ -179,14 +181,26 @@ const PetSitter: React.FC = () => {
                 <strong>Description:</strong> {selectedPetsitter.bio}
               </p>
 
-              <Button
+              <LoadingButton
                 className="mt-5"
-                onClick={() =>
-                  alert(`Message sent to ${selectedPetsitter.name}`)
-                }
+                onClick={() => {
+                  startConversation.mutate([
+                    {
+                      id: user.uid,
+                      username: user.username,
+                      imageUrl: user.profilePicURL,
+                    },
+                    {
+                      id: selectedPetsitter.id,
+                      username: selectedPetsitter.name,
+                      imageUrl: selectedPetsitter.profilePicURL,
+                    },
+                  ]);
+                }}
+                loading={startConversation.isPending}
               >
                 Send a Message
-              </Button>
+              </LoadingButton>
             </>
           ) : (
             <p>Select a pet sitter to see details.</p>

@@ -1,14 +1,14 @@
-import React from 'react';
-import Sidebar from 'src/components/chat/sidebar';
-import ChatPage from 'src/components/chat/chatpage';
+import { Outlet } from "react-router";
 
-const MessagesPage: React.FC = () => {
-    return (
-        <div className="messages-container" style={{ display: 'flex', height: '100vh' }}>
-            <Sidebar />
-            <ChatPage />
-        </div>
-    );
+import Sidebar from "~/components/chat/sidebar";
+
+function MessagesIndex() {
+  return (
+    <div className="flex h-screen w-screen">
+      <Sidebar />
+      <Outlet />
+    </div>
+  );
 }
 
-export default MessagesPage;
+export default MessagesIndex;

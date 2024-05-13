@@ -6,6 +6,7 @@ import {
   useQueryClient,
   UseQueryOptions,
 } from "@tanstack/react-query";
+import { FirebaseError } from "firebase/app";
 
 export interface UseSubscriptionOptions<
   TQueryFnData = unknown,
@@ -44,6 +45,13 @@ export const useSubscription = <
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
+    retry: (retryCount, error) => {
+      if (error instanceof FirebaseError) {
+        console.log("FirebaseError", error);
+        return false;
+      }
+      return retryCount < 3;
+    },
 
     ...queryOptions,
   });

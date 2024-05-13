@@ -81,7 +81,11 @@ export class Repository<
     return this.safeParseSnapshot(querySnapshot);
   }
 
-  subscribe(withQuery: QueryBuilder, callback: (data: TData[]) => void) {
+  subscribe(
+    withQuery: QueryBuilder,
+    handleSnapshot: (data: TData[]) => void,
+    handleError?: (error: Error) => void,
+  ) {
     let previousData: TData[] | undefined;
     const unsubscribe = onSnapshot(
       withQuery(this.collection, { query, orderBy, where }),
@@ -101,8 +105,9 @@ export class Repository<
         }
 
         previousData = newData;
-        callback(newData);
+        handleSnapshot(newData);
       },
+      handleError,
     );
     return unsubscribe;
   }
