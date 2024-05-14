@@ -2,6 +2,9 @@
 
 Paw is an application that helps match pet owners and potential pet sitters using a Tinder-like user interface. The primary user would be pet owners, who would use this app to find potential pet sitters in their area.
 
+Our latesest deployment can be found here:
+https://paw-pets.vercel.app/
+
 ## Tech Stack
 
 This application is built with the following technologies:
@@ -13,6 +16,7 @@ This application is built with the following technologies:
 - Tailwind CSS for styling
 - Firebase for authentication (currently email/password auth, can be expanded later)
 - React Router for routing
+- Deployed using Vercel
 
 The application currently includes home, sign in, and create account pages, as well as a "protected" test page to verify authentication.
 
