@@ -21,3 +21,9 @@ The database structure is centered around the user, whose ID and email are provi
 Paw is designed to follow best practices for the NoSQL environment provided by Cloud Firestore. As a result, several collections — including posts, comments, conversations, and messages — contain a copy of the user’s ID, username, and image URL. This enables us to display the relevant information without performing additional queries.
 
 ![Entity Relationship Diagram](./docs/entity-relationship-diagram.png)
+
+## 3. Sequence Diagram
+
+The following is a sequence diagram for creating a new post. This involves checking the user's authentication status using Firebase Auth, uploading an image to Firebase Storage, creating a new document in Cloud Firestore, and displaying the new post in the UI.
+
+![Sequence Diagram](./docs/sequence-diagram.png)
