@@ -46,7 +46,7 @@ export default function CreateAccountPage() {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input data-testid="username-input" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -59,7 +59,7 @@ export default function CreateAccountPage() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input data-testid="email-input" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -72,13 +72,13 @@ export default function CreateAccountPage() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <Input data-testid="pwd-input" type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" data-testid="create-accnt" className="w-full">
               {form.formState.isSubmitting
                 ? "Creating Account..."
                 : "Create Account"}

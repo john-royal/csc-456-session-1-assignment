@@ -42,7 +42,7 @@ export default function SignInPage() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" {...field} />
+                    <Input type="email" data-testid="email-input" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -55,7 +55,7 @@ export default function SignInPage() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <Input type="password" data-testid="pwd-input"{...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
