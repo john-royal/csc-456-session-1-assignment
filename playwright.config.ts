@@ -11,8 +11,8 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: '././tests/E2E',
-  /* Run tests in files in parallel */
-  fullyParallel: true,
+  /* Run tests in files in parallel (DO NOT TURN ON AS IT CUSES MANY ISSUES WHEN RUNNING TESTS FOR UPDATING A PROFILE DUE TO THE PARALLEL NATURE) */
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -67,9 +67,9 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
-  // webServer: {
-  //   command: 'pnpm run dev',
-  //   url: 'http://localhost:5173/',
-  //   reuseExistingServer: !process.env.CI,
-  // }
+  webServer: {
+    command: 'pnpm run dev',
+    url: 'http://localhost:5173/',
+    reuseExistingServer: !process.env.CI,
+  }
 });
